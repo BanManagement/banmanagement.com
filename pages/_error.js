@@ -1,11 +1,14 @@
 import React from 'react'
 import DefaultLayout from '../components/DefaultLayout'
 import { Container, Header } from 'semantic-ui-react'
+import { getInitialProps } from '../utils'
 
 class Error extends React.Component {
-  static getInitialProps({ res, err }) {
+  static async getInitialProps({ req, res, err }) {
     const statusCode = res ? res.statusCode : err ? err.statusCode : null
-    return { statusCode }
+    const props = await getInitialProps({ req })
+
+    return { statusCode, ...props }
   }
 
   heading = ({ mobile }) => {
@@ -37,7 +40,7 @@ class Error extends React.Component {
 
   render() {
     return (
-      <DefaultLayout title='Error' heading={this.heading}>
+      <DefaultLayout title='Error' heading={this.heading} isMobileFromSSR={this.props.isMobileFromSSR}>
       </DefaultLayout>
     )
   }

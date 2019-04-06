@@ -11,7 +11,6 @@ import {
   Visibility
 } from 'semantic-ui-react'
 import MenuLink from '../components/MenuLink'
-import { getWidth } from '../utils'
 import 'semantic-ui-css/semantic.min.css'
 
 const renderMenu = (items) => items.map(item => <MenuLink key={item.name} {...item} />)
@@ -23,12 +22,12 @@ class DesktopContainer extends Component {
   showFixedMenu = () => this.setState({ fixed: true })
 
   render () {
-    const { children, heading, leftItems, rightItems } = this.props
+    const { children, getWidth, heading, leftItems, rightItems } = this.props
     const { fixed } = this.state
     const style = heading ? { minHeight: 500, padding: '1em 0em' } : { padding: 0 }
 
     return (
-      <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
+      <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth} fireOnMount>
         <Visibility
           once={false}
           onBottomPassed={this.showFixedMenu}
@@ -80,12 +79,13 @@ class MobileContainer extends Component {
   handleToggle = () => this.setState({ sidebarOpened: true })
 
   render () {
-    const { children, heading, leftItems } = this.props
+    const { children, getWidth, heading, leftItems } = this.props
     const { sidebarOpened } = this.state
     const style = heading ? { minHeight: 350, padding: '1em 0em' } : { padding: 0 }
 
     return (
       <Responsive
+        fireOnMount
         as={Sidebar.Pushable}
         getWidth={getWidth}
         maxWidth={Responsive.onlyMobile.maxWidth}
@@ -111,7 +111,7 @@ class MobileContainer extends Component {
             vertical
           >
             <Container>
-              <Menu inverted pointing secondary size='large'>
+              <Menu inverted pointing secondary size='large' style={{ border: 'none' }}>
                 <Menu.Item onClick={this.handleToggle}>
                   <Icon name='sidebar' />
                 </Menu.Item>
@@ -139,10 +139,10 @@ MobileContainer.propTypes = {
   children: PropTypes.node
 }
 
-const ResponsiveContainer = ({ children, heading, leftItems, mobile, rightItems }) => (
+const ResponsiveContainer = ({ children, getWidth, heading, mobile, leftItems, rightItems }) => (
   <div>
-    <DesktopContainer heading={heading ? heading({}) : null} leftItems={leftItems} rightItems={rightItems}>{children}</DesktopContainer>
-    <MobileContainer heading={heading ? heading({ mobile }) : null} leftItems={leftItems}>{children}</MobileContainer>
+    <DesktopContainer getWidth={getWidth} heading={heading ? heading({}) : null} leftItems={leftItems} rightItems={rightItems}>{children}</DesktopContainer>
+    <MobileContainer getWidth={getWidth} heading={heading ? heading({ mobile }) : null} leftItems={leftItems}>{children}</MobileContainer>
   </div>
 )
 

@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { withRouter } from 'next/router'
 import Footer from './Footer'
 import ResponsiveContainer from '../components/ResponsiveContainer'
+import { getWidthFactory } from '../utils'
 import 'semantic-ui-css/semantic.min.css'
 
 class DefaultLayout extends React.Component {
@@ -23,12 +24,13 @@ class DefaultLayout extends React.Component {
   static propTypes = {
     title: PropTypes.string,
     router: PropTypes.object.isRequired,
-    children: PropTypes.node.isRequired,
-    heading: PropTypes.func
+    children: PropTypes.node,
+    heading: PropTypes.func,
+    isMobileFromSSR: PropTypes.bool.isRequired
   }
 
   render () {
-    const { title, children, heading } = this.props
+    const { title, children, heading, isMobileFromSSR } = this.props
     let { leftItems, rightItems } = this.props
 
     return (
@@ -36,7 +38,7 @@ class DefaultLayout extends React.Component {
         <Head>
           <title>{ title }</title>
         </Head>
-        <ResponsiveContainer heading={heading} leftItems={leftItems} rightItems={rightItems}>
+        <ResponsiveContainer heading={heading} leftItems={leftItems} rightItems={rightItems} getWidth={getWidthFactory(isMobileFromSSR)} mobile={isMobileFromSSR}>
           {children}
           <Footer />
         </ResponsiveContainer>

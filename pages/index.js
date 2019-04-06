@@ -1,5 +1,6 @@
 import { Button, Container, Divider, Grid, Header, Icon, Image, Segment } from 'semantic-ui-react'
 import DefaultLayout from '../components/DefaultLayout'
+import { getInitialProps } from '../utils'
 
 const Heading = ({ mobile }) => (
   <Container text>
@@ -28,38 +29,45 @@ const Heading = ({ mobile }) => (
   </Container>
 )
 
-export default () => <DefaultLayout title='Ban Management' heading={Heading}>
-  <Segment style={{ padding: '2em 0em', clear: 'both' }} vertical>
-    <Grid container divided stretched stackable centered columns='equal' verticalAlign='middle'>
-      <Grid.Row>
-        <Grid.Column textAlign='center'>
-          <Image src='/static/images/bukkit-logo.png' size='tiny' centered />
-          <Header as='h3' style={{ fontSize: '1.5em' }}>BanManager</Header>
-          <Header.Content>The original Java Minecraft Bukkit plugin</Header.Content>
-          <Header.Content>
-            <Button icon='download' as='a' href='https://dev.bukkit.org/projects/ban-management' />
-            <Button icon='github' as='a' href='https://github.com/BanManagement/BanManager' />
-          </Header.Content>
-        </Grid.Column>
-        <Grid.Column textAlign='center'>
-          <Image src='/static/images/graphql-logo.png' size='tiny' centered />
-          <Header as='h3' style={{ fontSize: '1.5em' }}>BanManager-WebAPI</Header>
-          <Header.Content>A Node.js GraphQL based API to manage all your data</Header.Content>
-          <Header.Content>
-            <Button icon='download' as='a' href='https://github.com/BanManagement/BanManager-WebAPI' />
-            <Button icon='github' as='a' href='https://github.com/BanManagement/BanManager-WebAPI' />
-          </Header.Content>
-        </Grid.Column>
-        <Grid.Column textAlign='center'>
-          <Image src='/static/images/react-logo.png' size='tiny' centered />
-          <Header as='h3' style={{ fontSize: '1.5em' }}>BanManager-WebUI</Header>
-          <Header.Content>A Node.js React based UI</Header.Content>
-          <Header.Content>
-            <Button icon='download' as='a' href='https://github.com/BanManagement/BanManager-WebUI' />
-            <Button icon='github' as='a' href='https://github.com/BanManagement/BanManager-WebUI' />
-          </Header.Content>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-  </Segment>
-</DefaultLayout>
+function Page ({ isMobileFromSSR }) {
+  return (
+  <DefaultLayout title='Ban Management' heading={Heading} isMobileFromSSR={isMobileFromSSR}>
+    <Segment style={{ padding: '2em 0em', clear: 'both' }} vertical>
+      <Grid container divided stretched stackable centered columns='equal' verticalAlign='middle'>
+        <Grid.Row>
+          <Grid.Column textAlign='center'>
+            <Image src='/static/images/bukkit-logo.png' size='tiny' centered />
+            <Header as='h3' style={{ fontSize: '1.5em' }}>BanManager</Header>
+            <Header.Content>The original Java Minecraft Bukkit plugin</Header.Content>
+            <Header.Content>
+              <Button icon='download' as='a' href='https://dev.bukkit.org/projects/ban-management' />
+              <Button icon='github' as='a' href='https://github.com/BanManagement/BanManager' />
+            </Header.Content>
+          </Grid.Column>
+          <Grid.Column textAlign='center'>
+            <Image src='/static/images/graphql-logo.png' size='tiny' centered />
+            <Header as='h3' style={{ fontSize: '1.5em' }}>BanManager-WebAPI</Header>
+            <Header.Content>A Node.js GraphQL based API to manage all your data</Header.Content>
+            <Header.Content>
+              <Button icon='download' as='a' href='https://github.com/BanManagement/BanManager-WebAPI' />
+              <Button icon='github' as='a' href='https://github.com/BanManagement/BanManager-WebAPI' />
+            </Header.Content>
+          </Grid.Column>
+          <Grid.Column textAlign='center'>
+            <Image src='/static/images/react-logo.png' size='tiny' centered />
+            <Header as='h3' style={{ fontSize: '1.5em' }}>BanManager-WebUI</Header>
+            <Header.Content>A Node.js React based UI</Header.Content>
+            <Header.Content>
+              <Button icon='download' as='a' href='https://github.com/BanManagement/BanManager-WebUI' />
+              <Button icon='github' as='a' href='https://github.com/BanManagement/BanManager-WebUI' />
+            </Header.Content>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </Segment>
+  </DefaultLayout>)
+}
+
+Page.getInitialProps = getInitialProps
+
+export default Page

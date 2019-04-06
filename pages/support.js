@@ -1,12 +1,20 @@
 import { Container, Segment } from 'semantic-ui-react'
 import DefaultLayout from '../components/DefaultLayout'
+import { getInitialProps } from '../utils'
 
-export default () => <DefaultLayout title='Support'>
-  <Segment style={{ padding: '8em 0em' }} vertical>
-    <Segment vertical>
-      <Container text>
-        Coming Soon
-      </Container>
+function Page ({ isMobileFromSSR }) {
+  return (
+  <DefaultLayout title='Support' isMobileFromSSR={isMobileFromSSR}>
+    <Segment style={{ padding: '8em 0em' }} vertical>
+      <Segment vertical>
+        <Container text>
+          Coming Soon
+        </Container>
+      </Segment>
     </Segment>
-  </Segment>
-</DefaultLayout>
+  </DefaultLayout>)
+}
+
+Page.getInitialProps = getInitialProps
+
+export default Page
