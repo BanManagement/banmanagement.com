@@ -7,7 +7,7 @@
     "test": "standard",
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p $PORT"
   },
   "author": "James Mortemore (jamesmortemore@gmail.com)",
   "license": "MIT",
