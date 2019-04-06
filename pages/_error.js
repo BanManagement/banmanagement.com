@@ -4,7 +4,7 @@ import { Container, Header } from 'semantic-ui-react'
 import { getInitialProps } from '../utils'
 
 class Error extends React.Component {
-  static async getInitialProps({ req, res, err }) {
+  static async getInitialProps ({ req, res, err }) {
     const statusCode = res ? res.statusCode : err ? err.statusCode : null
     const props = await getInitialProps({ req })
 
@@ -35,13 +35,12 @@ class Error extends React.Component {
             marginTop: mobile ? '0.5em' : '1.5em'
           }}
         />
-    </Container>)
+      </Container>)
   }
 
-  render() {
+  render () {
     return (
-      <DefaultLayout title='Error' heading={this.heading} isMobileFromSSR={this.props.isMobileFromSSR}>
-      </DefaultLayout>
+      <DefaultLayout title='Error' heading={this.heading} isMobileFromSSR={this.props.isMobileFromSSR} />
     )
   }
 }

@@ -4,15 +4,15 @@ import { getInitialProps } from '../utils'
 
 function Page ({ isMobileFromSSR }) {
   return (
-  <DefaultLayout title='Support' isMobileFromSSR={isMobileFromSSR}>
-    <Segment style={{ padding: '8em 0em' }} vertical>
-      <Segment vertical>
-        <Container text>
+    <DefaultLayout title='Support' isMobileFromSSR={isMobileFromSSR}>
+      <Segment style={{ padding: '8em 0em' }} vertical>
+        <Segment vertical>
+          <Container text>
           Coming Soon
-        </Container>
+          </Container>
+        </Segment>
       </Segment>
-    </Segment>
-  </DefaultLayout>)
+    </DefaultLayout>)
 }
 
 Page.getInitialProps = getInitialProps
