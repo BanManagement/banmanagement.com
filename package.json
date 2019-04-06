@@ -12,6 +12,7 @@
   "author": "James Mortemore (jamesmortemore@gmail.com)",
   "license": "MIT",
   "dependencies": {
+    "@zeit/next-bundle-analyzer": "0.1.2",
     "@zeit/next-css": "^1.0.1",
     "file-loader": "^3.0.1",
     "mobile-detect": "1.4.3",
