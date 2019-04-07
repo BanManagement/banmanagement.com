@@ -11,7 +11,6 @@ import {
   Visibility
 } from 'semantic-ui-react'
 import MenuLink from '../components/MenuLink'
-import 'semantic-ui-css/semantic.min.css'
 
 const renderMenu = (items) => items.map(item => <MenuLink key={item.name} {...item} />)
 
