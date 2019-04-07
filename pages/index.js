@@ -40,8 +40,8 @@ function Page ({ isMobileFromSSR }) {
               <Header as='h3' style={{ fontSize: '1.5em' }}>BanManager</Header>
               <Header.Content>The original Java Minecraft Bukkit plugin</Header.Content>
               <Header.Content>
-                <Button icon='download' as='a' href='https://dev.bukkit.org/projects/ban-management' aria-label='Download BanManager' />
-                <Button icon='github' as='a' href='https://github.com/BanManagement/BanManager' aria-label='View BanManager Source' />
+                <Button size='big' icon='download' as='a' href='https://dev.bukkit.org/projects/ban-management' aria-label='Download BanManager' />
+                <Button size='big' icon='github' as='a' href='https://github.com/BanManagement/BanManager' aria-label='View BanManager Source' />
               </Header.Content>
             </Grid.Column>
             <Grid.Column textAlign='center'>
@@ -49,8 +49,8 @@ function Page ({ isMobileFromSSR }) {
               <Header as='h3' style={{ fontSize: '1.5em' }}>BanManager-WebAPI</Header>
               <Header.Content>A Node.js GraphQL based API to manage all your data</Header.Content>
               <Header.Content>
-                <Button icon='download' as='a' href='https://github.com/BanManagement/BanManager-WebAPI' aria-label='Download BanManager-WebAPI' />
-                <Button icon='github' as='a' href='https://github.com/BanManagement/BanManager-WebAPI' aria-label='View BanManagerWebAPI Source' />
+                <Button size='big' icon='download' as='a' href='https://github.com/BanManagement/BanManager-WebAPI' aria-label='Download BanManager-WebAPI' />
+                <Button size='big' icon='github' as='a' href='https://github.com/BanManagement/BanManager-WebAPI' aria-label='View BanManagerWebAPI Source' />
               </Header.Content>
             </Grid.Column>
             <Grid.Column textAlign='center'>
@@ -58,8 +58,8 @@ function Page ({ isMobileFromSSR }) {
               <Header as='h3' style={{ fontSize: '1.5em' }}>BanManager-WebUI</Header>
               <Header.Content>A Node.js React based UI</Header.Content>
               <Header.Content>
-                <Button icon='download' as='a' href='https://github.com/BanManagement/BanManager-WebUI' aria-label='Download BanManager-WebUI' />
-                <Button icon='github' as='a' href='https://github.com/BanManagement/BanManager-WebUI' aria-label='View BanManager-WebUI Source' />
+                <Button size='big' icon='download' as='a' href='https://github.com/BanManagement/BanManager-WebUI' aria-label='Download BanManager-WebUI' />
+                <Button size='big' icon='github' as='a' href='https://github.com/BanManagement/BanManager-WebUI' aria-label='View BanManager-WebUI Source' />
               </Header.Content>
             </Grid.Column>
           </Grid.Row>
