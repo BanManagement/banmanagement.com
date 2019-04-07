@@ -38,7 +38,7 @@ module.exports = withPlugins([
           reportFilename: '../bundles/client.html'
         }
       }
-    },
+    }
   ],
   [ withTM, { transpileModules: ['react-syntax-highlighter/dist'] } ]
 ], nextConfig)
