@@ -12,7 +12,13 @@ import {
 } from 'semantic-ui-react'
 import MenuLink from '../components/MenuLink'
 
-const renderMenu = (items) => items.map(item => <MenuLink key={item.name} {...item} />)
+const renderMenu = (items) => items.map(item => {
+  if (item.as ==='a') {
+    return <a key={item.name} href={item.href}>{item.name}</a>
+  } else {
+    return <MenuLink key={item.name} {...item} />
+  }
+})
 
 class DesktopContainer extends Component {
   state = {}
