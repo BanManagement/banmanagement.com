@@ -100,7 +100,7 @@ function Page ({ isMobileFromSSR }) {
           <Header as='h4'>Database Name</Header>
           <p>As above</p>
           <Header as='h4'>Add BanManager Server</Header>
-          <p>In order to save time, you'll be asked to paste the contents of your <code>BanManager/config.yml</code> file. This will be used to retrieve the database connection for your punishment data. If these details are different (i.e. 127.0.0.1 but the API is running on a different server), ensure you modify this before pasting. You'll be able to add additional servers via the UI after setup. If tables are not found or the connection fails, you will be reprompted to paste in the YAML again.</p>
+          <p>You'll be prompted to specify details of your BanManager plugin database connection details. If tables are not found or the connection fails, you will be reprompted the question again.</p>
           <Header as='h4'>playerPins table</Header>
           <p>This is the name of the table which contains login pins. By default this is set to bm_player_pins and is the value within your <code>BanManager-WebEnhancer/config.yml</code> file.</p>
           <Header as='h4'>playerReportLogs table</Header>
