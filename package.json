@@ -16,7 +16,7 @@
     "@zeit/next-bundle-analyzer": "0.1.2",
     "@zeit/next-css": "1.0.1",
     "file-loader": "4.2.0",
-    "mobile-detect": "1.4.3",
+    "mobile-detect": "1.4.4",
     "next": "8.1.0",
     "next-compose-plugins": "2.2.0",
     "next-transpile-modules": "2.3.1",
