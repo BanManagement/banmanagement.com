@@ -35,7 +35,7 @@ function Page ({ isMobileFromSSR }) {
       <Segment style={{ padding: '2em 0em', clear: 'both' }} vertical>
         <Grid container divided stretched stackable centered columns='equal' verticalAlign='middle'>
           <Grid.Row>
-            <Header>Server Plugins</Header>
+            <Header as='h2'>Server Plugins</Header>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column textAlign='center'>
@@ -56,7 +56,7 @@ function Page ({ isMobileFromSSR }) {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Header>Web Applications</Header>
+            <Header as='h2'>Web Applications</Header>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column textAlign='center'>
