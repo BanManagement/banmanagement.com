@@ -13,6 +13,7 @@ export default function Footer () {
               <Header inverted as='h4' content='About' />
               <List link inverted>
                 <List.Item as='a' href='https://dev.bukkit.org/projects/ban-management'>Bukkit Plugin</List.Item>
+                <List.Item as='a' href='https://ore.spongepowered.org/confuser/BanManager'>Sponge Plugin</List.Item>
                 <List.Item as='a' href='https://github.com/BanManagement/banmanagement.com'>Source</List.Item>
                 <List.Item as='a' href='https://github.com/BanManagement/banmanagement.com/issues'>Report Issues</List.Item>
               </List>
