@@ -12,7 +12,7 @@ function Page ({ isMobileFromSSR }) {
           <Header as='h2' id='startup-issues'>Startup Issues</Header>
           <Header as='h4'>Q: BanManager is showing as red in /plugins</Header>
           <p>Please ensure you have configured the plugin correctly and check either your server log or console for more information</p>
-          <Header as='h4'>Q: When trying to /ban a player it displays /ban {"<player> <reason>"}</Header>
+          <Header as='h4'>Q: When trying to /ban a player it displays /ban {'<player> <reason>'}</Header>
 
           <p>The plugin is not enabled, please check your server startup log for more information</p>
           <Header as='h4'>java.sql.SQLSyntaxErrorException: Table 'bm_players' doesn't exist</Header>

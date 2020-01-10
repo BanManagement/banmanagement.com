@@ -1,6 +1,5 @@
-import { Container, Divider, Grid, Header, List, Segment } from 'semantic-ui-react'
+import { Container, Grid, Header, Segment } from 'semantic-ui-react'
 import DefaultLayout from '../components/DefaultLayout'
-import SyntaxHighlighter from '../components/SyntaxHighlighter'
 import { getInitialProps } from '../utils'
 
 function Page ({ isMobileFromSSR }) {

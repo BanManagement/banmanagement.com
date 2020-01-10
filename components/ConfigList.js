@@ -2,7 +2,7 @@ import React from 'react'
 import { List } from 'semantic-ui-react'
 
 export default class ConfigList extends React.Component {
-  renderItems(options) {
+  renderItems (options) {
     return Object.entries(options).map(([ header, description ]) => {
       if (typeof description === 'string' || description.props) {
         return (
@@ -32,7 +32,7 @@ export default class ConfigList extends React.Component {
     })
   }
 
-  render() {
+  render () {
     return <List>{this.renderItems(this.props.options)}</List>
   }
 }

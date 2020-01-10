@@ -205,7 +205,7 @@ const configs = {
     },
     countries: {
       type: 'Either blacklist or whitelist. Players connecting from these countries will be denied or allowed to join',
-      list: <a href="https://www.iso.org/obp/ui/#search">A list of ISO formatted country codes</a>
+      list: <a href='https://www.iso.org/obp/ui/#search'>A list of ISO formatted country codes</a>
     }
   },
   reasons: {
@@ -271,7 +271,7 @@ function Page ({ isMobileFromSSR }) {
           <p>Please see <a href='/faq#startup-issues'>FAQ</a> for common database connection issues</p>
 
           <Header as='h3'>config.yml</Header>
-          <ConfigList options={configs.config}/>
+          <ConfigList options={configs.config} />
 
           <Header as='h3'>console.yml</Header>
           <p>You should only change the name value in this file</p>
