@@ -6,7 +6,7 @@ export default class ConfigList extends React.Component {
     return Object.entries(options).map(([ header, description ]) => {
       if (typeof description === 'string' || description.props) {
         return (
-          <List.Item>
+          <List.Item key={header}>
             <List.Icon />
             <List.Content>
               <List.Header>{header}</List.Header>
@@ -16,7 +16,7 @@ export default class ConfigList extends React.Component {
         )
       } else {
         return (
-          <List.Item>
+          <List.Item key={header}>
             <List.List>
               <List.Item>
                 <List.Icon />
