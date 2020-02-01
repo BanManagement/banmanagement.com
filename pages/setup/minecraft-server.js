@@ -55,9 +55,10 @@ ae51c849-3f2a-4a37-986d-55ed5b02307f:
   alts: true`,
   geoip: `enabled: true
 download:
-  city: 'https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz'
-  country: 'https://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz'
+  city: 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=[licenseKey]&suffix=tar.gz'
+  country: 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=[licenseKey]&suffix=tar.gz'
   lastUpdated: 0
+  licenseKey: 'yourLicenseKeyHere'
 countries:
   type: 'whitelist'
   list:
@@ -290,7 +291,8 @@ function Page ({ isMobileFromSSR }) {
           <ConfigList options={configs.exemptions} />
 
           <Header as='h3'>geoip.yml</Header>
-          <p>Enables location based information, such as showing which country a player is connected from, or allowing/blocking certain countries only</p>
+          <p>Enables location based information, such as showing which country a player is connected from on join or via /bminfo and allows/blocks certain countries from connecting</p>
+          <p>Please note this now requires a license key from MaxMind. Please follow <a href='https://essentialsx.cf/wiki/GeoIP.html'>these instructions</a> to generate a license key to paste into <code>licenseKey</code> within your <code>BanManager/geoip.yml</code> </p>
           <Header as='h4'>Example</Header>
           <SyntaxHighlighter language='yml'>{code.geoip}</SyntaxHighlighter>
           <ConfigList options={configs.geoip} />
