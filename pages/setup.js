@@ -10,7 +10,7 @@ function Page ({ isMobileFromSSR }) {
       >
         <Segment vertical>
           <Container text>
-            <Header as='h1'>Setup Guide</Header>
+            <Header as='h1'>Setup Guides</Header>
             <Grid columns={2} divided stackable>
               <Grid.Row>
                 <Grid.Column>
