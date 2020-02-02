@@ -54,7 +54,7 @@ class DesktopContainer extends Component {
               style={{ borderTop: 0 }}
             >
               <Container>
-                <a href='/'><img src='/static/images/banmanager-icon.png' alt='Home' style={{ width: '2.5em' }} /></a>
+                <a href='/'><img src='/images/banmanager-icon.png' alt='Home' style={{ width: '2.5em' }} /></a>
                 {renderMenu(leftItems)}
                 <Menu.Item position='right' style={{ padding: 0 }}>
                   {renderMenu(rightItems)}

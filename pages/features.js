@@ -25,7 +25,7 @@ const Heading = ({ mobile }) => (
     <Button primary size='huge' as='a' href='/setup'>
       Get Started
     </Button>
-    <Image src='/static/images/feature-player.png' alt='Player page preview' bordered rounded floated='left' style={{ marginTop: mobile ? '1.5em' : '2.5em' }} />
+    <Image src='/images/feature-player.png' alt='Player page preview' bordered rounded floated='left' style={{ marginTop: mobile ? '1.5em' : '2.5em' }} />
   </Container>
 )
 
@@ -44,12 +44,12 @@ function Page ({ isMobileFromSSR }) {
               <Header.Content>Create custom roles with fine grained permissions to control what they can see and edit.</Header.Content>
             </Grid.Column>
             <Grid.Column floated='right' width={6}>
-              <Image bordered rounded size='large' src='/static/images/feature-roles.png' alt='Manage player roles preview' />
+              <Image bordered rounded size='large' src='/images/feature-roles.png' alt='Manage player roles preview' />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column floated='left' width={6}>
-              <Image bordered rounded size='large' src='/static/images/feature-layouts.png' alt='Manage page layouts preview' />
+              <Image bordered rounded size='large' src='/images/feature-layouts.png' alt='Manage page layouts preview' />
             </Grid.Column>
             <Grid.Column width={8}>
               <Header>Page Layouts</Header>

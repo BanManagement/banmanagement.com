@@ -7,15 +7,16 @@ const nextConfig = {
   webpack (config) {
     config.module.rules.push({
       test: /\.(png|svg|eot|otf|ttf|woff|woff2)$/i,
-      use: {
+      use: [{
         loader: 'url-loader',
         options: {
           limit: 8192,
           publicPath: './',
           outputPath: 'static/css/',
-          name: '[name].[ext]'
+          name: '[name].[ext]',
+          esModule: false
         }
-      }
+      }]
     })
 
     return config
