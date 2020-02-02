@@ -69,8 +69,8 @@ async function getEvents () {
   return events
 }
 
-async function getProps ({ req }) {
-  const props = await getInitialProps(req)
+async function getProps (initialProps) {
+  const props = await getInitialProps(initialProps)
 
   const versions = {
     bukkit: await getLatestCachedRelease('BanManagerBukkit'),
