@@ -32,6 +32,7 @@ class DefaultLayout extends React.Component {
         { name: 'Features', href: '/features' },
         { name: 'Setup', href: '/setup' },
         { name: 'Support', href: '/support' },
+        { name: 'Developers', href: '/developers' },
         { name: 'FAQ', href: '/faq' }
       ]
     }
