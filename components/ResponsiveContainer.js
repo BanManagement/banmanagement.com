@@ -29,7 +29,7 @@ class DesktopContainer extends Component {
   render () {
     const { children, getWidth, heading, leftItems, rightItems } = this.props
     const { fixed } = this.state
-    const style = heading ? { minHeight: 500, padding: '1em 0em' } : { padding: 0 }
+    const style = heading ? { minHeight: 500, padding: '1em 0em', display: 'flex', minHeight: '100vh', flexDirection: 'column' } : { padding: 0 }
 
     return (
       <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth} fireOnMount>
@@ -86,7 +86,7 @@ class MobileContainer extends Component {
   render () {
     const { children, getWidth, heading, leftItems } = this.props
     const { sidebarOpened } = this.state
-    const style = heading ? { minHeight: 350, padding: '1em 0em' } : { padding: 0 }
+    const style = heading ? { minHeight: 350, padding: '1em 0em', display: 'flex', minHeight: '100vh', flexDirection: 'column' } : { padding: 0 }
 
     return (
       <Responsive
