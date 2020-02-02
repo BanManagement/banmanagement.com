@@ -54,8 +54,8 @@ class DefaultLayout extends React.Component {
           <title>{ title }</title>
         </Head>
         <ResponsiveContainer heading={heading} leftItems={leftItems} rightItems={rightItems} getWidth={getWidthFactory(isMobileFromSSR)} mobile={isMobileFromSSR}>
-          <div style={{ display:"flex", minHeight:"100vh", flexDirection:"column" }}>
-            <div style={{ flex:1 }}>
+          <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
+            <div style={{ flex: 1 }}>
               {children}
             </div>
             <Footer isMobileFromSSR={isMobileFromSSR} />
