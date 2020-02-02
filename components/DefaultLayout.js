@@ -25,7 +25,7 @@ class DefaultLayout extends React.Component {
   static defaultProps =
     { title: 'Default Title',
       rightItems: [
-        { name: 'Demo', href: 'https://demo.banmanagement.com', as: 'a' }, // work around DOMException
+        { name: 'Demo', href: 'https://demo.banmanagement.com' }, // work around DOMException
         { name: 'Source', href: 'https://github.com/BanManagement/BanManager-WebUI' }
       ],
       leftItems: [
