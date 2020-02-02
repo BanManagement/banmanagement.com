@@ -1,11 +1,12 @@
 import React from 'react'
 import { Container, Grid, Header, List, Segment } from 'semantic-ui-react'
 
-export default function Footer () {
+export default function Footer ({ isMobileFromSSR }) {
   const yearNow = new Date().getFullYear()
+  const style = isMobileFromSSR ? { padding: '5em 0em' } : { padding: '5em 0em', position: 'absolute', width: '100%', bottom: '0' }
 
   return (
-    <Segment inverted vertical style={{ padding: '5em 0em' }}>
+    <Segment inverted vertical style={style}>
       <Container>
         <Grid divided inverted stackable>
           <Grid.Row>

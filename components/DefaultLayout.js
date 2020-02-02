@@ -55,7 +55,7 @@ class DefaultLayout extends React.Component {
         </Head>
         <ResponsiveContainer heading={heading} leftItems={leftItems} rightItems={rightItems} getWidth={getWidthFactory(isMobileFromSSR)} mobile={isMobileFromSSR}>
           {children}
-          <Footer />
+          <Footer isMobileFromSSR={isMobileFromSSR} />
         </ResponsiveContainer>
       </React.Fragment>
     )
