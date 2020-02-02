@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "@zeit/next-bundle-analyzer": "0.1.2",
-    "@zeit/next-css": "1.0.1",
     "file-loader": "5.0.2",
     "isomorphic-unfetch": "3.0.0",
     "memoizee": "0.4.14",

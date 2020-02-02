@@ -1,5 +1,4 @@
 const withPlugins = require('next-compose-plugins')
-const withCSS = require('@zeit/next-css')
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const withTM = require('next-transpile-modules')(['react-syntax-highlighter/dist'])
 
@@ -25,7 +24,6 @@ const nextConfig = {
 }
 
 module.exports = withPlugins([
-  withCSS,
   [withBundleAnalyzer,
     {
       analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
