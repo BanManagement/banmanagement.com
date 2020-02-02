@@ -23,7 +23,8 @@ import 'semantic-ui-css/components/site.css'
 
 class DefaultLayout extends React.Component {
   static defaultProps =
-    { title: 'Default Title',
+    {
+      title: 'Default Title',
       rightItems: [
         { name: 'Demo', href: 'https://demo.banmanagement.com' }, // work around DOMException
         { name: 'Source', href: 'https://github.com/BanManagement/BanManager-WebUI' }
@@ -36,6 +37,7 @@ class DefaultLayout extends React.Component {
         { name: 'FAQ', href: '/faq' }
       ]
     }
+
   static propTypes = {
     title: PropTypes.string,
     router: PropTypes.object.isRequired,
@@ -46,12 +48,12 @@ class DefaultLayout extends React.Component {
 
   render () {
     const { title, children, heading, isMobileFromSSR } = this.props
-    let { leftItems, rightItems } = this.props
+    const { leftItems, rightItems } = this.props
 
     return (
-      <React.Fragment>
+      <>
         <Head>
-          <title>{ title }</title>
+          <title>{title}</title>
         </Head>
         <ResponsiveContainer heading={heading} leftItems={leftItems} rightItems={rightItems} getWidth={getWidthFactory(isMobileFromSSR)} mobile={isMobileFromSSR}>
           <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
@@ -61,7 +63,7 @@ class DefaultLayout extends React.Component {
             <Footer isMobileFromSSR={isMobileFromSSR} />
           </div>
         </ResponsiveContainer>
-      </React.Fragment>
+      </>
     )
   }
 }

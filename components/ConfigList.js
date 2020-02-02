@@ -3,7 +3,7 @@ import { List } from 'semantic-ui-react'
 
 export default class ConfigList extends React.Component {
   renderItems (options) {
-    return Object.entries(options).map(([ header, description ]) => {
+    return Object.entries(options).map(([header, description]) => {
       if (typeof description === 'string' || description.props) {
         return (
           <List.Item key={header}>

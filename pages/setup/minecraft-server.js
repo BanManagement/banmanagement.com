@@ -114,19 +114,24 @@ const configs = {
     warningMute: 'Forces players to type the reason of their most recent warning before being allowed to speak in chat again. Removed on server restart or when player leaves.',
     hooks: {
       enabled: 'This allows running commands before and after punishments',
-      events: <>The following types are supported: <List bulleted>
-        <List.Item>ban</List.Item>
-        <List.Item>tempban</List.Item>
-        <List.Item>unban</List.Item>
-        <List.Item>mute</List.Item>
-        <List.Item>tempmute</List.Item>
-        <List.Item>unmute</List.Item>
-        <List.Item>warn</List.Item>
-        <List.Item>tempwarn</List.Item>
-        <List.Item>ipban</List.Item>
-        <List.Item>tempipban</List.Item>
-        <List.Item>unbanip</List.Item>
-        <List.Item>iprangeban</List.Item></List> A list of commands to execute either before or after a particular punishment. For example, the following will ip ban a player immediately and kick them after 10 seconds before the ban applies; after the player is banned a message will be broadcasted:<SyntaxHighlighter language='yml'>{code.hooks}</SyntaxHighlighter></>
+      events:
+  <>The following types are supported:
+    <List bulleted>
+      <List.Item>ban</List.Item>
+      <List.Item>tempban</List.Item>
+      <List.Item>unban</List.Item>
+      <List.Item>mute</List.Item>
+      <List.Item>tempmute</List.Item>
+      <List.Item>unmute</List.Item>
+      <List.Item>warn</List.Item>
+      <List.Item>tempwarn</List.Item>
+      <List.Item>ipban</List.Item>
+      <List.Item>tempipban</List.Item>
+      <List.Item>unbanip</List.Item>
+      <List.Item>iprangeban</List.Item>
+    </List>
+    A list of commands to execute either before or after a particular punishment. For example, the following will ip ban a player immediately and kick them after 10 seconds before the ban applies; after the player is banned a message will be broadcasted:<SyntaxHighlighter language='yml'>{code.hooks}</SyntaxHighlighter>
+  </>
     },
     checkForUpdates: 'Checks for new versions of the plugin',
     offlineAutoComplete: 'Includes players who are offline when using tab to autocomplete command arguments',
@@ -148,14 +153,17 @@ const configs = {
     checkOnJoin: 'Whether to check the database to see if the player is banned on join or not. Recommended to be disabled, the schedule sync tasks should suffice. If after modifying the schedules.yml syncing is not quick enough, enable this option',
     createNoteReasons: <>Enables creation of notes based on text in between ( ). E.g. <code>/ban confuser testing (too good)</code> will ban for 'testing' and create a note 'too good'</>,
     onlineMode: 'Disable for name case sensitive UUIDs instead of online UUIDs. If you are using a proxy in online mode such as bungeecord, set this to true',
-    chatPriority: <>Change if muted messages are still showing. The following options are supported: <List bulleted>
+    chatPriority:
+  <>Change if muted messages are still showing. The following options are supported:
+    <List bulleted>
       <List.Item>lowest</List.Item>
       <List.Item>low</List.Item>
       <List.Item>normal</List.Item>
       <List.Item>high</List.Item>
       <List.Item>highest</List.Item>
       <List.Item>monitor</List.Item>
-    </List></>
+    </List>
+  </>
   },
   console: {
     name: 'This is used to identify the server when it issues punishments via the console',

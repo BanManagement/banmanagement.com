@@ -23,20 +23,20 @@ const renderMenu = (items) => items.map(item => {
 class DesktopContainer extends Component {
   state = {}
 
-  hideFixedMenu = () => this.setState({ fixed: false })
-  showFixedMenu = () => this.setState({ fixed: true })
+  handleHideFixedMenu = () => this.setState({ fixed: false })
+  handleShowFixedMenu = () => this.setState({ fixed: true })
 
   render () {
     const { children, getWidth, heading, leftItems, rightItems } = this.props
     const { fixed } = this.state
-    const style = heading ? { minHeight: 500, padding: '1em 0em', display: 'flex', minHeight: '100vh', flexDirection: 'column' } : { padding: 0 }
+    const style = heading ? { minHeight: 500, padding: '1em 0em', display: 'flex', flexDirection: 'column' } : { padding: 0 }
 
     return (
       <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth} fireOnMount>
         <Visibility
           once={false}
-          onBottomPassed={this.showFixedMenu}
-          onBottomPassedReverse={this.hideFixedMenu}
+          onBottomPassed={this.handleShowFixedMenu}
+          onBottomPassedReverse={this.handleHideFixedMenu}
         >
           <Segment
             inverted
@@ -61,7 +61,7 @@ class DesktopContainer extends Component {
                 </Menu.Item>
               </Container>
             </Menu>
-            { heading }
+            {heading}
           </Segment>
         </Visibility>
 
@@ -86,7 +86,7 @@ class MobileContainer extends Component {
   render () {
     const { children, getWidth, heading, leftItems } = this.props
     const { sidebarOpened } = this.state
-    const style = heading ? { minHeight: 350, padding: '1em 0em', display: 'flex', minHeight: '100vh', flexDirection: 'column' } : { padding: 0 }
+    const style = heading ? { minHeight: 350, padding: '1em 0em', display: 'flex', flexDirection: 'column' } : { padding: 0 }
 
     return (
       <Responsive

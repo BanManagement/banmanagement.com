@@ -25,8 +25,9 @@ const nextConfig = {
 
 module.exports = withPlugins([
   withCSS,
-  [ withBundleAnalyzer,
-    { analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
+  [withBundleAnalyzer,
+    {
+      analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
       analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
       bundleAnalyzerConfig: {
         server: {
@@ -40,5 +41,5 @@ module.exports = withPlugins([
       }
     }
   ],
-  [ withTM ]
+  [withTM]
 ], nextConfig)
