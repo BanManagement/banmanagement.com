@@ -1,7 +1,7 @@
 const withPlugins = require('next-compose-plugins')
 const withCSS = require('@zeit/next-css')
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
-const withTM = require('next-transpile-modules')
+const withTM = require('next-transpile-modules')(['react-syntax-highlighter/dist'])
 
 const nextConfig = {
   webpack (config) {
@@ -40,5 +40,5 @@ module.exports = withPlugins([
       }
     }
   ],
-  [ withTM, { transpileModules: ['react-syntax-highlighter/dist'] } ]
+  [ withTM ]
 ], nextConfig)
