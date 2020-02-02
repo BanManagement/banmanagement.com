@@ -1,7 +1,5 @@
 import { Container, Divider, Header, List, Segment } from 'semantic-ui-react'
 import fetch from 'isomorphic-unfetch'
-import semverRsort from 'semver/functions/rsort'
-import memoize from 'memoizee'
 import DefaultLayout from '../components/DefaultLayout'
 import SyntaxHighlighter from '../components/SyntaxHighlighter'
 import { getInitialProps } from '../utils'
@@ -38,8 +36,6 @@ const code = {
 }`
   }
 }
-const getLatestCachedRelease = memoize(getLatestRelease, { length: 1, promise: true, maxAge: 36000, preFetch: true, primitive: true })
-const getCachedEvents = memoize(getEvents, { promise: true, maxAge: 36000, preFetch: true, primitive: true })
 
 function dependency (artifact, version) {
   return `<dependencies>
@@ -52,35 +48,12 @@ function dependency (artifact, version) {
 </dependencies>`
 }
 
-async function getLatestRelease (type) {
-  const res = await fetch('https://ci.frostcast.net/plugin/repository/everything/me/confuser/banmanager/' + type + '/')
-  const text = await res.text()
-  const versions = [...text.matchAll(/<A href='.*?'>(.*?)<\/A>/g)].map(a => a[1])
-  const latest = semverRsort(versions)[0]
-
-  return latest
-}
-
-async function getEvents () {
-  const res = await fetch('https://api.github.com/repos/BanManagement/BanManager/contents/bukkit/src/main/java/me/confuser/banmanager/bukkit/api/events')
-  const json = await res.json()
-  const events = json.map(a => a.name.replace('.java', '')).filter(a => !(a.includes('Custom') || a.includes('Silent')))
-
-  return events
-}
-
 async function getProps (initialProps) {
   const props = await getInitialProps(initialProps)
+  const response = await fetch('https://banmanagement.com/api/developer-stats')
+  const data = await response.json()
 
-  const versions = {
-    bukkit: await getLatestCachedRelease('BanManagerBukkit'),
-    sponge: await getLatestCachedRelease('BanManagerSponge')
-  }
-
-  props.versions = versions
-  props.events = await getCachedEvents()
-
-  return props
+  return { ...props, ...data }
 }
 
 function Page ({ events, isMobileFromSSR, versions }) {
