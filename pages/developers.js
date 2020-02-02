@@ -1,5 +1,6 @@
 import { Container, Divider, Header, List, Segment } from 'semantic-ui-react'
 import fetch from 'isomorphic-unfetch'
+import absoluteUrl from 'next-absolute-url'
 import DefaultLayout from '../components/DefaultLayout'
 import SyntaxHighlighter from '../components/SyntaxHighlighter'
 import { getInitialProps } from '../utils'
@@ -49,8 +50,9 @@ function dependency (artifact, version) {
 }
 
 async function getProps (initialProps) {
+  const { origin } = absoluteUrl(initialProps.req)
   const props = await getInitialProps(initialProps)
-  const response = await fetch('https://banmanagement.com/api/developer-stats')
+  const response = await fetch(`${origin}/api/developer-stats`)
   const data = await response.json()
 
   return { ...props, ...data }
