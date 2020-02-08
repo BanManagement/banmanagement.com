@@ -22,6 +22,16 @@ function Page ({ isMobileFromSSR }) {
               </Grid.Column>
             </Grid.Row>
           </Grid>
+          <Header as='h1'>Migration Guides</Header>
+          <Grid columns={2} divided stackable>
+            <Grid.Row>
+              <Grid.Column>
+                <Segment>
+                  <a href='/setup/migration/advancedban'>AdvancedBan</a>
+                </Segment>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         </Container>
       </Segment>
     </DefaultLayout>)
