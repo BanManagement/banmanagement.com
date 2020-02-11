@@ -54,6 +54,11 @@ function Page ({ isMobileFromSSR }) {
                   <a href='/setup/migration/advancedban'>AdvancedBan</a>
                 </Segment>
               </Grid.Column>
+              <Grid.Column>
+                <Segment>
+                  <a href='/setup/migration/vanilla'>Vanilla Minecraft</a>
+                </Segment>
+              </Grid.Column>
             </Grid.Row>
           </Grid>
         </Container>
