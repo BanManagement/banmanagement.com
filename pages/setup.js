@@ -22,6 +22,30 @@ function Page ({ isMobileFromSSR }) {
               </Grid.Column>
             </Grid.Row>
           </Grid>
+          <Header as='h2'>Cross-Server Syncing Guides</Header>
+          <Grid columns={1} divided stackable>
+            <Grid.Row>
+              <Grid.Column>
+                <Segment>
+                  <a href='/setup/sync/all'>Share punishments across all servers</a>
+                </Segment>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Segment>
+                  <a href='/setup/sync/individual'>Server specific punishments with global punishment functionality</a>
+                </Segment>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Segment>
+                  <a href='/setup/sync/mixed'>Share specific punishments types across servers</a>
+                </Segment>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
           <Header as='h1'>Migration Guides</Header>
           <Grid columns={2} divided stackable>
             <Grid.Row>

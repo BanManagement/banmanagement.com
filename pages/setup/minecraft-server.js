@@ -325,8 +325,7 @@ function Page ({ isMobileFromSSR }) {
 
           <Header as='h2'>Multiple Server Support</Header>
           <p>BanManager supports sharing punishments across multiple servers, often refered to as data syncing in the documentation. This is not dependent on a particular proxy e.g. Bungeecord or Lilypad and there are a number of ways you can achieve this.</p>
-          <p>Using the same <code>local</code> database across each server will enforce punishments as if it were a single server. Bans, mutes and all other punishment information will be shared and synchronised. If you only want certain punishment types to be shared, use different table names to achieve this. E.g. using the same notes table will share notes across all servers, however bans and other punishments will remain unique. This can be done with all tables. It is however recommended you use the same players table with this approach. Please ensure you use a unique console.yml file for each server, as this will allow you to differentiate between servers when console commands are executed against a player. Configure your schedules.yml options as appropriate to control the syncing delay between servers.</p>
-          <p>If you prefer having unique punishments per server but would like the ability to punish players across all servers, enable the <code>global</code> database option in the config of every server. This enables /*all commands. Ensure these use the same database/table names, but you are free to mix/match in a similar fashion to the <code>local</code> where appropriate.</p>
+          <p>Check out the <a href='/setup'>Cross-Server Syncing Guides</a> for more information.</p>
         </Container>
       </Segment>
     </DefaultLayout>)
