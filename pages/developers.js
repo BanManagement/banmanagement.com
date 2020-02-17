@@ -8,7 +8,7 @@ import { getInitialProps } from '../utils'
 const repo = `<repositories>
   <repository>
     <id>confuser-repo</id>
-    <url>http://ci.frostcast.net/plugin/repository/everything</url>
+    <url>https://ci.frostcast.net/plugin/repository/everything</url>
   </repository>
 </repositories>`
 const code = {
