@@ -87,10 +87,10 @@ function Page ({ events, isMobileFromSSR, versions }) {
           <p>This is a static API class for BanManager to create and manipulate punishments</p>
           <p>Caveats:</p>
           <List bulleted>
-            <List.Item>No methods are thread safe unless stated otherwise.</List.Item>
+            <List.Item>No methods are thread safe unless stated otherwise</List.Item>
             <List.Item>The API does not check permissions for exemptions</List.Item>
           </List>
-          <p>A list of vailable methods is available at the <a href='https://javadocs.banmanagement.com/me/confuser/banmanager/common/api/BmAPI.html'>javadocs</a></p>
+          <p>A list of methods is available at the <a href='https://javadocs.banmanagement.com/me/confuser/banmanager/common/api/BmAPI.html'>javadocs</a></p>
 
           <Header as='h3'>Events</Header>
           <p>This provides a way to listen to punishments triggered which contain data about the event itself such as reason, actor (who caused the event) and the player or ip it affects</p>
