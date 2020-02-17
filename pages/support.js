@@ -8,7 +8,7 @@ function Page ({ isMobileFromSSR }) {
       <Segment vertical>
         <Container text>
           <Header as='h1'>Support</Header>
-          <p>Checkout the <a href='/faq'>FAQ</a> page for the most commonly asked questions</p>
+          <p>Check out the <a href='/faq'>FAQ</a> page for the most commonly asked questions</p>
 
           <Header as='h2'>Join Discord</Header>
           <p>Having trouble setting something up? Have questions? <a href='https://discord.gg/59bsgZB'>Join the Discord server</a></p>
