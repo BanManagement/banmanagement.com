@@ -31,7 +31,7 @@ const Heading = ({ mobile }) => (
 
 function Page ({ isMobileFromSSR }) {
   return (
-    <DefaultLayout title='Ban Management' heading={Heading} isMobileFromSSR={isMobileFromSSR}>
+    <DefaultLayout title='Ban Management' heading={Heading} isMobileFromSSR={isMobileFromSSR} description='A suite of Minecraft plugins such as BanManager for server owners to manage punishments with ease, supporting Bukkit, BungeeCord and Sponge'>
       <Segment style={{ padding: '2em 0em', clear: 'both' }} vertical>
         <Grid container divided stretched stackable centered columns='equal' verticalAlign='middle'>
           <Grid.Row>
