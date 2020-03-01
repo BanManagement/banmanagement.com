@@ -1,6 +1,15 @@
+const path = require('path')
 const withPlugins = require('next-compose-plugins')
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const withTM = require('next-transpile-modules')(['react-syntax-highlighter/dist'])
+const sitemap = require('nextjs-sitemap-generator')
+
+sitemap({
+  baseUrl: 'https://banmanagement.com',
+  pagesDirectory: path.resolve(__dirname, 'pages'),
+  targetDirectory: 'public/',
+  ignoredPaths: ['api']
+})
 
 const nextConfig = {
   webpack (config) {
