@@ -60,6 +60,13 @@ function Page ({ isMobileFromSSR }) {
                 </Segment>
               </Grid.Column>
             </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Segment>
+                  <a href='/setup/migration/h2'>BanManager H2</a>
+                </Segment>
+              </Grid.Column>
+            </Grid.Row>
           </Grid>
         </Container>
       </Segment>
