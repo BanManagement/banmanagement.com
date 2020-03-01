@@ -20,12 +20,12 @@ function Page ({ isMobileFromSSR }) {
           <p>This can be caused by a number of issues, below lists the most common. If these do not resolve your issue, feel free to request <a href='/support'>Support</a>.</p>
           <List bulleted>
             <List.Item>Ensure you have created the database. Verify this by logging in with the user you are connecting with (via mysql -p -u) and running <code>SHOW DATABASES;</code>. If the database is not contained in the results, it either has not been created or the user does not have permission to access it.</List.Item>
-            <List.Item>If you are connecting to the database from another server, you need to explicitly grant access to it for the remote ip address as follows: <code>GRANT ALL PRIVILEGES ON dbname.* TO username@'IP' IDENTIFIED BY 'password';</code> replacing dbname, username and password with your respective details.Then run <code>FLUSH PRIVILEGES;</code> to ensure they are updated.</List.Item>
+            <List.Item>If you are connecting to the database from another server, you need to explicitly grant access to it for the remote ip address as follows: <code>GRANT ALL PRIVILEGES ON dbname.* TO username@'IP' IDENTIFIED BY 'password';</code> replacing dbname, username and password with your respective details. Then run <code>FLUSH PRIVILEGES;</code> to ensure they are updated.</List.Item>
             <List.Item>If after verifing the aforementioned checks the plugin is still unable to connect, check the MySQL/MariaDB error logs.</List.Item>
           </List>
 
           <Header as='h4'>Q: I'd like to use BanManager with Tekkit Classic, which version is compatible?</Header>
-          <p>v2.x versions of BanManager have been reported as compatible. At a mimimum you will require <a href='https://dev.bukkit.org/projects/ban-management/files/675342'>v2.2</a>, please ensure <code>useSyncChat</code> is enabled in the config. Please note the following: documentation and guides are for recent BanManager versions only, there may be bugs, older versions of BanManager are name based, not UUID meaning a change of name will evade bans for online-mode servers.</p>
+          <p>v2.x versions of BanManager have been reported as compatible. At a mimimum you will require <a href='https://dev.bukkit.org/projects/ban-management/files/675342'>v2.2</a>, please ensure <code>useSyncChat</code> is enabled in the config. Please note the following: documentation and guides are for recent BanManager versions only, there may be bugs, cross-server sync is not supported and older versions of BanManager are name based, not UUID meaning a change of name will evade bans for online-mode servers.</p>
 
           <Header as='h4'>java.sql.SQLSyntaxErrorException: Table 'bm_players' doesn't exist</Header>
           <p>This occurs when the wrong JDBC driver is in use. If you are using MariaDB, ensure <code>storageType</code> is set to <code>mariadb</code>.</p>
