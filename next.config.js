@@ -8,7 +8,8 @@ sitemap({
   baseUrl: 'https://banmanagement.com',
   pagesDirectory: path.resolve(__dirname, 'pages'),
   targetDirectory: 'public/',
-  ignoredPaths: ['api']
+  ignoredPaths: ['api'],
+  ignoreIndexFiles: true
 })
 
 const nextConfig = {
