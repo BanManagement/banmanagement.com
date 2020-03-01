@@ -4,7 +4,7 @@ import { getInitialProps } from '../utils'
 
 function Page ({ isMobileFromSSR }) {
   return (
-    <DefaultLayout title='Setup' isMobileFromSSR={isMobileFromSSR}>
+    <DefaultLayout title='Setup' isMobileFromSSR={isMobileFromSSR} description='A list of guides from how to setup BanManager to migrating from other plugins such as AdvancedBan'>
       <Segment vertical>
         <Container text>
           <Header as='h1'>Setup Guides</Header>

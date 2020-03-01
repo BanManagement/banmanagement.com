@@ -32,7 +32,7 @@ function Page ({ isMobileFromSSR }) {
               <List>
                 {featureComp}
               </List>
-              <p>For a full list of supported features check the <a href='/setup/minecraft-server#config'>plugin configuration options</a>.</p>
+              <p>For a full list of supported features check the <a href='/setup/minecraft-server#config'>plugin configuration</a> options and <a href='/setup/commands-permissions'>commands</a>.</p>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
