@@ -18,15 +18,16 @@ import 'semantic-ui-css/components/table.css'
 
 // This default export is required in a new `pages/_app.js` file.
 export default function MyApp ({ Component, pageProps }) {
-  return <>
-    <DefaultSeo
-      openGraph={{
-        type: 'website',
-        locale: 'en_UK',
-        url: 'https://banmanagement.com/',
-        site_name: 'BanManagement',
-      }}
-    />
-    <Component {...pageProps} />
-  </>
+  return (
+    <>
+      <DefaultSeo
+        openGraph={{
+          type: 'website',
+          locale: 'en_UK',
+          url: 'https://banmanagement.com/',
+          site_name: 'BanManagement'
+        }}
+      />
+      <Component {...pageProps} />
+    </>)
 }
