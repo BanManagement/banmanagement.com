@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Header, Image, List, Segment } from 'semantic-ui-react'
+import { Grid, Header, Image, List, Segment } from 'semantic-ui-react'
 import DefaultLayout from '../components/DefaultLayout'
 import { getInitialProps } from '../utils'
 
@@ -18,7 +18,7 @@ const features = [
   'Synchronise punishments between servers',
   'Free!'
 ]
-const featureComp = features.map(feature => <List.Item><List.Icon name='checkmark' /><List.Content>{feature}</List.Content></List.Item>)
+const featureComp = features.map(feature => <List.Item key={feature}><List.Icon name='checkmark' /><List.Content>{feature}</List.Content></List.Item>)
 
 function Page ({ isMobileFromSSR }) {
   return (
