@@ -17,6 +17,13 @@ function Page ({ isMobileFromSSR }) {
               </Grid.Column>
               <Grid.Column>
                 <Segment>
+                  <a href='/setup/commands-permissions'>Commands &amp; Permissions</a>
+                </Segment>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <Segment>
                   <a href='/setup/web-application'>Web Application</a>
                 </Segment>
               </Grid.Column>

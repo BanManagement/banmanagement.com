@@ -12,6 +12,7 @@ import 'semantic-ui-css/components/reset.css'
 import 'semantic-ui-css/components/segment.css'
 import 'semantic-ui-css/components/sidebar.css'
 import 'semantic-ui-css/components/site.css'
+import 'semantic-ui-css/components/table.css'
 
 // This default export is required in a new `pages/_app.js` file.
 export default function MyApp ({ Component, pageProps }) {
