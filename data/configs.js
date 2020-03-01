@@ -6,7 +6,7 @@ const code = {
   # Local Database is always required. If not enabled, plugin will disable on startup.
   local:
     enabled: true
-    storageType: 'mysql'
+    storageType: 'h2'
     host: 127.0.0.1
     port: 3306
     name: local_bans

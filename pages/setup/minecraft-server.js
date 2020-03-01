@@ -16,8 +16,8 @@ function Page ({ isMobileFromSSR }) {
           <p>The recommended installation requires the following stack:</p>
           <List bulleted>
             <List.Item><a href='https://www.spigotmc.org/wiki/buildtools/'>Bukkit</a> or <a href='https://www.spongepowered.org/downloads/'>Sponge</a></List.Item>
-            <List.Item>MySQL or MariaDB</List.Item>
             <List.Item>Java 8+</List.Item>
+            <List.Item>Optionally MySQL or MariaDB for WebUI or cross-server synchronisation support</List.Item>
           </List>
           <Divider horizontal>-</Divider>
 
@@ -37,7 +37,7 @@ function Page ({ isMobileFromSSR }) {
           <p>Edit <code>/BanManager/config.yml</code> to enable the plugin for usage</p>
           <SyntaxHighlighter language='yml'>{code.localDatabase}</SyntaxHighlighter>
           <List bulleted>
-            <List.Item>Ensure <code>enabled</code> is set to true</List.Item>
+            <List.Item>Ensure <code>enabled</code> is set to true. Skip the next steps if using H2.</List.Item>
             <List.Item>If using MariaDB change <code>storageType</code> from <code>mysql</code> to <code>mariadb</code></List.Item>
             <List.Item>Change connection details to match that of your database</List.Item>
             <List.Item>Restart server and check logs to confirm plugin enabled</List.Item>
