@@ -1,41 +1,43 @@
-import { Button, Container, Grid, Header, Image, Segment } from 'semantic-ui-react'
+import { Grid, Header, Image, List, Segment } from 'semantic-ui-react'
 import DefaultLayout from '../components/DefaultLayout'
 import { getInitialProps } from '../utils'
 
-const Heading = ({ mobile }) => (
-  <Container text>
-    <Header
-      as='h2'
-      content='Modern server administration technology'
-      inverted
-      style={{
-        fontWeight: 'normal',
-        marginTop: mobile ? '0.5em' : '1.5em'
-      }}
-    />
-    <Header
-      as='h3'
-      content='A powerful suite for Minecraft Server owners to manage players with ease'
-      inverted
-      style={{
-        fontWeight: 'normal',
-        marginTop: mobile ? '0.5em' : '1.5em'
-      }}
-    />
-    <Button primary size='huge' as='a' href='/setup'>
-      Get Started
-    </Button>
-    <Image src='/images/feature-player.png' alt='Player page preview' bordered rounded floated='left' style={{ marginTop: mobile ? '1.5em' : '2.5em' }} />
-  </Container>
-)
+const features = [
+  'Fully UUID compliant',
+  'Supports H2, MariaDB & MySQL databases',
+  'Player bans',
+  'Player mutes including soft/shadow muting',
+  'Player name bans',
+  'Player reporting system',
+  'IP and IP range bans & mutes',
+  'Succinct permissions',
+  'Integrate punishments with other plugins using the hooks system',
+  'Warnings support, including a points based system for executing actions when a player reaches each level',
+  'Customisable messages with variable support, including custom ban and kick screens',
+  'Supports Bukkit, BungeeCord and Sponge servers',
+  'Synchronise punishments between servers',
+  'Free!'
+]
+const featureComp = features.map(feature => <List.Item key={feature}><List.Icon name='checkmark' /><List.Content>{feature}</List.Content></List.Item>)
 
 function Page ({ isMobileFromSSR }) {
   return (
-    <DefaultLayout title='Features' heading={Heading} isMobileFromSSR={isMobileFromSSR}>
+    <DefaultLayout title='Features' isMobileFromSSR={isMobileFromSSR}>
       <Segment style={{ paddingTop: '2em', clear: 'both' }} vertical>
         <Grid container stackable verticalAlign='middle' divided='vertically'>
           <Grid.Row>
+            <Grid.Column>
+              <Header as='h1'>Features</Header>
+              <Header as='h2'>Minecraft Plugin</Header>
+              <List>
+                {featureComp}
+              </List>
+              <p>For a full list of supported features check the <a href='/setup/minecraft-server#config'>plugin configuration options</a>.</p>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
             <Grid.Column width={8}>
+              <Header as='h2'>WebUI Features</Header>
               <Header>Open Source</Header>
               <Header.Content>Released under an MIT licence. Contributions welcome!</Header.Content>
               <Header>Accounts System</Header>

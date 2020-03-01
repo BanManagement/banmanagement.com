@@ -279,7 +279,7 @@ function Page ({ isMobileFromSSR }) {
           </List>
           <p>Please see <a href='/faq#startup-issues'>FAQ</a> for common database connection issues</p>
 
-          <Header as='h3'>config.yml</Header>
+          <Header as='h3' id='config'>config.yml</Header>
           <ConfigList options={configs.config} />
 
           <Header as='h3'>console.yml</Header>

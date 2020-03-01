@@ -5,7 +5,7 @@ const withTM = require('next-transpile-modules')(['react-syntax-highlighter/dist
 const nextConfig = {
   webpack (config) {
     config.module.rules.push({
-      test: /\.(png|svg|eot|otf|ttf|woff|woff2)$/i,
+      test: /\.(png|svg)$/i,
       use: [{
         loader: 'url-loader',
         options: {
