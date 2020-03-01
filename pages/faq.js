@@ -33,6 +33,9 @@ function Page ({ isMobileFromSSR }) {
           <Header as='h4'>me.confuser.banmanager.internal.mysql.cj.exceptions.CJException: Access denied for user 'root'@'localhost'</Header>
           <p>It is not recommended you use root to connect to the database. Please use or create a non-root user to connect with.</p>
 
+          <Header as='h4'> [bm-local housekeeper] WARN me.confuser.banmanager.internal.hikari.pool.ProxyLeakTask - Connection leak detection triggered</Header>
+          <p>This is usually caused by a slow database connection. If this is expected, disable this check by setting <code>leakDetection </code> to 0. Otherwise, check the resources your database server has and tweak accordingly.</p>
+
           <Header as='h2' id='sync'>Cross-Server Sync</Header>
           <Header as='h4'>Q: I punished a player but it doesn't appear to have synced across all servers</Header>
           <p>Each server polls for data changes including new punishments. Open your <code>schedules.yml</code> file and check your timings. By default local punishments are checked every 30 seconds and global punishments every 2 minutes. Checking more frequently will increase database usage. If this is insufficient, enable <code>checkOnJoin</code> in your config.yml; this will check the database for new punishments when a player joins each server.</p>
