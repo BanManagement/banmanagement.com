@@ -41,7 +41,7 @@ const code = {
 function dependency (artifact, version) {
   return `<dependencies>
   <dependency>
-    <groupId>me.confuser</groupId>
+    <groupId>me.confuser.banmanager</groupId>
     <artifactId>${artifact}</artifactId>
     <version>${version}</version>
     <scope>provided</scope>
