@@ -60,7 +60,7 @@ async function getProps (initialProps) {
 
 function Page ({ events, isMobileFromSSR, versions }) {
   return (
-    <DefaultLayout title='Developers' isMobileFromSSR={isMobileFromSSR}>
+    <DefaultLayout title='Developers' isMobileFromSSR={isMobileFromSSR} description='Integrate with the BanManager API to manage punishments and be notified of changes via custom events'>
       <Segment vertical>
         <Container text>
           <Header as='h1'>Developers</Header>
