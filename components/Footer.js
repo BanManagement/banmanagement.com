@@ -12,10 +12,12 @@ export default function Footer ({ isMobileFromSSR }) {
             <Grid.Column width={3}>
               <Header inverted as='h4' content='About' />
               <List link inverted>
-                <List.Item as='a' href='https://dev.bukkit.org/projects/ban-management'>Bukkit Plugin</List.Item>
-                <List.Item as='a' href='https://ore.spongepowered.org/confuser/BanManager'>Sponge Plugin</List.Item>
-                <List.Item as='a' href='https://github.com/BanManagement/banmanagement.com'>Source</List.Item>
-                <List.Item as='a' href='https://github.com/BanManagement/banmanagement.com/issues'>Report Issues</List.Item>
+                <List.Item as='a' href='https://dev.bukkit.org/projects/ban-management'>BanManager Bukkit Plugin</List.Item>
+                <List.Item as='a' href='https://ore.spongepowered.org/confuser/BanManager'>BanManager Sponge Plugin</List.Item>
+                <List.Item as='a' href='https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/bungee/target/BanManagerBungeeCord.jar'>BanMaanger BungeeCord Plugin</List.Item>
+                <List.Item as='a' href='https://discord.gg/59bsgZB'>Request Support</List.Item>
+                <List.Item as='a' href='https://github.com/BanManagement/banmanagement.com'>Site Source</List.Item>
+                <List.Item as='a' href='https://github.com/BanManagement/banmanagement.com/issues'>Report Site Issues</List.Item>
               </List>
             </Grid.Column>
             {/* <Grid.Column width={3}>
