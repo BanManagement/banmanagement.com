@@ -25,8 +25,9 @@ export default function MyApp ({ Component, pageProps }) {
           type: 'website',
           locale: 'en_UK',
           url: 'https://banmanagement.com/',
-          site_name: 'BanManagement'
+          site_name: 'Ban Management'
         }}
+        titleTemplate='%s | Ban Management'
       />
       <Component {...pageProps} />
     </>)
