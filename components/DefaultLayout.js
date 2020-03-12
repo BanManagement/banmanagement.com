@@ -48,7 +48,8 @@ class DefaultLayout extends React.Component {
         <NextSeo
           description={description} title={title} openGraph={{
             title,
-            url
+            url,
+            description
           }}
           canonical={url}
         />
