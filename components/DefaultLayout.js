@@ -33,7 +33,7 @@ class DefaultLayout extends React.Component {
   }
 
   render () {
-    const { title, children, heading, isMobileFromSSR, description, origin, router } = this.props
+    const { title, children, heading, isMobileFromSSR, description, router } = this.props
     const { leftItems, rightItems } = this.props
 
     return (
@@ -41,10 +41,12 @@ class DefaultLayout extends React.Component {
         <Head>
           <title>{title}</title>
         </Head>
-        <NextSeo description={description} title={title} openGraph={{
-          title,
-          url: `https://banmanagement.com${router.asPath}`
-        }} />
+        <NextSeo
+          description={description} title={title} openGraph={{
+            title,
+            url: `https://banmanagement.com${router.asPath}`
+          }}
+        />
         <ResponsiveContainer heading={heading} leftItems={leftItems} rightItems={rightItems} getWidth={getWidthFactory(isMobileFromSSR)} mobile={isMobileFromSSR}>
           <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
             <div style={{ flex: 1 }}>
