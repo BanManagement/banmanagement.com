@@ -35,6 +35,10 @@ class DefaultLayout extends React.Component {
   render () {
     const { title, children, heading, isMobileFromSSR, description, router } = this.props
     const { leftItems, rightItems } = this.props
+    const origin = 'https://banmanagement.com'
+    let url = `${origin}${router.asPath}`
+
+    if (url.length === (origin.length + 1)) url = origin
 
     return (
       <>
@@ -44,8 +48,9 @@ class DefaultLayout extends React.Component {
         <NextSeo
           description={description} title={title} openGraph={{
             title,
-            url: `https://banmanagement.com${router.asPath}`
+            url
           }}
+          canonical={url}
         />
         <ResponsiveContainer heading={heading} leftItems={leftItems} rightItems={rightItems} getWidth={getWidthFactory(isMobileFromSSR)} mobile={isMobileFromSSR}>
           <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
