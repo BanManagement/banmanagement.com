@@ -61,7 +61,7 @@ const flags = [
   ['-kicks', '-w', 'List kick records of a player via /bminfo', 'bm.command.bminfo.history.kicks', '/bminfo confuser -k'],
   ['-mutes', '-m', 'List the past mutes of a player via /bminfo', 'bm.command.bminfo.history.mutes', '/bminfo confuser -m'],
   ['-notes', '-n', 'List all notes associated with a player via /bminfo', 'bm.command.bminfo.history.notes', '/bminfo confuser -n'],
-  ['-warns', '-w', 'List all warnings of a player via /bminfo', 'bm.command.bminfo.history.warnings', '/bminfo confuser -w'],
+  ['-warnings', '-w', 'List all warnings of a player via /bminfo', 'bm.command.bminfo.history.warnings', '/bminfo confuser -w'],
   ['-time', '-t', 'Limit data by a date using timeDiff formatting', ' ', '/bminfo confuser -t 23w'],
   ['-soft', '-st', 'Soft/shadow muting', 'bm.command.<command>.soft', '/tempmute confuser -st 1d Testing'],
   ['-points', '-p', 'Specify severity of a warning', 'bm.command.warn.points', '/warn confuser -p 4 Testing'],
