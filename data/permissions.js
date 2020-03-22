@@ -23,6 +23,7 @@ const permissions = [
   ['bm.command.activity', 'Allows you to see recent punishment activity'],
   ['bm.command.clear', 'Allows clearing of a players records'],
   ['bm.command.clear.banrecords', 'Allows clearing of a player\'s ban records'],
+  ['bm.command.clear.baniprecords', 'Allows clearing of a player\'s ip ban records'],
   ['bm.command.clear.kicks', 'Allows clearing of a player\'s kick records'],
   ['bm.command.clear.muterecords', 'Allows clearing of a player\'s mute records'],
   ['bm.command.clear.notes', 'Allows clearing of a player\'s notes'],

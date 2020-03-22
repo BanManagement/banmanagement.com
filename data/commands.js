@@ -27,7 +27,7 @@ const commands = [
   ['/bmreload', 'Reload plugin configuration and messages (excludes database connection info)', '', 'bm.command.reload'],
   ['/banlist [players || ipranges || ips]', 'List all bans stored in memory', '', 'bm.command.banlist'],
   ['/bmsync <local || external>', 'Force the server to syncronise with the database', '', 'bm.command.sync'],
-  ['/bmclear <player> [banrecords || kicks || muterecords || notes || warnings]', 'Clear all records of a player or specify a type', '', 'bm.command.clear'],
+  ['/bmclear <player> [banrecords || baniprecords || kicks || muterecords || notes || warnings]', 'Clear all records of a player or specify a type', '', 'bm.command.clear'],
   ['/bmdelete <banrecords || kicks || muterecords || notes || warnings> <ids>', 'Delete specific records for a player based on ids from /bminfo', '', 'bm.command.delete'],
   ['/bmactivity <timeDiff> [player]', 'View recent activity of staff, or a particular player', '', 'bm.command.activity'],
   ['/alts <player || ip>', 'List players which have the same ip address', '', 'bm.command.alts'],
