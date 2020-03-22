@@ -1,3 +1,4 @@
+import React from 'react'
 import { Container, Divider, Header, List, Segment } from 'semantic-ui-react'
 import DefaultLayout from '../../components/DefaultLayout'
 import SyntaxHighlighter from '../../components/SyntaxHighlighter'
@@ -10,14 +11,19 @@ const code = {
     disallowed: '&6You have been banned from this server for &4[reason] Use [pin]'`,
   mkdir: `mkdir /home/banmanager
 cd /home/banmanager`,
-  clone: `git clone https://github.com/BanManagement/BanManager-WebUI.git
-git clone https://github.com/BanManagement/BanManager-WebAPI.git`,
-  apiInstall: `cd /home/banmanager/BanManager-WebAPI
-npm ci --production`,
+  clone: 'git clone https://github.com/BanManagement/BanManager-WebUI.git',
   uiInstall: `cd /home/banmanager/BanManager-WebUI
 npm ci --production`,
-  uiEnv: `NODE_ENV=production
-API_HOST=https://api.demo.banmanagement.com`
+  uiEnv: `CONTACT_EMAIL
+ENCRYPTION_KEY
+SESSION_KEY
+NOTIFICATION_VAPID_PUBLIC_KEY
+NOTIFICATION_VAPID_PRIVATE_KEY
+DB_HOST
+DB_PORT
+DB_USER
+DB_PASSWORD
+DB_NAME`
 }
 
 function Page ({ isMobileFromSSR }) {
@@ -41,7 +47,7 @@ function Page ({ isMobileFromSSR }) {
           <Divider horizontal>-</Divider>
 
           <Header as='h2'>Initial Setup</Header>
-          <p>There are three parts, the Bukkit plugin which enables web only features, the UI which renders the page, and the API which is responsible for all state management.</p>
+          <p>There are two parts, the Minecraft plugin which enables web only features and the UI which renders the page and provides a GraphQL API.</p>
 
           <Header as='h3'>BanManager-WebEnhancer setup</Header>
           <p>This is a required Bukkit plugin which enables web only features.</p>
@@ -67,30 +73,21 @@ function Page ({ isMobileFromSSR }) {
 
           <Divider horizontal>-</Divider>
 
-          <Header as='h2'>API</Header>
-          <p>First we setup the API component as it is where all major configuration is handled.</p>
+          <Header as='h2'>UI</Header>
           <Header as='h3'>Install</Header>
-          <SyntaxHighlighter language='bash'>{code.apiInstall}</SyntaxHighlighter>
+          <SyntaxHighlighter language='bash'>{code.uiInstall}</SyntaxHighlighter>
 
           <p>Once dependencies have been downloaded and installed, run the setup command:</p>
           <SyntaxHighlighter language='bash'>npm run setup</SyntaxHighlighter>
 
           <Header as='h3'>Install questions</Header>
           <p>During the installation, the CLI will ask a number of questions to configure the application. Press <kbd>Enter</kbd> to use the default value. If you make a mistake during the installation process, simply restart the setup.</p>
-          <p>The CLI will generate a .env file containing the necessary environment variables in order for the application to run. This will automatically be used on start up. If you do not wish to use this, simply remove the file and pass them in yourself when running the process.</p>
+          <p>The CLI will generate a .env file containing the necessary environment variables in order for the application to run. This will automatically be used on start up. If you do not wish to use this, simply remove the file and pass in the environment variables yourself when running the process.</p>
 
-          <Header as='h4'>UI Site Hostname</Header>
-          <p>Enter the exact URL your site will be available at, including the protocol for HTTP or HTTPS. For example <code>https://demo.banmanagement.com</code></p>
-          <Header as='h4'>API Port</Header>
-          <p>The port the API process should bind to. This defaults to port 3000. Pick a high numbered port that is not being used.</p>
-          <Header as='h4'>Cookie Session Name</Header>
-          <p>This defaults to bm-ui-sess and it is not recommended this be changed unless you plan on running multiple instances on the same domain.</p>
-          <Header as='h4'>Top Level Cookie Domain</Header>
-          <p>Ideally the API application will be running on a subdomain. In order to allow cookies to be shared between the applications, this should be set to the top level domain name. For example, if it is being run on <code>https://api.demo.banmanagement.com</code>, and the site is accessible via <code>https://demo.banmanagement.com</code>, then this value should be set to <code>demo.banmanagement.com</code>. If this value is incorrect, you will not be able to login.</p>
           <Header as='h4'>Contact Email Address</Header>
           <p>On setup, tokens are generated to enable push notifications. This is a requirement from vendors in order to contact you if this functionality is abused. This should be an email address that can receive mail.</p>
           <Header as='h4'>Database Host</Header>
-          <p>This should be the host of the database used to setup web specific tables such as logins. This can be the same database used by the BanManager Bukkit plugin, but it does not have to be. The setup process will create the tables for you.</p>
+          <p>This should be the host of the database used to setup web specific tables such as logins. This can be the same database used by the BanManager Minecraft plugin, but it does not have to be. The setup process will create the tables for you.</p>
           <Header as='h4'>Database Port</Header>
           <p>As above, this will default to 3306</p>
           <Header as='h4'>Database User</Header>
@@ -100,7 +97,7 @@ function Page ({ isMobileFromSSR }) {
           <Header as='h4'>Database Name</Header>
           <p>As above</p>
           <Header as='h4'>Add BanManager Server</Header>
-          <p>You'll be prompted to specify details of your BanManager plugin database connection details. If tables are not found or the connection fails, you will be reprompted the question again.</p>
+          <p>You will be prompted to specify details of your BanManager plugin database connection details. If tables are not found or the connection fails, you will be reprompted the question again.</p>
           <Header as='h4'>playerPins table</Header>
           <p>This is the name of the table which contains login pins. By default this is set to bm_player_pins and is the value within your <code>BanManager-WebEnhancer/config.yml</code> file.</p>
           <Header as='h4'>playerReportLogs table</Header>
@@ -116,30 +113,22 @@ function Page ({ isMobileFromSSR }) {
           <Header as='h4'>Your Password</Header>
           <p>Set this to a value you wish to use to login with. This does not and should NOT be the same password as your Mojang account. If you forget this password, you can login using a pin generated in-game via <code>/bmpin</code> command (requires BanManager-WebEnhancer).</p>
           <Header as='h4'>Your Minecraft Player UUID</Header>
-          <p>This is required to setup your login and associate your data. If you're not sure what this is, use a lookup tool such as <a href='https://mcuuid.net/'>https://mcuuid.net/</a> to lookup your UUID.</p>
+          <p>This is required to setup your login and associate your data. If you're not sure what this is, use a lookup tool such as <a href='https://mcuuid.net/'>https://mcuuid.net/</a> to lookup your online UUID.</p>
 
           <Header as='h3'>Run</Header>
-          <SyntaxHighlighter language='bash'>node server.js</SyntaxHighlighter>
-          <p>In order to access the API publicly, it's recommended to use a web server such as NGINX. This is not covered by this setup guide.</p>
-          <p>Note, you should use your OS recommended process manager to keep the API running in the background, e.g. systemd or you can use an alternative such as <a href='https://github.com/Unitech/pm2'>PM2</a>. This part is also not covered in the setup guide. However, you may find numerous <a href='https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04'>articles</a> elsewhere which cover this.</p>
-
-          <Divider horizontal>-</Divider>
-
-          <Header as='h2'>UI</Header>
-          <p>Next we setup the UI component which is what you and your players will be viewing in a web browser.</p>
-          <Header as='h3'>Install</Header>
-          <SyntaxHighlighter language='bash'>{code.uiInstall}</SyntaxHighlighter>
-
-          <p>Once dependencies have been downloaded and installed, create a <code>.env</code> file in the directory. This part is not yet covered by a CLI tool and must be setup manually.</p>
-          <p>Add the following into the file, replacing the hostname with yours. Please note that this must be a publicly accessible domain, localhost will not work unless you are running this locally.</p>
+          <p>The following environment variables are required and should have been generated by the previous setup step.</p>
           <SyntaxHighlighter language='bash'>{code.uiEnv}</SyntaxHighlighter>
+          <p>If you are not using the .env file, you must pass these variables yourself in the next steps.</p>
 
           <p>Next, run the build command to generate the UI. This may take some time.</p>
           <SyntaxHighlighter language='bash'>npm run build</SyntaxHighlighter>
 
-          <Header as='h3'>Run</Header>
-          <p>Once complete, start the server. Note, please review the API Run section to cover this properly.</p>
+          <p>Now start the server:</p>
           <SyntaxHighlighter language='bash'>node server.js</SyntaxHighlighter>
+
+          <p>By default the server will bind to port 3000. To change this specify the port via a <code>PORT</code> environment variable.</p>
+          <p>It is highly recommended to use a web server such as NGINX to provide HTTPS support and defend against a number of common web attacks. Certificates for HTTPS can be obtained freely via <a href='https://letsencrypt.org/'>Let's Encrypt</a>. This is not covered by this setup guide.</p>
+          <p>Note, you should use your OS recommended process manager to keep the API running in the background, e.g. systemd or you can use an alternative such as <a href='https://github.com/Unitech/pm2'>PM2</a>. This part is also not covered in the setup guide. However, you may find numerous <a href='https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04'>articles</a> elsewhere which cover this.</p>
 
           <p>That's it! Now head over to your UI domain and login.</p>
         </Container>
