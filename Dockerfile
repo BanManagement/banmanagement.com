@@ -30,7 +30,4 @@ RUN npm run build
 # expose port and define CMD
 EXPOSE 3000
 
-# Run container as non-root (unprivileged) user
-USER node
-
 CMD npm start
