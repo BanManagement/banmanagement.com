@@ -41,7 +41,10 @@ const commands = [
   ['/bmrollback <player> <timeDiff> [types]', 'Allows rolling back malicious actions by a staff member', '', 'bm.command.bmrollback'],
   ['/banname <name> <reason>', 'Ban any players with the name specified', '-s', 'bm.command.banname'],
   ['/tempbanname <name> <timeDiff> <reason>', 'Temporarily ban a name', '-s', 'bm.command.tempbanname'],
-  ['/unbanname <name> [reason]', 'Unban a name', '', 'bm.command.unbanname']
+  ['/unbanname <name> [reason]', 'Unban a name', '', 'bm.command.unbanname'],
+  ['/bmutils <duplicates||missingplayers>', 'Utility commands to aid with resolving issues', '', 'bm.command.bmutils'],
+  ['/bmutils duplicates [UUID] [newName]', 'Finds duplicate player names and allows manual updating of a player name', '', 'bm.command.bmutils.duplicates'],
+  ['/bmutils missingplayers', 'Finds missing player records associated to punishments and creates them', '', 'bm.command.bmutils.missingplayers']
 ]
 const globalCommands = [
   ['/banall <player> <reason>', 'Permanently ban a player across multiple servers', 'bm.command.banall'],

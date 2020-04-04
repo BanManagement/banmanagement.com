@@ -1,3 +1,4 @@
+import React from 'react'
 import { Container, Header, List, Segment } from 'semantic-ui-react'
 import DefaultLayout from '../components/DefaultLayout'
 import { getInitialProps } from '../utils'
@@ -26,6 +27,20 @@ function Page ({ isMobileFromSSR }) {
 
           <Header as='h4'>Q: I'd like to use BanManager with Tekkit Classic, which version is compatible?</Header>
           <p>v2.x versions of BanManager have been reported as compatible. At a mimimum you will require <a href='https://dev.bukkit.org/projects/ban-management/files/675342'>v2.2</a>, please ensure <code>useSyncChat</code> is enabled in the config. Please note the following: documentation and guides are for recent BanManager versions only, there may be bugs, cross-server sync is not supported and older versions of BanManager are name based, not UUID meaning a change of name will evade bans for online-mode servers.</p>
+
+          <Header as='h4' id='duplicate-issues'>[WARN]: [BanManager] Duplicates found for player_name</Header>
+          <p>This is caused when players have the same name. When a command is executed, BanManager is unable to ascertain which player should be affected.</p>
+          <p>Resolving this issue depends on your online mode setting. In Online Mode, the plugin will attempt to resolve this when the affected players join; this requires a request to Mojang which sometimes fails due to rate limitations. In order to resolve this, please follow the steps below:</p>
+          <Header as='h5'>Online Mode</Header>
+          <List bulleted>
+            <List.Item>Run <code>/bmutils duplicates</code> as a player; will output up to 10 duplicate names.</List.Item>
+            <List.Item>Each name will contain the amount of duplicates found along side a number, e.g. <code>[confuser] * 2 [1] [2]</code></List.Item>
+            <List.Item>Clicking <code>[x]</code> will populate your chat with a command to set the name manually, e.g. <code>/bmutils duplicates ae51c849-3f2a-4a37-986d-55ed5b02307f confuser</code></List.Item>
+            <List.Item>Where possible, BanManager will attempt to retrieve the correct name from Mojang. Should this fail, the name argument will default to <code>newName</code>. Should this occur, it is recommended you perform the correct name for each UUID yourself using a service such as <a href='https://mcuuid.net'>mcuuid.net</a>.</List.Item>
+            <List.Item>Execute the command to update the name. Repeat these steps for each UUID until no more duplicates exist.</List.Item>
+          </List>
+          <Header as='h5'>Offline Mode</Header>
+          <p>Follow the first 3 steps from Online Mode. Set the name manually yourself. Note, names are case insensitive within BanManager, however Minecraft interprets players of the same name with different cases, e.g. confuser &amp; cOnFuSer as separate players. You should use an additional plugin to handle this correctly such as <a href='https://www.spigotmc.org/resources/authmereloaded.6269'>AuthMe</a>.</p>
 
           <Header as='h4'>java.sql.SQLSyntaxErrorException: Table 'bm_players' doesn't exist</Header>
           <p>This occurs when the wrong JDBC driver is in use. If you are using MariaDB, ensure <code>storageType</code> is set to <code>mariadb</code>.</p>

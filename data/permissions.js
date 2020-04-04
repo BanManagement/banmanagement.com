@@ -129,7 +129,10 @@ const permissions = [
   ['bm.command.reports.list', 'List assigned reports'],
   ['bm.command.reports.list.others', 'List all reports'],
   ['bm.command.reports.teleport', 'Teleport to a player report location'],
-  ['bm.command.reports.unassign', 'Unassign a report']
+  ['bm.command.reports.unassign', 'Unassign a report'],
+  ['bm.command.bmutils', 'Allows access utility commands'],
+  ['bm.command.bmutils.missingplayers', 'Allows access to missingplayers subcommand'],
+  ['bm.command.bmutils.duplicates', 'Allows access to duplicates subcommand']
 ]
 
 export default permissions
