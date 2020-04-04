@@ -37,7 +37,7 @@
     "url-loader": "4.0.0"
   },
   "devDependencies": {
-    "babel-eslint": "10.1.0",
+    "babel-eslint": "8.2.6",
     "eslint-plugin-react": "7.19.0",
     "standard": "14.3.3"
   },
