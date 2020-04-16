@@ -14,7 +14,7 @@ import MenuLink from '../components/MenuLink'
 
 const renderMenu = (items) => items.map(item => {
   if (item.as === 'a') {
-    return <a key={item.name} href={item.href}>{item.name}</a>
+    return <a key={item.name} href={item.href} className='item'>{item.name}</a>
   } else {
     return <MenuLink key={item.name} {...item} />
   }
