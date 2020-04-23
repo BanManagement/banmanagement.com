@@ -52,7 +52,7 @@ function Page ({ isMobileFromSSR }) {
           <ConfigList options={configs.console} />
 
           <Header as='h3'>discord.yml</Header>
-          <p>Allows sending messages to Discord server channels when a punishment occurs. Supports Bukkit only and requires <a href='https://www.spigotmc.org/resources/discordsrv.18494/'>DiscordSRV</a> plugin.</p>
+          <p>Allows sending messages to Discord server channels when a punishment occurs. Bukkit requires <a href='https://www.spigotmc.org/resources/discordsrv.18494/'>DiscordSRV</a> and Sponge requires <a href='https://ore.spongepowered.org/Eufranio/MagiBridge'>MagiBridge</a>.</p>
           <Header as='h4'>Example</Header>
           <SyntaxHighlighter language='yml'>{code.discord}</SyntaxHighlighter>
           <ConfigList options={configs.discord} />

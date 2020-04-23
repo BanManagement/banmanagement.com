@@ -170,23 +170,23 @@ const configs = {
     enabled: 'Set to true to enable discord integration',
     punishments: {
       ban: {
-        channel: 'The name of the Discord channel (not id) specified in your DiscordSRV config.yml file',
+        channel: 'The name (for DiscordSRV) or ID (for MagiBridge) of the Discord channel specified in your DiscordSRV config.yml file',
         message: 'Supports Discord Markdown, use \n to represent a new line'
       },
       tempban: {
-        channel: 'The name of the Discord channel (not id) specified in your DiscordSRV config.yml file',
+        channel: 'The name (for DiscordSRV) or ID (for MagiBridge) of the Discord channel specified in your DiscordSRV config.yml file',
         message: 'Supports Discord Markdown, use \n to represent a new line'
       },
       mute: {
-        channel: 'The name of the Discord channel (not id) specified in your DiscordSRV config.yml file',
+        channel: 'The name (for DiscordSRV) or ID (for MagiBridge) of the Discord channel specified in your DiscordSRV config.yml file',
         message: 'Supports Discord Markdown, use \n to represent a new line'
       },
       tempmute: {
-        channel: 'The name of the Discord channel (not id) specified in your DiscordSRV config.yml file',
+        channel: 'The name (for DiscordSRV) or ID (for MagiBridge) of the Discord channel specified in your DiscordSRV config.yml file',
         message: 'Supports Discord Markdown, use \n to represent a new line'
       },
       warning: {
-        channel: 'The name of the Discord channel (not id) specified in your DiscordSRV config.yml file',
+        channel: 'The name (for DiscordSRV) or ID (for MagiBridge) of the Discord channel specified in your DiscordSRV config.yml file',
         message: 'Supports Discord Markdown, use \n to represent a new line'
       }
     }
