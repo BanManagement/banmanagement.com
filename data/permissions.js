@@ -20,7 +20,7 @@ const permissions = [
   ['bm.command.banlist.players', 'Allows you to see active player bans stored in memory'],
   ['bm.command.banlist.ips', 'Allows you to see active ip bans stored in memory'],
   ['bm.command.banlist.ipranges', 'Allows you to see active ip range bans stored in memory'],
-  ['bm.command.activity', 'Allows you to see recent punishment activity'],
+  ['bm.command.bmactivity', 'Allows you to see recent punishment activity'],
   ['bm.command.clear', 'Allows clearing of a players records'],
   ['bm.command.clear.banrecords', 'Allows clearing of a player\'s ban records'],
   ['bm.command.clear.baniprecords', 'Allows clearing of a player\'s ip ban records'],

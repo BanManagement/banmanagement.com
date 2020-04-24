@@ -29,7 +29,7 @@ const commands = [
   ['/bmsync <local || external>', 'Force the server to syncronise with the database', '', 'bm.command.sync'],
   ['/bmclear <player> [banrecords || baniprecords || kicks || muterecords || notes || warnings]', 'Clear all records of a player or specify a type', '', 'bm.command.clear'],
   ['/bmdelete <banrecords || kicks || muterecords || notes || warnings> <ids>', 'Delete specific records for a player based on ids from /bminfo', '', 'bm.command.delete'],
-  ['/bmactivity <timeDiff> [player]', 'View recent activity of staff, or a particular player', '', 'bm.command.activity'],
+  ['/bmactivity <timeDiff> [player]', 'View recent activity of staff, or a particular player', '', 'bm.command.bmactivity'],
   ['/alts <player || ip>', 'List players which have the same ip address', '', 'bm.command.alts'],
   ['/report <player> <reason>', 'Report a player for rule breaking, logs their location and the actors location, as well as other data', '', 'bm.command.report'],
   ['/reports', 'Report management, executes list by default', '', 'bm.command.reports'],
