@@ -1,3 +1,4 @@
+import React from 'react'
 import { Button, Container, Grid, Header, Image, Segment } from 'semantic-ui-react'
 import DefaultLayout from '../components/DefaultLayout'
 import { getInitialProps } from '../utils'
@@ -15,7 +16,7 @@ const Heading = ({ mobile }) => (
     />
     <Header
       as='h3'
-      content='A powerful suite for Minecraft Server owners to manage players with ease'
+      content='An Open Source suite for Minecraft Server owners to manage player punishments'
       inverted
       style={{
         fontWeight: 'normal',
@@ -33,48 +34,61 @@ function Page ({ isMobileFromSSR }) {
   return (
     <DefaultLayout title='Home' heading={Heading} isMobileFromSSR={isMobileFromSSR} description='A suite of Minecraft plugins such as BanManager for server owners to manage punishments with ease, supporting Bukkit, BungeeCord and Sponge'>
       <Segment style={{ padding: '2em 0em', clear: 'both' }} vertical>
-        <Grid container divided stretched stackable centered columns='equal' verticalAlign='middle'>
+        <Grid container stretched stackable centered columns='equal' verticalAlign='bottom'>
           <Grid.Row>
-            <Header as='h2'>Server Plugins</Header>
+            <Header as='h2'>
+              BanManager
+              <Header.Subheader>
+                The core plugin for popular platforms offering a <a href='/features'>variety of features</a>
+              </Header.Subheader>
+            </Header>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column textAlign='center'>
-              <Image src='/images/bukkit-logo.png' size='tiny' centered alt='Bukkit Logo' />
-              <Header as='h3' style={{ fontSize: '1.5em' }}>Bukkit</Header>
-              <Header.Content style={{ marginTop: '1em' }}>
-                <Button size='big' icon='download' as='a' href='https://dev.bukkit.org/projects/ban-management' aria-label='Download BanManager' />
-                <Button size='big' icon='github' as='a' href='https://github.com/BanManagement/BanManager' aria-label='View BanManager Source' />
-              </Header.Content>
+              <a href='https://dev.bukkit.org/projects/ban-management'>
+                <Image src='/images/bukkit-logo.png' size='tiny' centered alt='Bukkit Logo' />
+                <Header as='h3' style={{ fontSize: '1.5em' }}>Bukkit</Header>
+              </a>
             </Grid.Column>
             <Grid.Column textAlign='center'>
-              <Image src='/images/sponge-logo.svg' size='tiny' centered alt='Sponge Logo' />
-              <Header as='h3' style={{ fontSize: '1.5em' }}>Sponge</Header>
-              <Header.Content style={{ marginTop: '1em' }}>
-                <Button size='big' icon='download' as='a' href='https://ore.spongepowered.org/confuser/BanManager' aria-label='Download BanManager' />
-                <Button size='big' icon='github' as='a' href='https://github.com/BanManagement/BanManager' aria-label='View BanManager Source' />
-              </Header.Content>
+              <a href='https://ci.frostcast.net/job/BanManager'>
+                <Image src='/images/bungeecord-logo.png' size='small' centered alt='BungeeCord Logo' />
+                <Header as='h3' style={{ fontSize: '1.5em' }}>BungeeCord</Header>
+              </a>
             </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Header as='h2'>Web Applications</Header>
-          </Grid.Row>
-          <Grid.Row>
             <Grid.Column textAlign='center'>
-              <Image src='/images/graphql-logo.png' size='tiny' centered alt='GraphQL Logo' />
-              <Header as='h3' style={{ fontSize: '1.5em' }}>BanManager-WebAPI</Header>
-              <Header.Content>A Node.js GraphQL based API to manage all your data</Header.Content>
-              <Header.Content style={{ marginTop: '1em' }}>
-                <Button size='big' icon='download' as='a' href='https://github.com/BanManagement/BanManager-WebAPI' aria-label='Download BanManager-WebAPI' />
-                <Button size='big' icon='github' as='a' href='https://github.com/BanManagement/BanManager-WebAPI' aria-label='View BanManagerWebAPI Source' />
-              </Header.Content>
+              <a href='https://ore.spongepowered.org/confuser/BanManager'>
+                <Image src='/images/sponge-logo.svg' size='tiny' centered alt='Sponge Logo' />
+                <Header as='h3' style={{ fontSize: '1.5em' }}>Sponge</Header>
+              </a>
             </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Segment>
+      <Segment style={{ padding: '2em 0em', clear: 'both' }} vertical>
+        <Grid container stretched stackable centered columns='equal' verticalAlign='bottom'>
+          <Grid.Row>
+            <Header as='h2'>
+              Web Applications
+            </Header>
+          </Grid.Row>
+          <Grid.Row>
             <Grid.Column textAlign='center'>
               <Image src='/images/react-logo.png' size='tiny' centered alt='React Logo' />
-              <Header as='h3' style={{ fontSize: '1.5em' }}>BanManager-WebUI</Header>
-              <Header.Content>A Node.js React based UI</Header.Content>
+              <Header as='h3' style={{ fontSize: '1.5em' }}>Web UI</Header>
+              <Header.Content>A Node.js React/GraphQL based UI</Header.Content>
               <Header.Content style={{ marginTop: '1em' }}>
                 <Button size='big' icon='download' as='a' href='https://github.com/BanManagement/BanManager-WebUI' aria-label='Download BanManager-WebUI' />
                 <Button size='big' icon='github' as='a' href='https://github.com/BanManagement/BanManager-WebUI' aria-label='View BanManager-WebUI Source' />
+              </Header.Content>
+            </Grid.Column>
+            <Grid.Column textAlign='center'>
+              <Image src='/images/php-logo.svg' size='tiny' centered alt='PHP Logo' />
+              <Header as='h3' style={{ fontSize: '1.5em' }}>Legacy Web UI</Header>
+              <Header.Content>A PHP based UI to display punishment data</Header.Content>
+              <Header.Content style={{ marginTop: '1em' }}>
+                <Button size='big' icon='download' as='a' href='https://github.com/BanManagement/BanManager-WebUI/archive/legacy.zip' aria-label='Download Legacy BanManager-WebUI' />
+                <Button size='big' icon='github' as='a' href='https://github.com/BanManagement/BanManager-WebUI/tree/legacy' aria-label='View Legacy BanManagerWebAPI Source' />
               </Header.Content>
             </Grid.Column>
           </Grid.Row>

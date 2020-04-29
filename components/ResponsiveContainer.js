@@ -124,7 +124,7 @@ class MobileContainer extends Component {
                   <Button as='a' inverted href='https://demo.banmanagement.com'>
                     Demo
                   </Button>
-                  <Button as='a' inverted style={{ marginLeft: '0.5em' }} href='https://github.com/BanManagement/BanManager-WebUI'>
+                  <Button as='a' inverted style={{ marginLeft: '0.5em' }} href='https://github.com/BanManagement'>
                     Source
                   </Button>
                 </Menu.Item>

@@ -47,7 +47,7 @@ function Page ({ isMobileFromSSR }) {
                 <List.Item as='a' href='#schedules.yml'>schedules.yml</List.Item>
               </List.List>
             </List.Item>
-            <List.Item as='a' href='#multipe-servers'>Multiple Servers</List.Item>
+            <List.Item as='a' href='#multiple-servers'>Multiple Servers</List.Item>
           </List>
 
           <Header as='h3' id='quick-start'>Quick Start</Header>
