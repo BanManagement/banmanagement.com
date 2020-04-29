@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Header, List, Segment } from 'semantic-ui-react'
 import DefaultLayout from '../components/DefaultLayout'
 import { getInitialProps } from '../utils'
+import SyntaxHighlighter from 'react-syntax-highlighter'
 
 function Page ({ isMobileFromSSR }) {
   return (
@@ -27,6 +28,12 @@ function Page ({ isMobileFromSSR }) {
 
           <Header as='h4'>Q: I'd like to use BanManager with Tekkit Classic, which version is compatible?</Header>
           <p>v2.x versions of BanManager have been reported as compatible. At a mimimum you will require <a href='https://dev.bukkit.org/projects/ban-management/files/675342'>v2.2</a>, please ensure <code>useSyncChat</code> is enabled in the config. Please note the following: documentation and guides are for recent BanManager versions only, there may be bugs, cross-server sync is not supported and older versions of BanManager are name based, not UUID meaning a change of name will evade bans for online-mode servers.</p>
+
+          <Header as='h4'>Q: How can I add new lines to the player denied screen when a banned player tries to join?</Header>
+          <p>Use <code>\n</code> within the message in the messages.yml wherever you'd like a new line to start. For example:</p>
+          <SyntaxHighlighter language='yaml'>
+            disallowed: '&amp;6Banned on Frostcast\n[reason]'
+          </SyntaxHighlighter>
 
           <Header as='h4' id='duplicate-issues'>[WARN]: [BanManager] Duplicates found for player_name</Header>
           <p>This is caused when players have the same name. When a command is executed, BanManager is unable to ascertain which player should be affected.</p>
