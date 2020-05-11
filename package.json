@@ -39,7 +39,7 @@
   "devDependencies": {
     "babel-eslint": "8.2.6",
     "eslint-plugin-react": "7.19.0",
-    "standard": "14.3.3"
+    "standard": "14.3.4"
   },
   "standard": {
     "parser": "babel-eslint"
