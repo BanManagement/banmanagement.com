@@ -39,7 +39,7 @@ function Page ({ isMobileFromSSR }) {
             <List.Item><a href='/setup/minecraft-server'>BanManager</a> setup on a Bukkit/Sponge compatible server</List.Item>
             <List.Item>MySQL (this can be the same database used above but must be accessible)</List.Item>
             <List.Item>Git</List.Item>
-            <List.Item><a href='https://nodejs.org/'>Node.js</a> 8 or above</List.Item>
+            <List.Item><a href='https://nodejs.org/'>Node.js</a> 12 or above</List.Item>
             <List.Item>NGINX or equivalent (for SSL)</List.Item>
             <List.Item>A server with at least 1GB memory</List.Item>
             <List.Item>A registered domain name</List.Item>
