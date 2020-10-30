@@ -88,7 +88,22 @@ swearing: "Swearing in chat"`,
       delay: 10
     - cmd: banip [player] [reason]
     post:
-    - cmd: broadcast [player] banned`
+    - cmd: broadcast [player] banned`,
+  timeLimits: `timeLimits:
+  playerMutes:
+    Moderator: 1h
+  playerBans:
+    Moderator: 1d
+  playerWarnings:
+    Moderator: 30d
+  ipBans:
+    Moderator: 1d
+  ipMutes:
+    Moderator: 1d
+  rollbacks:
+    Moderator: 1d
+  nameBans:
+    Moderator: 1d`
 }
 
 const configs = {
@@ -101,7 +116,7 @@ const configs = {
     logIps: 'Log join/leave history of players, if disabled only the most recent ip address will be stored',
     displayNotifications: 'Broadcasts punishment events to those with bm.notify.X permissions',
     broadcastOnSync: 'Broadcasts a message when new punishments are synced between the database and Minecraft server',
-    timeLimits: 'Creates a custom permission to limit the length a player can punish another player for. Once configured, assign the player with the appropriate permission e.g. bm.timelimit.X.Y where X is the punishment type and Y is the custom name you have provided.',
+    timeLimits: <>Creates a custom permission to limit the length a player can punish another player for. Once configured, assign the player with the appropriate permission e.g. bm.timelimit.X.Y where X is the punishment type and Y is the custom name you have provided. <br /><br />As an example, granting a player the bm.timelimit.playerBans.Moderator permission with the following configuration will only allow them to temporary ban a player for up to 1 day:<SyntaxHighlighter language='yml'>{code.timeLimits}</SyntaxHighlighter></>,
     reportCooldown: 'To prevent duplicate reports you can set a cooldown to limit the amount in seconds before a player can be reported again. Set to 0 to disable.',
     warningCooldown: 'To prevent duplicate warnings you can set a cooldown to limit the amount in seconds before a player can be warned again. Set to 0 to disable.',
     warningActions: {
