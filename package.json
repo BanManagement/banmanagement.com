@@ -13,7 +13,7 @@
   "author": "James Mortemore (jamesmortemore@gmail.com)",
   "license": "MIT",
   "engines": {
-    "node": ">=10.13.0 <13"
+    "node": ">=10.13.0 <15"
   },
   "dependencies": {
     "@zeit/next-bundle-analyzer": "0.1.2",
