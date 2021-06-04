@@ -1,26 +1,21 @@
+import PropTypes from 'prop-types'
+import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
+import '../styles/index.css'
 
-// Only import what we need
-import 'semantic-ui-css/components/button.css'
-import 'semantic-ui-css/components/container.css'
-import 'semantic-ui-css/components/divider.css'
-import 'semantic-ui-css/components/grid.css'
-import 'semantic-ui-css/components/header.css'
-import 'semantic-ui-css/components/icon.css'
-import 'semantic-ui-css/components/image.css'
-import 'semantic-ui-css/components/menu.css'
-import 'semantic-ui-css/components/list.css'
-import 'semantic-ui-css/components/reset.css'
-import 'semantic-ui-css/components/segment.css'
-import 'semantic-ui-css/components/sidebar.css'
-import 'semantic-ui-css/components/site.css'
-import 'semantic-ui-css/components/table.css'
-import '../public/styles.css'
-
-// This default export is required in a new `pages/_app.js` file.
-export default function MyApp ({ Component, pageProps }) {
+function MyApp ({ Component, pageProps }) {
   return (
     <>
+      <Head>
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <link rel='apple-touch-icon' sizes='76x76' href='/images/apple-touch-icon.png' />
+        <link rel='icon' type='image/png' sizes='32x32' href='/images/favicon-32x32.png' />
+        <link rel='icon' type='image/png' sizes='16x16' href='/images/favicon-16x16.png' />
+        <link rel='manifest' href='/site.webmanifest' />
+        <link rel='mask-icon' href='/images/safari-pinned-tab.svg' color='#5bbad5' />
+        <meta name='msapplication-TileColor' content='#0F0E0D' />
+        <meta name='theme-color' content='#0F0E0D' />
+      </Head>
       <DefaultSeo
         openGraph={{
           type: 'website',
@@ -31,5 +26,13 @@ export default function MyApp ({ Component, pageProps }) {
         titleTemplate='%s | Ban Management'
       />
       <Component {...pageProps} />
-    </>)
+    </>
+  )
 }
+
+MyApp.propTypes = {
+  pageProps: PropTypes.object,
+  Component: PropTypes.elementType
+}
+
+export default MyApp

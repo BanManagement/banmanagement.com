@@ -1,0 +1,23 @@
+---
+layout: 'docs'
+title: 'Migrating from AdvancedBan'
+navTitle: 'AdvancedBan'
+category: 'Migration Guides'
+---
+This will import bans, ip bans, mutes and warnings from [AdvancedBan](https://www.spigotmc.org/resources/advancedban.8695/)
+
+## Prerequisites
+- BanManager setup on your Minecraft server
+
+## Migration
+Run the following command either in-game or via your Minecraft server console:
+
+`/bmimport advancedban 127.0.0.1 3306 databaseName username password`
+
+Replace the command arguments with your database connection details for AdvancedBan, e.g.
+
+`/bmimport advancedban 127.0.0.1 3006 banmanager survival mypass`
+
+BanManager will begin importing data from AdvancedBan. You will be sent a message once completed.
+
+Check the Minecraft server console for any potential issues with the import.

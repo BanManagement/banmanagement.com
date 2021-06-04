@@ -1,0 +1,336 @@
+---
+layout: 'docs'
+title: 'config.yml'
+navTitle: 'config.yml'
+category: 'Configuration'
+description: 'BanManager offers flexibility by providing a large range of configuration options found here.'
+---
+The main configuration file for BanManager.
+
+| Platform | Location |
+| -------- | -------- |
+| CraftBukkit/Spigot/Paper | `/plugins/BanManager/config.yml` |
+| BungeeCord | `/plugins/BanManager/config.yml` |
+| Sponge | `/config/banmanager/config.yml` |
+
+<div className="config-info">
+
+  - ###### `mutedCommandBlacklist`
+    Muted players will be blocked from using commands within this list. Command aliases will automatically be found and blocked, e.g. `msg` will block `tell`. **Do not prefix** commands with `/`.
+
+    **Example**
+    ```yml
+    mutedCommandBlacklist:
+    - msg
+    ```
+  - ###### `softMutedCommandBlacklist` - identical to `mutedCommandBlacklist` but only affects players who are soft muted
+  ---
+
+  - ###### `duplicateIpCheck`
+    Displays a warning to those with `bm.notify.duplicateips` permission when a player joins with the same IP as a banned player, defaults to `true`.
+
+    **Example**
+    ```yml
+    duplicateIpCheck: true
+    ```
+    ---
+
+  - ###### `bypassDuplicateChecks`
+    A list of IPs to exclude from the banned player duplicate check.
+
+    **Example**
+    ```yml
+    bypassDuplicateChecks:
+    - 0.0.0.0
+    - 127.0.0.1
+    - '0:0:0:0:0:0:0:1' # IPv6 supported
+    ```
+    ---
+
+  - ###### `logKicks`
+    Records players kicked from the server via `/kick`, defaults to `false`.
+
+    Use the command [/bminfo <player\> -kicks](/docs/banmanager/commands) to view these records.
+
+    **Example**
+    ```yml
+    logKicks: true
+    ```
+    ---
+
+  - ###### `logIps`
+    Records when a player leaves and joins the server, along with their ip address. Defaults to `true`. If set to `false`, only the most recent IP address will be stored. For GDPR compliancy, you may wish to purge data older than a certain period of time; see [cleanUp](#cleanup) for further information.
+
+    Use the command [/bminfo <player\> -ips](/docs/banmanager/commands) to view these records.
+
+    **Example**
+    ```yml
+    logIps: true
+    ```
+    ---
+
+  - ###### `displayNotifications`
+    Broadcasts punishments to players with [bm.notify.X permissions](/docs/banmanager/permissions?search=bm.notify), defaults to `true`.
+
+    **Example**
+    ```yml
+    displayNotifications: true
+    ```
+    ---
+
+  - ###### `broadcastOnSync`
+    Broadcasts a notification when new punishments are synced between the database and server, defaults to `false`.
+
+    **Example**
+    ```yml
+    broadcastOnSync: true
+    ```
+    ---
+
+  - ###### `timeLimits`
+    Generates a permission to limit the time period a player can issue a punishment for. Once configured, assign the player with the appropriate permission e.g. `bm.timelimit.X.Y` where X is the punishment type and Y is the custom name you have defined.
+
+    **Example**
+
+    Based on the following configuration, granting a player the `bm.timelimit.playerBans.Moderator` permission will only allow them to `/tempban` a player for up to 1 day:
+    ```yml
+    timeLimits:
+      playerMutes:
+        Moderator: 1h
+      playerBans:
+        Moderator: 1d
+      playerWarnings:
+        Moderator: 30d
+      ipBans:
+        Moderator: 1d
+      ipMutes:
+        Moderator: 1d
+      rollbacks:
+        Moderator: 1d
+      nameBans:
+        Moderator: 1d
+    ```
+    ---
+
+  - ###### `cooldowns`
+    To prevent duplicate punishments against a player in quick succession, set a cooldown to limit the time in seconds before a player can be punished again. Set to 0 to disable. Defaults to 10 seconds.
+
+    **Example**
+    ```yml
+    cooldowns:
+      ban: 10
+      tempban: 10
+      mute: 10
+      tempmute: 10
+      banip: 10
+      tempbanip: 10
+      warn: 10
+      tempwarn: 10
+      report: 10
+    ```
+    ---
+
+  - ###### `warningActions`
+    Execute a list of commands against a player when they reach a warning point threshold. By default, a single warning is worth 1 point. Use the `-p` flag when warning a player to change this, e.g. `/warn confuser -p 5 Hacking`.
+      - ###### `enabled` - Set to `true` to enable, defaults to `false`
+      - ###### `actions`
+        - ###### `<number of points>`
+          - ###### `cmd` - The command to execute upon reaching the number of points, the following tokens are available: `[player]`, `[playerId]`, `[actor]`, `[reason]`, `[id]`, `[points]`.
+          - ###### `delay` - Optional, specify a delay in seconds of when to run the command, defaults to `0` and executes immediately.
+
+    **Example**
+
+    The following will mute a player immediately and ban a player after 10 seconds upon reaching a total of 5 warning points:
+    ```yml
+    warningActions:
+      enabled: true
+      actions:
+        '5':
+        - cmd: ban [player] [reason]
+          delay: 10
+        - cmd: mute [player] [reason]
+    ```
+    ---
+
+  - ###### `warningMute`
+    Forces players to type the reason of their most recent warning before being allowed to speak in chat again. Note: **removed on server restart or when player leaves**. Defaults to `false`.
+
+    **Example**
+    ```yml
+      warningMute: true
+    ```
+    ---
+
+  - ###### `hooks`
+    Allows running commands before and after a punishment.
+
+      - ###### `enabled` - Set to `true` to enable, defaults to `false`
+      - ###### `events`
+        - ###### `<event>` - One of: `ban`, `tempban`, `unban`, `mute`, `tempmute`, `unmute`, `warn`, `tempwarn`, `ipban`, `tempipban`, `unbanip`, `iprangeban`, `tempiprangeban`, `unbaniprange`, `note`, `report`
+          - ###### `<when>` - Either `pre` to run before the punishment is issued or `post` to run after the punishment is issued
+            - ###### `cmd` - The command to execute, available tokens are dependent on event type:
+              - ###### ban - `[player]`, `[playerId]`, `[actor]`, `[reason]`
+              - ###### tempban - `[player]`, `[playerId]`, `[actor]`, `[reason]`, `[expires]`
+              - ###### unban - `[player]`, `[playerId]`, `[actor]`, `[reason]`, `[expires]` if a temporary ban or `0`
+              - ###### mute - `[player]`, `[playerId]`, `[actor]`, `[reason]`
+              - ###### tempmute - `[player]`, `[playerId]`, `[actor]`, `[reason]`, `[expires]`
+              - ###### unmute - `[player]`, `[playerId]`, `[actor]`, `[reason]`, `[expires]` if a temporary mute or `0`
+              - ###### warn - `[player]`, `[playerId]`, `[actor]`, `[reason]`
+              - ###### tempwarn - `[player]`, `[playerId]`, `[actor]`, `[reason]`, `[expires]`
+              - ###### ipban - `[ip]`, `[actor]`, `[reason]`, `[expires]`
+              - ###### tempipban - `[ip]`, `[actor]`, `[reason]`, `[expires]`
+              - ###### unbanip - `[ip]`, `[actor]`, `[reason]`, `[expires]` if a temporary ban or `0`
+              - ###### iprangeban - `[from]` starting IP address, `[to]` end IP address, `[actor]`, `[reason]`
+              - ###### tempiprangeban - `[from]` starting IP address, `[to]` end IP address, `[actor]`, `[reason]`, `[expires]`
+              - ###### unbaniprange - `[from]` starting IP address, `[to]` end IP address, `[actor]`, `[reason]`, `[expires]` if a temporary ban or `0`
+              - ###### note - `[player]`, `[playerId]`, `[actor]`, `[message]`
+              - ###### report - `[player]`, `[playerId]`, `[actor]`, `[message]`
+            - ###### `delay` - Optional, specify a delay in seconds of when to run the command, defaults to `0` and executes immediately.
+
+    **Example**
+
+    The following will immediately IP ban the player and kick them in 10 seconds time before a ban is issued. After a ban is issued, a message will immediately be broadcasted.
+
+    ```yml
+    hooks:
+      enabled: true
+      events:
+        ban:
+          pre:
+          - cmd: kick [player] [reason]
+            delay: 10
+          - cmd: banip [player] [reason]
+          post:
+          - cmd: broadcast [player] banned
+    ```
+    ---
+
+  - ###### `checkForUpdates` - deprecated and currently unsupported in `v7`
+    ---
+
+  - ###### `offlineAutoComplete`
+    Enables auto completing offline player names when issuing BanManager commands, e.g. typing `/ban c` and then <kbd>tab</kbd> will suggest all players beginning with the letter `c`. Note, this is case-sensitive.
+
+    **Example**
+    ```yml
+    offlineAutoComplete: true
+    ```
+    ---
+
+  - ###### `punishAlts`
+    Automatically applies punishments to alts (players who share the same IP address) on join. Defaults to `false` as this could block siblings or those on shared internet connections.
+
+    **Example**
+    ```yml
+    punishAlts: true
+    ```
+    ---
+
+  - ###### `denyAlts`
+    Automatically prevents players joining if the same IP address is associated with a ban
+
+    **Example**
+    ```yml
+    denyAlts: true
+    ```
+    ---
+
+  - ###### `timeAssociatedAlts`
+    Time in seconds a player's IP address should be classified as an alt of another player. Defaults to `0` for an IP address to always be associated to a player
+
+    **Example**
+    ```yml
+    timeAssociatedAlts: 604800
+    ```
+    ---
+
+  - ###### `cleanUp`
+    Keep records for a defined number of days. Specify 0 to never delete. `playerHistory` requires [logIps](#logips) to be enabled and only purges IP addresses that are not currently IP banned.
+
+    **Example**
+
+    The following will keep a history of kicks for 30 days and ban records for 10 days. All other records are kept indefinitely.
+    ```yml
+    cleanUp:
+      kicks: 30
+      banRecords: 10
+      ipBanRecords: 0
+      ipMuteRecords: 0
+      muteRecords: 0
+      readWarnings: 0
+      unreadWarnings: 0
+      playerHistory: 0
+    ```
+    ---
+
+  - ###### `maxOnlinePerIp`
+    The maximum number of players allowed to connect from the same IP address. Set to `0` to disable. Defaults to `0`.
+
+    **Example**
+    ```yml
+    maxOnlinePerIp: 1
+    ```
+    ---
+
+  - ###### `maxMultiaccountsRecently`
+    The maximum number of players allowed to connect from the same IP address (recently logged in). Set to `0` to disable. Defaults to `0`. Set `multiaccountsTime` to specify the time range in seconds.
+
+    **Example**
+
+    The following only allows a player to join the server if nobody has joined the server with the same IP address in the past 5 minutes (300 seconds):
+    ```yml
+    maxMultiaccountsRecently: 1
+    multiaccountsTime: 300
+    ```
+    ---
+
+  - ###### `checkOnJoin`
+    Queries the database for new player punishments when a player attempts to join. BanManager stores a cache of punishments in memory and frequently queries the database for changes; this is sufficient for single servers.
+
+    For networks, enabling this can remediate delays in punishments syncing between servers. Defaults to `false` as this could become a performance bottleneck against the database when there are spikes in players joining. Before enabling this, try changing the [schedules.yml](schedules-yml) sync task options.
+
+    **Example**
+    ```yml
+    checkOnJoin: true
+    ```
+    ---
+
+  - ###### `createNoteReasons`
+    Enables creation of notes based on text in between `( )`. E.g. `/ban confuser testing (too good)` will ban for `testing` and create a note `too good`. Defaults to `false`.
+
+    **Example**
+    ```yml
+    createNoteReasons: true
+    ```
+    ---
+
+  - ###### `onlineMode`
+    If you are using bungeecord set to online mode, leave this as `true`. If you are using an offline mode server, set this to `false`; this will cause BanManager to use case-insensitive UUIDs for player lookups, i.e. `Confuser` and `cOnFuSer` will be identified as the same player. Defaults to `true`
+
+    **Example**
+    ```yml
+    onlineMode: true
+    ```
+    ---
+
+  - ###### `chatPriority`
+    BanManager will attempt to block muted players from chatting. However, some chat plugins can intefere with this causing messages to still display. Change the priority accordingly. Defaults to `normal`.
+
+    The following options in order of priority are available: `lowest`, `low`, `normal`, `high`, `highest`, `monitor`.
+
+    **Example**
+    ```yml
+    chatPriority: high
+    ```
+    ---
+
+  - ###### `blockInvalidReasons`
+    Prevents executing commands with an invalid reason, i.e. missing from [reasons.yml](reasons-yml). E.g. `/ban confuser #speel-erorr` will return an error message instead of banning the player for `#speel-erorr`. Defaults to `false`.
+
+    **Example**
+    ```yml
+    blockInvalidReasons: true
+    ```
+    ---
+
+</div>

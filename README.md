@@ -5,12 +5,12 @@ This repo contains the source code for https://banmanagement.com
 
 ## Getting Started
 
-Make sure you have at least [Node.js v8](https://nodejs.org) or higher:
+Make sure you have at least [Node.js v12](https://nodejs.org) or higher:
 
 ```sh
 node -v
 
-v8.14.0
+v12.16.1
 ```
 
 ### Fork, Clone & Install

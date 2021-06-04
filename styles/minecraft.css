@@ -1,0 +1,158 @@
+@font-face {
+  font-family: 'minecraftiaregular';
+  src: url('/fonts/minecraftia-regular-webfont.woff2') format('woff2'),
+       url('/fonts/minecraftia-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.mc-black {
+  color: black;
+  text-shadow: 2px 2px #000000;
+}
+
+.mc-dark_blue {
+  color: #0000AA;
+  text-shadow: 2px 2px #00002a;
+}
+
+.mc-dark_green {
+  color: #00AA00;
+  text-shadow: 2px 2px #002a00;
+}
+
+.mc-dark_aqua {
+  color: #00AAAA;
+  text-shadow: 2px 2px #002a2a;
+}
+
+.mc-dark_red {
+  color: #AA0000;
+  text-shadow: 2px 2px #2a0000;
+}
+
+.mc-dark_purple {
+  color: #AA00AA;
+  text-shadow: 2px 2px #2a002a;
+}
+
+.mc-gold {
+  color: #FFAA00;
+  text-shadow: 2px 2px #2a2a00;
+}
+
+.mc-gray {
+  color: #AAAAAA;
+  text-shadow: 2px 2px #2a2a2a;
+}
+
+.mc-dark_gray {
+  color: #555555;
+  text-shadow: 2px 2px #151515;
+}
+
+.mc-blue {
+  color: #5555FF;
+  text-shadow: 2px 2px #15153f;
+}
+
+.mc-green {
+  color: #55FF55;
+  text-shadow: 2px 2px #153f15;
+}
+
+.mc-aqua {
+  color: #55FFFF;
+  text-shadow: 2px 2px #153f3f;
+}
+
+.mc-red {
+  color: #FF5555;
+  text-shadow: 2px 2px #3f1515;
+}
+
+.mc-light_purple {
+  color: #FF55FF;
+  text-shadow: 2px 2px #3f153f;
+}
+
+.mc-yellow {
+  color: #FFFF55;
+  text-shadow: 2px 2px #3f3f15;
+}
+
+.mc-white {
+  color: white;
+  text-shadow: 2px 2px #3f3f3f;
+}
+
+.mc-bold {
+  font-weight: bold;
+}
+
+.mc-italic {
+  font-style: italic;
+}
+
+.mc-strikethrough, .mc-underlined {
+  position: relative;
+  display: inline-block;
+}
+
+.mc-strikethrough::before, .mc-underlined::after {
+  content: '';
+  width: 100%;
+  position: absolute;
+  right: 0;
+}
+
+.mc-strikethrough::before {
+  border-bottom: 2px solid;
+  border-bottom-color: inherit;
+  top: 55%;
+}
+
+.mc-underlined::after {
+  border-bottom: 2px solid;
+  border-bottom-color: inherit;
+  bottom: -8%;
+}
+
+.mc-button {
+  height: 40px;
+  outline: 2px solid black;
+  position: relative;
+  margin: 0;
+  display: inline-block;
+  background-image: url('/images/minecraft/button_center.png');
+  background-repeat: repeat;
+  padding: 0;
+  text-align: center;
+  color: white;
+  text-shadow: 3px 3px #4C4C4C;
+  border-bottom: 4px solid #565656;
+  border-right: 2px solid #565656;
+  border-left: 2px solid #AAA;
+  border-top: 2px solid #AAA;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.mc-button span {
+  position: relative;
+  line-height: 40px;
+  bottom: 3px;
+}
+
+.mc-denied-screen {
+  background-image: url('/images/minecraft/options_background.png');
+  background-repeat: repeat;
+  filter: brightness(38%);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.mc-denied-screen > div {
+  filter: brightness(100%);
+}

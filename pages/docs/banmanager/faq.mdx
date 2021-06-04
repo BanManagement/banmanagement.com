@@ -1,0 +1,123 @@
+---
+layout: 'docs'
+title: 'FAQ'
+navTitle: 'FAQ'
+category: 'Getting Started'
+description: 'Get to know more about BanManager with the frequently asked questions.'
+---
+
+## Startup Issues
+### BanManager is showing as red in /plugins
+Please ensure you have configured the plugin correctly and check either your server log or console for more information
+
+### When trying to /ban a player it displays `/ban <player> <reason>`
+The plugin is not enabled, please check your server startup log for more information
+
+### BanManager is unable to connect to the database
+This can be caused by a number of issues, refer to the common [Storage Errors](#storage-errors) section.
+
+### I'd like to use BanManager with Tekkit Classic, which version is compatible?
+[v2.x versions](https://dev.bukkit.org/projects/ban-management/files?filter-game-version=2020709689%3A6378) of BanManager have been reported as compatible. At a mimimum you will require [v2.2](https://dev.bukkit.org/projects/ban-management/files/675342), please ensure `useSyncChat` is enabled in the config. Please note the following: documentation and guides are for recent BanManager versions only, there may be bugs, cross-server sync is not supported and older versions of BanManager are name based, not UUID meaning a change of name will evade bans for online-mode servers.
+
+### How can I add new lines to the player denied screen when a banned player tries to join?
+Use `\n` within the message in the messages.yml wherever you'd like a new line to start. For example:
+
+```yml
+disallowed: '&6Banned on Frostcast\n[reason]'
+```
+
+### [WARN]: [BanManager] Duplicates found for player_name
+This is caused when players have the same name. When a command is executed, BanManager is unable to ascertain which player should be affected.
+
+Resolving this issue depends on your online mode setting. In Online Mode, the plugin will attempt to resolve this when the affected players join; this requires a request to Mojang which sometimes fails due to rate limitations. In order to resolve this, please follow the steps below:
+
+#### Online Mode
+- Run `/bmutils duplicates` as a player; will output up to 10 duplicate names.
+- Each name will contain the amount of duplicates found along side a number, e.g. `[confuser] * 2 [1] [2]`
+- Clicking `[x]` will populate your chat with a command to set the name manually, e.g. `/bmutils duplicates ae51c849-3f2a-4a37-986d-55ed5b02307f confuser`
+- Where possible, BanManager will attempt to retrieve the correct name from Mojang. Should this fail, the name argument will default to `newName`. Should this occur, it is recommended you perform the correct name for each UUID yourself using a service such as [mcuuid.net](https://mcuuid.net/).
+- Execute the command to update the name. Repeat these steps for each UUID until no more duplicates exist.
+
+#### Offline Mode
+Follow the first 3 steps from Online Mode. Set the name manually yourself. Note, names are case insensitive within BanManager, however Minecraft interprets players of the same name with different cases, e.g. confuser & cOnFuSer. You should use an additional plugin to handle this correctly such as [AuthMe](https://www.spigotmc.org/resources/authmereloaded.6269).
+
+---
+
+## Storage Errors
+### BanManager is unable to connect to the database
+
+> [10:22:26 WARN]: 18180 [Server thread] ERROR me.confuser.banmanager.internal.hikari.pool.HikariPool - bm-local - Exception during pool initialization.
+> ...
+> java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 10 times. Giving up.
+
+> bm - Failed to validate connection me.confuser.banmanager.internal.mysql.cj.jdbc.JDBC4Connection@xxxxxxxxx (Communications link failure)
+> The last packet successfully received from the server was xxxxxxx milliseconds ago. The last packet sent successfully to the server was xx milliseconds ago.)
+
+Verify the following:
+1. You are using the correct address, port, username and password
+2. The database exists and is accessible by the user
+    * Check this by logging in with the user you are connecting with (via `mysql -p -u`) and executing `SHOW DATABASES;`. If the database is not displayed in the results, it either has not been created or the user does not have permission to access it.
+1. No firewall rules blocking the connection
+1. MySQL is bound to the correct port, and is accessible from the server where BanManager is installed
+1. Check that your MySQL max connections limit is not being exceeded. By default, BanManager will use up to 10 connections per server. If you have multiple plugins connecting to the same database server, you will either need to increase this limit or reduce the number of connections in BanManager's config.yml named `maxConnections`.
+
+If you are seeing `Communications link failure` errors, or errors relating to a timeout, then one of the above is incorrect.
+
+To give the user access to the BanManager database and tables, execute:
+```sql
+GRANT ALL PRIVILEGES ON [databasename].* TO '[username]'@'[ipaddress]';
+```
+
+Replace the square brackets, `[ ]` with their respective values.
+
+Then, when you have finished your changes, execute:
+```sql
+FLUSH PRIVILEGES;
+```
+
+#### Example
+```sql
+GRANT ALL PRIVILEGES ON banmanager.* TO 'banmanager'@'%';
+FLUSH PRIVILEGES;
+```
+
+---
+
+### java.sql.SQLSyntaxErrorException: Table 'bm_players' doesn't exist
+This occurs when the wrong JDBC driver is in use. If you are using MariaDB, ensure `storageType` is set to `mariadb`.
+
+---
+
+### No operations allowed after connection closed
+> me.confuser.banmanager.common.mysql.cj.jdbc.ConnectionImpl@7dae83b4 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+
+Modify `maxLifetime` in `config.yml` under the `databases` section. The value must be **less than** the `wait_timeout` in MySQL/MariaDB. If you are  using a provider, open a support ticket to request this value.
+
+---
+
+### me.confuser.banmanager.internal.mysql.cj.exceptions.CJException: Access denied for user 'root'@'localhost'
+It is not recommended you use root to connect to the database. Please use or create a non-root user to connect with.
+
+---
+
+### Public Key Retrieval is not allowed
+> Caused by: me.confuser.banmanager.common.mysql.cj.exceptions.CJException: Public Key Retrieval is not allowed
+
+- If you **are using SSL**, set `useSSL` in `config.yml` under the `databases` section to `true`.
+- If you are **not using SSL**, set `useSSL` in `config.yml` under the `databases` section to `false` and `allowPublicKeyRetrieval` to true.
+  - If the issue is not resolved, or you are seeing errors such as `unable to load authentication plugin 'caching_sha2_password'`
+    1. Login to your MySQL instance and check the `default_authentication_plugin` setting
+        - `SELECT plugin from mysql.user where User='root';` replace `root` with the user you are connecting with
+    2. If the value is set to `caching_sha2_password`, connections require SSL by default. Either enable ssl (`useSSL`) or create a database user which does not require SSL
+        - Execute the following queries, replacing the respective values: `nativeuser`, `localhost`, `password`:
+        ```sql
+          CREATE USER 'nativeuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+          GRANT ALL PRIVILEGES ON banmanager.* TO 'nativeuser'@'%';
+          FLUSH PRIVILEGES;
+        ```
+
+---
+
+## Cross-Server Sync
+### I punished a player but it doesn't appear to have synced across all servers
+Each server polls for data changes including new punishments. Open your [schedules.yml](/docs/banmanager/configuration/schedules-yml) file and check your timings. By default local punishments are checked every 30 seconds and global punishments every 2 minutes. Checking more frequently will increase database usage. If this is insufficient, enable checkOnJoin in your config.yml; this will check the database for new punishments when a player joins each server.

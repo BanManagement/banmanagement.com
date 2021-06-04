@@ -1,0 +1,45 @@
+---
+layout: 'docs'
+title: 'Commands'
+navTitle: 'Commands'
+category: 'Usage'
+description: 'A list of every command available within BanManager.'
+---
+import { CommandsTable } from 'components/pages/docs/banmanager/commands/commands-table'
+import { FlagsTable } from 'components/pages/docs/banmanager/commands/flags-table'
+import { GlobalCommandsTable } from 'components/pages/docs/banmanager/commands/global-commands-table'
+
+BanManager contains a number of commands each with a subset of permissions. All commands have aliases prefixed with `bm`, e.g. /bmban, /bmtempban etc.
+
+<CommandsTable />
+
+## Command Flags
+Some commands allow flags, see above for which commands can use what. Flags (singular or multiple) can be used anywhere after the command name, including the beginning, middle and even end.
+- /ban -s confuser test
+- /ban confuser -s test
+- /ban confuser test -s
+- /ban confuser this is the -s reason
+
+<FlagsTable />
+
+## Time Format
+Any commands which denote a `<timeDiff>` argument can be used as follows:
+- 10s = 10 seconds
+- 10m = 10 minutes
+- 10h = 10 hours
+- 10d = 10 days
+- 10mo = 10 months
+- 10y = 10 years
+
+### Usage
+- /tempban confuser 1d Test
+- /tempban confuser 1m2w3d Test
+
+---
+
+## Global Commands
+These commands are only available if the global database option within your config is enabled. They are only for syncing bans across multiple servers, and do not have as granulated permissions.
+
+The time it takes for each action to take affect depends on the interval your global scheduler is set to within `schedules.yml`. Default is **2 minutes**.
+
+<GlobalCommandsTable />

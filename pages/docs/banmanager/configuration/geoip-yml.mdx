@@ -1,0 +1,44 @@
+---
+layout: 'docs'
+title: 'geoip.yml'
+navTitle: 'geoip.yml'
+category: 'Configuration'
+description: 'GeoIP functions adds geofencing capabilities to your Minecraft server'
+---
+Enables location based information, such as showing which country a player is connected from on join or via /bminfo and allows/blocks certain countries from connecting.
+
+Please note this now requires a license key from MaxMind. Please follow [these instructions](https://essentialsx.net/wiki/GeoIP.html#setting-up-the-plugin) to generate a license key to paste into licenseKey within your `BanManager/geoip.yml`.
+
+| Platform | Location |
+| -------- | -------- |
+| CraftBukkit/Spigot/Paper | `/plugins/BanManager/geoip.yml` |
+| BungeeCord | `/plugins/BanManager/geoip.yml` |
+| Sponge | `/config/banmanager/geoip.yml` |
+
+<div className="config-info">
+
+- ###### `enabled` - Set to true to enable geoip functionality, defaults to `false`
+- ###### `download`
+  - ###### `city` - URL of a Maxmind DB format city data dump
+  - ###### `country` - URL of Maxmind DB format country data dump
+  - ###### `lastUpdated` - A timestamp of when the local Maxmind database copies were last updated. BanManager will automatically download a new copy every week on plugin startup.
+- ###### `countries`
+  - ###### `type` - Either `allow` or `deny`; only players from allowed countries can join, or players from denied countries cannot join the server.
+  - ###### `list` - [A list of ISO formatted country codes](https://www.iso.org/obp/ui/#search)
+
+</div>
+
+## Example
+```yml
+enabled: true
+download:
+  city: 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=[licenseKey]&suffix=tar.gz'
+  country: 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=[licenseKey]&suffix=tar.gz'
+  lastUpdated: 0
+  licenseKey: 'yourLicenseKeyHere'
+countries:
+  type: 'allow'
+  list:
+  - GB
+  - FR
+```

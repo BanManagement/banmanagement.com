@@ -1,0 +1,27 @@
+---
+layout: 'docs'
+title: 'Migrating from BanManager H2'
+navTitle: 'BanManager H2'
+category: 'Migration Guides'
+---
+This will import all BanManager data from H2 to MySQL or MariaDB.
+
+## Prerequisites
+- BanManager setup on your Minecraft server
+
+## Migration
+Shutdown the server and update configuration details to connect to your new MariaDB/MySQL database; the table names must remain the same as H2 and the new database must not contain any existing BanManager data.
+
+Start the server and run the following command either in-game or via your Minecraft server console:
+
+`/bmimport h2 <fileName>`
+
+Replace the command arguments with your H2 file name which is local to the BanManager configuration directory, e.g.
+
+`/bmimport h2 local_bans`
+
+BanManager will begin importing data. You will be sent a message once completed.
+
+Check the Minecraft server console for any potential issues with the import.
+
+It is recommended you restart your server once import has completed to ensure all punishments work correctly.

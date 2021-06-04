@@ -1,4 +1,9 @@
-User-Agent: *
-Disallow:
+# *
+User-agent: *
+Allow: /
 
+# Host
+Host: https://banmanagement.com
+
+# Sitemaps
 Sitemap: https://banmanagement.com/sitemap.xml

@@ -1,0 +1,147 @@
+---
+layout: 'docs'
+title: 'Install'
+navTitle: 'Install'
+category: 'Web UI'
+description: 'Install and configure the BanManager WebUI to aggregate and manage punishment data from your mobile or computer'
+---
+A full guide for installing, configuring and running BanManager WebUI for use in production.
+
+## Prerequisites
+The recommended installation requires the following stack:
+- BanManager setup on a Bukkit/Sponge compatible server
+- MySQL or MariaDB (this can be the same database used above but must be accessible)
+- Git
+- [Node.js](https://nodejs.org/) LTS
+- NGINX or equivalent (for SSL)
+- A server with at least 1GB memory
+- A registered domain name
+
+---
+
+## Initial Setup
+There are two parts, the Minecraft plugin which enables web only features and the UI which renders the page and provides a GraphQL API.
+
+### BanManager-WebEnhancer
+This is a required Bukkit plugin which enables web only features.
+
+1. [Download](https://ci.frostcast.net/job/BanManager-WebEnhancer/) and add the jar to your Bukkit compatible server. The [source code](https://github.com/BanManagement/BanManager-WebEnhancer) is also available.
+1. Edit [messages.yml](/docs/banmanager/configuration/messages-yml), and add a `[pin]` token to the `ban.player.disallowed` & `tempban.player.disallowed messages`
+    ```yml
+    ban:
+      player:
+        disallowed: '&6You have been banned from this server for &4[reason] Use [pin]'
+    ```
+1. Restart the server or enable BanManager-WebEnhancer plugin and execute `/bmreload`
+
+## WebUI
+Create a directory on your server for your installation. This can be a different server than your Minecraft server (as long it can connect to the MySQL database). We'll name it `banmanager` in this example but you can use whatever you like.
+
+```bash
+mkdir /home/banmanager
+cd /home/banmanager
+```
+
+### Download
+```bash
+git clone https://github.com/BanManagement/BanManager-WebUI.git
+```
+
+### Install
+```bash
+cd /home/banmanager/BanManager-WebUI
+npm ci --production
+```
+
+Once dependencies have been downloaded and installed, run the setup command:
+```bash
+npm run setup
+```
+
+#### Setup Questions
+During the installation, the CLI will ask a number of questions to configure the application. Press <kbd>Enter</kbd> to use the default value. If you make a mistake during the installation process, simply exit the setup (<kbd>ctrl</kbd> + <kbd>c</kbd> OR <kbd>cmd</kbd> + <kbd>c</kbd>) and run it again.
+
+The CLI will generate a `.env` file containing the necessary environment variables in order for the application to run. This will automatically be used on start up. If you do not wish to use this, simply remove the file and pass in the environment variables yourself when running the process.
+
+##### `Contact Email Address`
+On setup, tokens are generated to enable push notifications. This is a requirement from vendors in order to contact you if this functionality is abused. This should be an email address that can receive mail.
+
+##### `Database Host`
+This should be the host of the database used to setup web specific tables such as logins. This can be the same database used by the BanManager Minecraft plugin, but it does not have to be. The setup process will create the tables for you.
+
+##### `Database Port`
+As above, this will default to 3306
+
+##### `Database User`
+As above. Ensure this user has permissions to create tables.
+
+##### `Database Password`
+As above
+
+##### `Database Name`
+As above
+
+##### `Add BanManager Server`
+You will be prompted to specify details of your BanManager plugin database connection details. If tables are not found or the connection fails, you will be reprompted the question again.
+playerPins table
+
+This is the name of the table which contains login pins. By default this is set to bm_player_pins and is the value within your BanManager `config.yml` file.
+
+##### `playerReportLogs table`
+This is the name of the table which contains report log data. By default this is set to bm_report_logs and is the value within your BanManager `config.yml` file.
+
+##### `serverLogs table`
+This is the name of the table which contains report log data. By default this is set to bm_server_logs and is the value within your BanManager `config.yml` file.
+
+##### `Console UUID`
+BanManager generates a UUID to use when punishing players by the console. This can be found in your [console.yml](/docs/banmanager/configuration/console-yml) file. This record must exist.
+
+##### `Server Name`
+Like the legacy UI, you can name servers in order to differentiate between where punishments occurred. This is useful for multi-server setups. This can be whatever you like.
+
+##### `Your Email Address`
+Set this to an address you wish to use to login with. This does not need to be the same email address as your Mojang account.
+
+##### `Your Password`
+Set this to a value you wish to use to login with. This should **not be the same password as your Mojang account**. If you forget this password, you can login using a pin generated in-game via `/bmpin` command (requires BanManager-WebEnhancer).
+
+##### `Your Minecraft Player UUID`
+This is required to setup your login and associate your data. If you're not sure what this is, use a lookup tool such as https://mcuuid.net/ to lookup your online UUID.
+
+#### Run
+The following environment variables are required and should have been generated by the previous setup step.
+
+```bash
+CONTACT_EMAIL
+ENCRYPTION_KEY
+SESSION_KEY
+NOTIFICATION_VAPID_PUBLIC_KEY
+NOTIFICATION_VAPID_PRIVATE_KEY
+DB_HOST
+DB_PORT
+DB_USER
+DB_PASSWORD
+DB_NAME
+```
+
+If you are not using the .env file, you must pass these variables yourself in the next steps.
+
+Next, run the build command to generate the UI. This may take some time.
+
+```bash
+npm run build
+```
+
+Now start the server:
+
+```bash
+node server.js
+```
+
+By default the server will bind to port 3000. To change this specify the port via the `PORT` environment variable.
+
+It is highly recommended to use a web server such as NGINX to provide HTTPS support and defend against a number of common web attacks. Certificates for HTTPS can be obtained freely via [Let's Encrypt](https://letsencrypt.org/). This is not covered by this setup guide.
+
+Note, you should use your OS recommended process manager to keep the API running in the background, e.g. systemd or you can use an alternative such as [PM2](https://github.com/Unitech/pm2). This part is also not covered in the setup guide. However, you may find numerous [articles](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04) elsewhere which cover this.
+
+That's it! Now head over to your UI domain and login.

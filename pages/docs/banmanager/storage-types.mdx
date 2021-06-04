@@ -1,0 +1,26 @@
+---
+layout: 'docs'
+title: 'Storage'
+navTitle: 'Storage'
+category: 'Usage'
+description: 'A list of every supported database for BanManager.'
+---
+BanManager can store data in a number of ways. These options can be changed in the `databases` section of the config file.
+
+# Supported Types
+## File/local databases
+Does not require any setup and works without configuration changes.
+- H2 (default)
+  ```yml
+    storageType: h2
+  ```
+## Remote databases
+Required to share data, e.g. across a network or use the WebUI.
+- MySQL
+  ```yml
+    storageType: mysql
+  ```
+- MariaDB
+  ```yml
+    storageType: mariadb
+  ```

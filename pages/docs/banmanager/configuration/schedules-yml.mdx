@@ -1,0 +1,52 @@
+---
+layout: 'docs'
+title: 'schedules.yml'
+navTitle: 'schedules.yml'
+category: 'Configuration'
+description: 'Control how often BanManager syncs data between the database and the Minecraft server.'
+---
+Controls how often data is synced between the database and Minecraft server to punish players across multiple servers. If you are updating punishments directly via the database, ensure you update the timestamps of the relevant punishments to correctly sync back to the Minecraft server.
+
+| Platform | Location |
+| -------- | -------- |
+| CraftBukkit/Spigot/Paper | `/plugins/BanManager/schedules.yml` |
+| BungeeCord | `/plugins/BanManager/schedules.yml` |
+| Sponge | `/config/banmanager/schedules.yml` |
+
+<div className="config-info">
+
+- ###### `scheduler`
+  - ###### `expiresCheck` - The number of seconds the server will check for expired punishments
+  - ###### `playerBans` - The number of seconds the server will check for for player bans changes
+  - ###### `playerMutes` - The number of seconds the server will check for player mutes changes
+  - ###### `playerWarnings` - The number of seconds the server will check for player warnings changes
+  - ###### `ipBans` - The number of seconds the server will check for ip bans changes
+  - ###### `ipRangeBans` - The number of seconds the server will check for ip range changes bans
+  - ###### `rollbacks` - The number of seconds the server will check for /bmrollback uses
+  - ###### `nameBans` - The number of seconds the server will check for name bans changes
+  - ###### `externalPlayerBans` - The number of seconds the server will check for global player ban changes; disabled if `global` database not enabled
+  - ###### `externalPlayerMutes` - The number of seconds the server will check for global player mute changes; disabled if `global` database not enabled
+  - ###### `externalPlayerNotes` - The number of seconds the server will check for global player note changes; disabled if `global` database not enabled
+  - ###### `externalIpBans` - The number of seconds the server will check for global player ip changes; disabled if `global` database not enabled
+  - ###### `saveLastChecked` - The number of seconds the server will update lastChecked values in this file
+- ###### `lastChecked` - Represents the timestamps of when the server last checked for data changes, **do not change these values**
+
+</div>
+
+## Example
+```yml
+scheduler:
+  expiresCheck: 30
+  playerBans: 30
+  playerMutes: 30
+  playerWarnings: 30
+  ipBans: 30
+  ipRangeBans: 30
+  rollbacks: 30
+  nameBans: 30
+  externalPlayerBans: 120
+  externalPlayerMutes: 120
+  externalPlayerNotes: 120
+  externalIpBans: 120
+  saveLastChecked: 60
+```

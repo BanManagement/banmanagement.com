@@ -1,0 +1,28 @@
+---
+layout: 'docs'
+title: 'reasons.yml'
+navTitle: 'reasons.yml'
+category: 'Configuration'
+description: 'Set shortcuts for reasons for a consistent banning process.'
+---
+Setup shortcuts for reasons to punish players quickly. Use the below examples like `/ban confuser #hacking` which will ban the player for the reason `Using a hacked client`.
+
+You can combine multiple shortcuts or append/prepend them to reasons, e.g. `/ban confuser #hacking & #swearing` will ban the player for `Using a hacked client & Swearing in chat`.
+
+| Platform | Location |
+| -------- | -------- |
+| CraftBukkit/Spigot/Paper | `/plugins/BanManager/reasons.yml` |
+| BungeeCord | `/plugins/BanManager/reasons.yml` |
+| Sponge | `/config/banmanager/reasons.yml` |
+
+<div className="config-info">
+
+- ###### `<reason>` - The key is the shortcut name and the value should be the punishment reason
+
+</div>
+
+## Example
+```yml
+hacking: "Using a hacked client"
+swearing: "Swearing in chat"
+```
