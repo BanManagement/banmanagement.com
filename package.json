@@ -31,6 +31,7 @@
     "@headlessui/react": "^0.2.0",
     "@tailwindcss/typography": "^0.4.1",
     "@xstate/react": "^1.2.2",
+    "autoprefixer": "10.0.2",
     "babel-plugin-import-glob-array": "^0.2.0",
     "clsx": "^1.1.1",
     "date-fns": "^2.16.1",
@@ -46,6 +47,7 @@
     "next-sitemap": "^1.6.102",
     "next-transpile-modules": "^7.2.0",
     "prop-types": "^15.7.2",
+    "postcss": "^8.3.0",
     "react": "^17.0.1",
     "react-copy-to-clipboard": "^5.0.3",
     "react-dom": "^17.0.1",
@@ -56,19 +58,17 @@
     "rehype-autolink-headings": "^5.0.1",
     "rehype-highlight": "^4.1.0",
     "semver": "^7.3.5",
+    "tailwind-heropatterns": "0.0.8",
+    "tailwindcss": "^2.0.1",
     "unist-util-visit": "^2.0.2",
     "xstate": "^4.16.2"
   },
   "devDependencies": {
-    "autoprefixer": "10.0.2",
     "eslint": "^7.14.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.21.5",
-    "postcss": "^8.3.0",
-    "tailwind-heropatterns": "0.0.8",
-    "tailwindcss": "^2.0.1"
+    "eslint-plugin-react": "^7.21.5"
   }
 }
