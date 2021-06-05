@@ -102,7 +102,7 @@ function DownloadPage ({ release }) {
               Demo
             </a> */}
             <a
-              href="/docs"
+              href="https://github.com/BanManagement/BanManager-WebUI/tree/legacy#banmanager-webui"
               className="py-3 px-4 text-white bg-primary-500 hover:bg-primary-800 rounded-lg shadow inline-flex items-center ml-4"
             >
               <FaCog className="fill-current w-4 h-4 mr-2" />
