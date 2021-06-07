@@ -17,6 +17,7 @@ export const BreadcrumbHeader = ({ children, breadcrumbs }) => (
                 ? <a itemProp="item" href={href} className="hover:text-gray-100"><span itemProp="name">{title}</span></a>
                 : <span itemProp="name">{title}</span>
               }
+              <meta itemProp="position" content={index + 1} />
             </li>
             {index !== breadcrumbs.length - 1 && ' / '}
           </Fragment>
