@@ -123,6 +123,7 @@ const permissions = [
   ['bm.notify.unbanname', 'Notified when a name is unbanned'],
   ['bm.timelimit.playerBans.bypass', 'Allows a player to bypass any group limitations on temporary ban lengths'],
   ['bm.timelimit.playerMutes.bypass', 'Allows a player to bypass any group limitations on temporary mute lengths'],
+  ['bm.timelimit.playerWarnings.bypass', 'Allows a player to bypass any group limitations on temporary warning lengths'],
   ['bm.timelimit.ipBans.bypass', 'Allows a player to bypass any group limitations on temporary ban lengths'],
   ['bm.timelimit.ipMutes.bypass', 'Allows a player to bypass any group limitations on temporary mute lengths'],
   ['bm.timelimit.rollbacks.bypass', 'Allows a player to bypass any group limitations on rollback lengths'],
