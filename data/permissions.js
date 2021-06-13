@@ -47,6 +47,8 @@ const permissions = [
   ['bm.command.bminfo.website', 'Displays link to players ban page, requires configuring within messages.yml'],
   ['bm.command.bminfo.others', 'Allows viewing other players information'],
   ['bm.command.bminfo.history.bans', 'Allows listing the past bans of a player via /bminfo', 'bm.command.bminfo.history.bans', '/bminfo confuser -b'],
+  ['bm.command.bminfo.history.ipbans', 'Allows listing the past bans of an IP via /bminfo', 'bm.command.bminfo.history.ipbans', '/bminfo 127.0.0.1 -b'],
+  ['bm.command.bminfo.history.ipmutes', 'Allows listing the past mutes of an IP via /bminfo', 'bm.command.bminfo.history.ipmutes', '/bminfo 127.0.0.1 -b'],
   ['bm.command.bminfo.history.ips', 'Allows listing join leave history records of a player via /bminfo', 'bm.command.bminfo.history.ips', '/bminfo confuser -i'],
   ['bm.command.bminfo.history.kicks', 'Allows listing kick records of a player via /bminfo', 'bm.command.bminfo.history.kicks', '/bminfo confuser -k'],
   ['bm.command.bminfo.history.mutes', 'Allows listing the past mutes of a player via /bminfo', 'bm.command.bminfo.history.mutes', '/bminfo confuser -m'],
