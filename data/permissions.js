@@ -109,7 +109,7 @@ const permissions = [
   ['bm.notify.tempbaniprange', 'Notified when an ip range is temporarily banned'],
   ['bm.notify.unbaniprange', 'Notified when an ip range is unbanned'],
   ['bm.notify.kick', 'Notified when a player is kicked'],
-  ['bm.notify.reports', 'Notified when a player is reported'],
+  ['bm.notify.report', 'Notified when a player is reported'],
   ['bm.notify.reports.open', 'Displays open reports on server join'],
   ['bm.notify.reports.assigned', 'Displays assigned reports on server join'],
   ['bm.notify.warn', 'Notified when a player is warned'],
