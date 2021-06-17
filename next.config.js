@@ -19,6 +19,9 @@ module.exports = withTM(withMdxEnhanced({
   reExportDataFetching: false
 })({
   webpack5: false,
+  eslint: {
+    ignoreDuringBuilds: true
+  },
   async redirects () {
     return [
       {
