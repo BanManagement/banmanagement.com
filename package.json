@@ -9,7 +9,7 @@
     "start": "next start -p $PORT",
     "refresh": "rm -rf .next/cache/next-babel-loader",
     "heroku-postbuild": "npm run build",
-    "test": "npm run lint",
+    "test": "npm run lint && npm run build",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --fix",
     "postbuild": "next-sitemap"
   },
