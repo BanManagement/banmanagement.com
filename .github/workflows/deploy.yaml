@@ -46,7 +46,7 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions"
           git config --global push.default simple
-          git remote add deploy dokku@$DEPLOY_SERVER:banmanagement.com >/dev/null 2>&1
+          git remote add deploy dokku@${{ secrets.DOKKU_HOST }}:banmanagement.com >/dev/null 2>&1
           git stash --all
           git checkout master
           git push -f deploy master
