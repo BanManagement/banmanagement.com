@@ -60,7 +60,7 @@
     "rehype-highlight": "4.1.0",
     "semver": "7.3.5",
     "tailwind-heropatterns": "0.0.8",
-    "tailwindcss": "2.0.1",
+    "tailwindcss": "2.2.4",
     "unist-util-visit": "2.0.3",
     "xstate": "4.16.2"
   },
