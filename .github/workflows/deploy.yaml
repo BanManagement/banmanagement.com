@@ -49,4 +49,4 @@ jobs:
           git remote add deploy dokku@${{ secrets.DOKKU_HOST }}:banmanagement.com >/dev/null 2>&1
           git stash --all
           git checkout master
-          git push -f deploy master
+          git push -f deploy master >/dev/null 2>&1
