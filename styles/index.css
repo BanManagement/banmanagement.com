@@ -1,6 +1,8 @@
 @tailwind base;
 
-/* Write your own custom base styles here */
+/*! purgecss start ignore */
+@import './docsearch.css';
+/*! purgecss end ignore */
 
 /* Start purging... */
 @tailwind components;

@@ -3,6 +3,7 @@ import { Layout } from 'components/layout'
 import Image from 'next/image'
 import { GiCrane } from 'react-icons/gi'
 import { FaWrench, FaChevronRight, FaHatWizard, FaGlobe } from 'react-icons/fa'
+import { Search } from 'components/search'
 
 const styles = {
   image: 'h-32 w-full relative',
@@ -36,9 +37,9 @@ function DocsIndexPage () {
           <h2 className="text-2xl font-bold leading-7 text-white sm:text-3xl sm:truncate">
             Documentation
           </h2>
-          {/* <div className="relative text-black pt-6">
-            <input type="search" name="serch" placeholder="Search everything" disabled className="bg-white h-10 px-5 pr-10 rounded-full text-md focus:outline-none placeholder-black" />
-          </div> */}
+          <div className="relative text-black pt-6">
+            <Search />
+          </div>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mt-6">
           <a href="/docs/banmanager/configuration" className="p-2 sm:p-4 text-left">
