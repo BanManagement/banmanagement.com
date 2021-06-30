@@ -119,7 +119,7 @@ export function Search () {
             }}
             onClose={onClose}
             indexName="banmanagement"
-            apiKey="a675361024274b4991e82c20cc1f4f17"
+            apiKey="1ec7167acd23e412413ea3ba3af19b91"
             appId="BH4D9OD16A"
             navigator={{
               navigate ({ suggestionUrl }) {
