@@ -113,10 +113,6 @@ export function Search () {
           <DocSearchModal
             initialQuery={initialQuery}
             initialScrollY={window.scrollY}
-            searchParameters={{
-              facetFilters: 'version:v2',
-              distinct: 1
-            }}
             onClose={onClose}
             indexName="banmanagement"
             apiKey="1ec7167acd23e412413ea3ba3af19b91"
