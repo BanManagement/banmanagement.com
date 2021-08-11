@@ -136,6 +136,7 @@ const permissions = [
   ['bm.command.reports.assign', 'Assign a report to yourself'],
   ['bm.command.reports.assign.other', 'Assign a report to another player'],
   ['bm.command.reports.close', 'Close a report'],
+  ['bm.command.reports.info', 'View a report'],
   ['bm.command.reports.list', 'List assigned reports'],
   ['bm.command.reports.list.others', 'List all reports'],
   ['bm.command.reports.teleport', 'Teleport to a player report location'],
