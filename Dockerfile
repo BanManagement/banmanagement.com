@@ -24,6 +24,7 @@ COPY --from=dependencies /usr/src/app/node_modules ./node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV production
 
 RUN npm run build
 
