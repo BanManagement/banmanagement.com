@@ -42,7 +42,7 @@
     "js-yaml": "4.1.0",
     "mdast-util-to-string": "2.0.0",
     "minecraft-text": "1.2.17",
-    "next": "latest",
+    "next": "11.1.2",
     "next-mdx-enhanced": "5.0.0",
     "next-seo": "4.28.1",
     "next-sitemap": "1.6.192",
