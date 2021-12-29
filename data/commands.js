@@ -63,7 +63,7 @@ const flags = [
   ['-bans', '-b', 'List the past bans of a player via /bminfo', 'bm.command.bminfo.history.bans', '/bminfo confuser -b'],
   ['-bans', '-b', 'List the past bans of an IP via /bminfo', 'bm.command.bminfo.history.ipbans', '/bminfo 127.0.0.1 -b'],
   ['-ips', '-i', 'List join leave history of a player via /bminfo', 'bm.command.bminfo.history.ips', '/bminfo confuser -i'],
-  ['-kicks', '-w', 'List kick records of a player via /bminfo', 'bm.command.bminfo.history.kicks', '/bminfo confuser -k'],
+  ['-kicks', '-k', 'List kick records of a player via /bminfo', 'bm.command.bminfo.history.kicks', '/bminfo confuser -k'],
   ['-mutes', '-m', 'List the past mutes of a player via /bminfo', 'bm.command.bminfo.history.mutes', '/bminfo confuser -m'],
   ['-mutes', '-m', 'List the past mutes of an IP via /bminfo', 'bm.command.bminfo.history.ipmutes', '/bminfo 127.0.0.1 -m'],
   ['-notes', '-n', 'List all notes associated with a player via /bminfo', 'bm.command.bminfo.history.notes', '/bminfo confuser -n'],
