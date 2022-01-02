@@ -7,7 +7,7 @@ const commands = [
   ['/unmute <player> [reason]', 'Unmute a player', '', 'bm.command.unmute'],
   ['/banip <player || ip> <reason>', 'Permanently ban an ip address or ip of a player', '-s', 'bm.command.banip'],
   ['/tempbanip <player || ip> <timeDiff> <reason>', 'Temporarily ban an ip address or ip of a player', '-s', 'bm.command.tempbanip'],
-  ['/unbanip <ip> [reason]', 'Unban an ip address', '', 'bm.command.unbanip'],
+  ['/unbanip <ip> [reason]', 'Unban an ip address', '-d', 'bm.command.unbanip'],
   ['/muteip <player || ip> <reason>', 'Permanently mute an ip address or ip of a player', '-s', 'bm.command.muteip'],
   ['/tempmuteip <player || ip> <timeDiff> <reason>', 'Temporarily mute an ip address or ip of a player', '-s', 'bm.command.tempmuteip'],
   ['/unmuteip <ip> [reason]', 'Unmute an ip address', '', 'bm.command.unmuteip'],
