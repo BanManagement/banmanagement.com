@@ -115,8 +115,8 @@ export function Search () {
             initialScrollY={window.scrollY}
             onClose={onClose}
             indexName="banmanagement"
-            apiKey="1ec7167acd23e412413ea3ba3af19b91"
-            appId="BH4D9OD16A"
+            apiKey="3842ec8baaf27c41fb941c933ac6b540"
+            appId="LY7HMPAR5R"
             navigator={{
               navigate ({ suggestionUrl }) {
                 setIsOpen(false)
