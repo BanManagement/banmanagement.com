@@ -69,9 +69,9 @@ function DownloadPage ({ release }) {
               {release.changelog.map((change, i) => <li key={i}>{change}</li>)}
             </ul>
           </div>
-          <DownloadCard title="Bukkit" description="CraftBukkit/Spigot/Paper etc, 1.7.2+" imgSrc="/images/bukkit-logo.png" stableUrl={release.downloadUrls.bukkit} experimentalUrl="https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/bukkit/target/BanManagerBukkit.jar" />
-          <DownloadCard title="BungeeCord" description="Latest build" imgSrc="/images/bungeecord-logo.png" stableUrl={release.downloadUrls.bungeecord} experimentalUrl="https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/bungee/target/BanManagerBungeeCord.jar" />
-          <DownloadCard title="Sponge" description="Sponge Forge/Sponge Vanilla API 7+" imgSrc="/images/sponge-logo.svg" stableUrl={release.downloadUrls.sponge} experimentalUrl="https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/sponge/target/BanManagerSponge.jar" />
+          <DownloadCard title="Bukkit" description="CraftBukkit/Spigot/Paper etc, 1.7.2+" imgSrc="/images/bukkit-logo.png" stableUrl={release.downloadUrls.bukkit} experimentalUrl="https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/bukkit/build/libs/BanManagerBukkit.jar" />
+          <DownloadCard title="BungeeCord" description="Latest build" imgSrc="/images/bungeecord-logo.png" stableUrl={release.downloadUrls.bungeecord} experimentalUrl="https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/bungee/build/libs/BanManagerBungeeCord.jar" />
+          <DownloadCard title="Sponge" description="Sponge Forge/Sponge Vanilla API 7+" imgSrc="/images/sponge-logo.svg" stableUrl={release.downloadUrls.sponge} experimentalUrl="https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/sponge/build/libs/BanManagerSponge.jar" />
         </div>
       </DownloadSection>
       <hr className="max-w-7xl mx-auto mt-12" />

@@ -4,7 +4,7 @@ import { load, dump } from 'js-yaml'
 import { Code } from 'components/code'
 
 const downloadUrls = {
-  BungeeCord: 'https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/bungee/target/BanManagerBungeeCord.jar',
+  BungeeCord: 'https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/bungee/build/libs/BanManagerBungeeCord.jar',
   Sponge: 'https://ore.spongepowered.org/confuser/BanManager/versions',
   'CraftBukkit/Spigot/Paper': 'https://dev.bukkit.org/projects/ban-management/files/latest'
 }
