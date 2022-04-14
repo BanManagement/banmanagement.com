@@ -1,0 +1,36 @@
+---
+layout: 'docs'
+title: 'Update'
+navTitle: 'Update'
+category: 'Web UI'
+description: 'Update the BanManager WebUI to the latest version'
+---
+Learn how to upgrade the BanManager WebUI with just a couple of steps.
+
+---
+
+## First, make a full backup
+Whenever doing an update it’s a good idea to take a full backup of your site first. If anything goes wrong, you’ll still have all your data.
+
+## Update to the latest version
+This guide assumes your BanManager-WebUI installation is located in `/home/banmanager/BanManager-WebUI`, please replace where applicable.
+
+Run the following commands in order:
+
+1. `cd /home/banmanager/BanManager-WebUI`
+1. `git rev-parse HEAD` to make a note of your current version (in case you need to rollback)
+1. `git pull` to fetch the latest version
+1. `npm ci --production` to install the latest dependencies
+1. `npm run heroku-postbuild` to build the latest pages and run database migrations
+1. Restart the process - dependant on your setup
+
+## Troubleshooting any problems
+If something goes wrong, you can always revert to the previous version.
+
+1. `node bin/run undo` to revert database migration changes
+1. `git checkout <commit>` to checkout the source of a previous version, replace `<commit>` with the short hash noted from `git rev-parse HEAD` command prior to updating, e.g. `git checkout 56fe206`
+1. `npm ci --production` to install the old dependencies
+1. `npm run build` to build the old pages
+1. Restart the process - dependant on your setup
+
+If you’re still having trouble, start by searching the [BanManager Discord](https://discord.gg/59bsgZB) to see if your issue has come up before.
