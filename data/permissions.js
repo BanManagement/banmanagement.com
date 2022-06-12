@@ -136,6 +136,7 @@ const permissions = [
   ['bm.notify.alts', 'Notified when a player with the same ip address of another player joins'],
   ['bm.notify.notes', 'Notified when a note is created for a player'],
   ['bm.notify.notes.join', 'Displays all notes associated with a player who joined the server'],
+  ['bm.notify.notes.joinAmount', 'Displays the total number of notes associated with a player who joined the server'],
   ['bm.notify.denied.player', 'Notified when a banned player attempts to join'],
   ['bm.notify.denied.ip', 'Notified when a player attempts to join from a banned ip address'],
   ['bm.notify.banname', 'Notified when a name is permanently banned'],
