@@ -21,7 +21,7 @@ const commands = [
   ['/notes [player]', 'View notes of all online players or a particular player', '', 'bm.command.notes, bm.command.notes.online'],
   ['/kick <player> <reason>', 'Kick a player from the server', '-s', 'bm.command.kick'],
   ['/nlkick <player> <reason>', 'Kick a player from the server without logging the kick if kick logging enabled', '-s', 'bm.command.nlkick'],
-  ['/bminfo [player]', 'Look up information of a player', '-bans, -kicks, -ips, -mutes, -notes, -time, -warns', 'bm.command.bminfo'],
+  ['/bminfo [player]', 'Look up information of a player', '-bans, -kicks, -ips, -mutes, -notes, -time, -warnings', 'bm.command.bminfo'],
   ['/bmimport', <>Check the <a href='/docs/banmanager/migrations'>migration guides</a> for more information</>, '', 'bm.command.import'],
   ['/bmexport <players || ips>', 'Export bans to vanilla format', '', 'bm.command.export'],
   ['/bmreload', 'Reload plugin configuration and messages (excludes database connection info)', '', 'bm.command.reload'],
