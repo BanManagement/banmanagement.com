@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@docsearch/react": "1.0.0-alpha.28",
-    "@docusaurus/mdx-loader": "2.0.0-beta.ff31de0ff",
+    "@docusaurus/mdx-loader": "2.0.0",
     "@docusaurus/utils": "2.0.0-beta.14",
     "@headlessui/react": "1.4.2",
     "@tailwindcss/typography": "0.4.1",
