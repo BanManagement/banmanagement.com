@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import GithubSlugger from 'github-slugger'
+import { useFilteredAndTreeifiedTOC } from '@docusaurus/theme-common/lib/utils/tocUtils'
 import { FaEdit } from 'react-icons/fa'
 import { Layout } from 'components/layout'
 import { BreadcrumbHeader } from 'components/breadcrumb-header'
@@ -12,6 +13,11 @@ import { docsNav, formatPath, pages } from 'data/navigation'
 const slugger = new GithubSlugger()
 
 function DocsLayout ({ children, frontMatter, toc }) {
+  const tocTree = useFilteredAndTreeifiedTOC({
+    toc,
+    minHeadingLevel: 2,
+    maxHeadingLevel: 3
+  })
   const router = useRouter()
   const nav = Object.entries(docsNav).map(([category, pages]) => (
     <Fragment key={category}>
@@ -89,7 +95,7 @@ function DocsLayout ({ children, frontMatter, toc }) {
                     >
                       {frontMatter.title}
                     </a>
-                    <TOC toc={toc} />
+                    <TOC toc={tocTree} />
                   </div>
                 </div>
               </div>
