@@ -33,6 +33,7 @@ export const messages = {
   'deniedNotify.player': {
     message: '&cWarning: [player] attempted to join the server but was denied due to &4[reason]',
     tokens: {
+      actor: tokens.actor,
       player: tokens.player,
       reason: tokens.reason
     }
@@ -40,6 +41,7 @@ export const messages = {
   'deniedNotify.ip': {
     message: '&cWarning: [ip] attempted to join the server but was denied due to &4[reason]',
     tokens: {
+      actor: tokens.actor,
       ip: tokens.ip,
       reason: tokens.reason
     }
