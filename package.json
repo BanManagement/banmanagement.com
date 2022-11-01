@@ -59,7 +59,7 @@
     "react-table": "7.7.0",
     "rehype-autolink-headings": "5.1.0",
     "rehype-highlight": "4.1.0",
-    "semver": "7.3.5",
+    "semver": "7.3.8",
     "tailwind-heropatterns": "0.0.8",
     "tailwindcss": "2.2.19",
     "unist-util-visit": "2.0.3",
