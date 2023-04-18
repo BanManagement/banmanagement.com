@@ -30,7 +30,7 @@
     "@docusaurus/mdx-loader": "2.2.0",
     "@docusaurus/theme-common": "2.2.0",
     "@docusaurus/utils": "2.2.0",
-    "@headlessui/react": "1.7.13",
+    "@headlessui/react": "1.7.14",
     "@tailwindcss/typography": "0.4.1",
     "@xstate/react": "1.6.3",
     "autoprefixer": "10.4.14",
