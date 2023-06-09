@@ -63,7 +63,7 @@
     "tailwind-heropatterns": "0.0.8",
     "tailwindcss": "2.2.19",
     "unist-util-visit": "2.0.3",
-    "xstate": "4.35.2"
+    "xstate": "4.37.2"
   },
   "devDependencies": {
     "eslint": "8.42.0",
