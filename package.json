@@ -62,7 +62,7 @@
     "semver": "7.5.2",
     "tailwind-heropatterns": "0.0.8",
     "tailwindcss": "2.2.19",
-    "unist-util-visit": "2.0.3",
+    "unist-util-visit": "4.1.2",
     "xstate": "4.37.2"
   },
   "devDependencies": {
