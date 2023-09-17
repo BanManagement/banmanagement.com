@@ -37,7 +37,7 @@
     "babel-plugin-import-glob-array": "0.2.0",
     "clsx": "1.2.1",
     "date-fns": "2.30.0",
-    "formik": "2.4.4",
+    "formik": "2.4.5",
     "github-slugger": "1.5.0",
     "highlight.js": "11.8.0",
     "js-yaml": "4.1.0",
