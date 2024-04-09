@@ -6,6 +6,7 @@ RUN apk add --no-cache python3 make g++
 WORKDIR /usr/src/app
 # copy project file
 COPY package*.json ./
+COPY .npmrc ./
 
 #
 # ---- Dependencies ----
@@ -13,7 +14,7 @@ FROM base AS dependencies
 # install node packages
 RUN npm set progress=false && npm config set depth 0
 ENV NPM_CONFIG_LOGLEVEL warn
-RUN npm ci --no-audit --only=production
+RUN npm ci --no-audit --omit=dev
 
 #
 # ---- Release ----
