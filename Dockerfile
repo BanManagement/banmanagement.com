@@ -27,6 +27,8 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV NODE_ENV production
 
+ENV NODE_OPTIONS --openssl-legacy-provider
+
 RUN npm run build
 
 # expose port and define CMD
