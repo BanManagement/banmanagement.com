@@ -22,14 +22,18 @@ async function getEvents () {
 }
 
 export async function getStaticProps () {
+  const versions = {
+    bukkit: await getLatestRelease('BanManagerBukkit'),
+    bungeecord: await getLatestRelease('BanManagerBungeeCord'),
+    common: await getLatestRelease('BanManagerCommon'),
+    sponge: await getLatestRelease('BanManagerSponge')
+  }
+
+  versions.velocity = versions.bungeecord
+
   return {
     props: {
-      versions: {
-        bukkit: await getLatestRelease('BanManagerBukkit'),
-        bungeecord: await getLatestRelease('BanManagerBungeeCord'),
-        common: await getLatestRelease('BanManagerCommon'),
-        sponge: await getLatestRelease('BanManagerSponge')
-      },
+      versions,
       events: await getEvents()
     },
     revalidate: 3600 // Cache for an hour

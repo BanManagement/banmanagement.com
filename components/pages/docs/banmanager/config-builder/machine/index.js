@@ -77,7 +77,7 @@ export const machine = createMachine({
           actions: setContext('networkType')
         },
         Velocity: {
-          target: 'serverType',
+          target: 'storageType',
           actions: setContext('networkType')
         }
       }
@@ -119,7 +119,7 @@ export const machine = createMachine({
         H2: {
           target: 'success',
           actions: setContext('storageType'),
-          cond: (context) => context.syncType !== 'INDIVIDUAL' && (!context.networkType || context.networkType === 'BUNGEECORD')
+          cond: (context) => context.syncType !== 'INDIVIDUAL' && (!context.networkType || context.networkType === 'BUNGEECORD' || context.networkType === 'VELOCITY')
         }
       }
     },

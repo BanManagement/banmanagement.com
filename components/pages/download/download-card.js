@@ -1,17 +1,18 @@
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 import { FaDownload } from 'react-icons/fa'
+import clsx from 'clsx'
 
 const styles = {
-  image: 'h-32 w-full relative',
+  image: 'h-32 w-full',
   card: 'pt-8 pb-8 rounded overflow-hidden shadow-lg bg-white mx-auto'
 }
 
-export const DownloadCard = ({ title, imgSrc, description, stableUrl, experimentalUrl, coverImage, size = 'sm', children }) => (
+export const DownloadCard = ({ title, imgSrc, description, stableUrl, experimentalUrl, coverImage, size = 'sm', children, showDisabledDownload }) => (
   <div className="p-2 sm:p-4 text-center">
     <div className={`${styles.card} max-w-${size}`}>
       <div className="px-6">
-        <div className="space-y-5">
+        <div className="space-y-1">
           <div>
             <Image className={`${styles.image} ${coverImage ? 'object-cover' : ''}`} src={imgSrc} height="100" width="100" unoptimized alt={`${title} logo`} />
           </div>
@@ -19,15 +20,17 @@ export const DownloadCard = ({ title, imgSrc, description, stableUrl, experiment
           <p className="text-gray-700 text-base sm:h-16 md:h-12">
             {description}
           </p>
-          {stableUrl && <a
+          {(showDisabledDownload || stableUrl) && <a
             href={stableUrl}
-            className="py-3 px-4 text-white bg-primary-500 hover:bg-primary-800 rounded-lg shadow inline-flex items-center"
+            className={clsx('py-3 px-4 text-white bg-primary-500 hover:bg-primary-800 rounded-lg shadow inline-flex items-center', {
+              'bg-primary-100 hover:bg-primary-100': !stableUrl
+            })}
           >
             <FaDownload className="fill-current w-4 h-4 mr-2" />
             <span>Download</span>
           </a>
           }
-          {stableUrl && experimentalUrl && <br />}
+          {(showDisabledDownload || (stableUrl && experimentalUrl)) && <br />}
           {experimentalUrl && <a
             href={experimentalUrl}
             className="py-3 px-4 hover:bg-gray-200 font-bold rounded-lg shadow inline-flex items-center"
@@ -51,5 +54,6 @@ DownloadCard.propTypes = {
   stableUrl: PropTypes.string,
   experimentalUrl: PropTypes.string,
   children: PropTypes.node,
-  size: PropTypes.oneOf(['sm', 'md', 'lg'])
+  size: PropTypes.oneOf(['sm', 'md', 'lg']),
+  showDisabledDownload: PropTypes.bool
 }
