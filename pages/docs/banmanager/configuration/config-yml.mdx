@@ -138,6 +138,7 @@ The main configuration file for BanManager.
         - ###### `<number of points>`
           - ###### `cmd` - The command to execute upon reaching the number of points, the following tokens are available: `[player]`, `[playerId]`, `[actor]`, `[reason]`, `[id]`, `[points]`.
           - ###### `delay` - Optional, specify a delay in seconds of when to run the command, defaults to `0` and executes immediately.
+          - ###### `pointsTimeframe` - Optional, specify a [timeframe](/docs/banmanager/commands#time-format) to only trigger the command if the total accumulated points was reached within the past timeframe. For example, setting this to `30d` means the total number of points accumulated in the past 30 days must equal `<number of points>` in order for this command to trigger.
 
     **Example**
 
@@ -150,6 +151,10 @@ The main configuration file for BanManager.
         - cmd: ban [player] [reason]
           delay: 10
         - cmd: mute [player] [reason]
+        '6':
+        - cmd: ban [player] [reason]
+          delay: 5
+          pointsTimeframe: 30d
     ```
     ---
 
