@@ -32,7 +32,7 @@
     "@docusaurus/utils": "2.4.3",
     "@headlessui/react": "1.7.17",
     "@tailwindcss/typography": "0.4.1",
-    "@xstate/react": "1.6.3",
+    "@xstate/react": "5.0.0",
     "autoprefixer": "10.4.16",
     "babel-plugin-import-glob-array": "0.2.0",
     "clsx": "1.2.1",
@@ -63,7 +63,7 @@
     "tailwind-heropatterns": "0.0.8",
     "tailwindcss": "2.2.19",
     "unist-util-visit": "2.0.3",
-    "xstate": "4.38.3"
+    "xstate": "5.19.0"
   },
   "devDependencies": {
     "eslint": "8.55.0",
