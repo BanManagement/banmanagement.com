@@ -26,7 +26,7 @@
     "url": "https://github.com/BanManagement/banmanagement.com/issues"
   },
   "dependencies": {
-    "@docsearch/react": "1.0.0-alpha.28",
+    "@docsearch/react": "3.8.0",
     "@docusaurus/mdx-loader": "2.4.3",
     "@docusaurus/theme-common": "2.4.3",
     "@docusaurus/utils": "2.4.3",
