@@ -130,22 +130,47 @@ DB_NAME
 
 If you are not using the .env file, you must pass these variables yourself in the next steps.
 
-Next, run the build command to generate the UI. This may take some time.
-
+Next run the systemd command below to run the UI as a service. This will ensure it runs in the background and automatically restarts. You may be prompted to provide a password for sudo access. This is expected and the commands that will be executed will be provided beforehand.
 ```bash
-npm run build
+npx bmwebui setup systemd
 ```
 
-Now start the server:
+If you do not have systemd, you can use an alternative such as [PM2](https://github.com/Unitech/pm2). Note that this is not covered by the installation guide.
 
+It is highly recommended to use a web server such as NGINX to provide HTTPS support and defend against a number of common web attacks. Certificates for HTTPS can be obtained freely via [Let's Encrypt](https://letsencrypt.org/). To help with this, another setup command can be used to configure NGINX via HTTP.
+
+First install NGINX if you haven't already:
 ```bash
-node server.js
+sudo apt update && sudo apt install nginx
 ```
 
-By default the server will bind to port 3000. To change this specify the port via the `PORT` environment variable.
+Next run the setup command:
 
-It is highly recommended to use a web server such as NGINX to provide HTTPS support and defend against a number of common web attacks. Certificates for HTTPS can be obtained freely via [Let's Encrypt](https://letsencrypt.org/). This is not covered by this setup guide.
+```bash
+npx bmwebui setup nginx
+```
 
-Note, you should use your OS recommended process manager to keep the API running in the background, e.g. systemd or you can use an alternative such as [PM2](https://github.com/Unitech/pm2). This part is also not covered in the setup guide. However, you may find numerous [articles](https://www.digitalocean.com/community/tutorials?q=How+to+setup+a+node.js+application+for+production&hits_per_page=12&subtype=tutorial) elsewhere which cover this.
+#### NGINX Setup Questions
+
+##### Domain
+This will be how you access the website. You are expected to have registered a domain name and configured the DNS to point to your server. Without this, the WebUI will not function as expected.
+
+##### Subdirectory
+If you want to run the UI on an existing domain rather than a separate domain or subdomain, please provide the path here. A new environment variable of `BASE_PATH` will be added to your `.env` file. Please restart the UI (if via systemd above run `sudo systemctl restart bmwebui.service`) and re-run the `npx bmwebui setup nginx` command once completed.
+
+Once this is completed, the UI should be available over HTTP. Try it out! Next, we need to secure the site via HTTPS to prevent attackers eavesdropping on pins/passwords that are entered into the UI.
+
+#### Let's Encrypt Setup
+First install CertBot. This is used to manage and rotate certificates.
+
+```bash
+sudo apt update && sudo apt install certbot
+```
+
+Once installed, run the following command to automatically generate a certificate and update your NGINX configuration. Ensure to replace `example.com` with the domain you chose in the setup previously.
+
+```bash
+sudo certbot --nginx -d example.com
+```
 
 That's it! Now head over to your UI domain and login.
