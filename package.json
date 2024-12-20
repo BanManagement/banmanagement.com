@@ -16,7 +16,7 @@
   "author": "James Mortemore (jamesmortemore@gmail.com)",
   "license": "MIT",
   "engines": {
-    "node": ">=14 <=20"
+    "node": ">=14 <=22"
   },
   "repository": {
     "type": "git",
