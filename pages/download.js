@@ -70,9 +70,10 @@ function DownloadPage ({ release }) {
             </ul>
           </div>
           <div className="lg:col-span-4">
-          <div className="grid lg:grid-cols-2">
+          <div className="grid lg:grid-cols-3">
             <DownloadCard title="Bukkit" description="CraftBukkit/Spigot/Paper etc, 1.7.2+" imgSrc="/images/bukkit-logo.png" stableUrl={release.downloadUrls.bukkit} experimentalUrl="https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/bukkit/build/libs/BanManagerBukkit.jar" />
             <DownloadCard title="BungeeCord" description="Latest build" imgSrc="/images/bungeecord-logo.png" stableUrl={release.downloadUrls.bungeecord} experimentalUrl="https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/bungee/build/libs/BanManagerBungeeCord.jar" />
+            <DownloadCard title="Fabric" description="Latest build" imgSrc="/images/fabric-logo.svg" stableUrl={release.downloadUrls.fabric} experimentalUrl="https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/fabric/build/libs/BanManagerFabric.jar" showDisabledDownload />
             <DownloadCard title="Sponge" description="Sponge Forge/Sponge Vanilla API 7+" imgSrc="/images/sponge-logo.svg" stableUrl={release.downloadUrls.sponge} experimentalUrl="https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/sponge/build/libs/BanManagerSponge.jar" />
             <DownloadCard title="Velocity" description="Latest build" imgSrc="/images/velocity-logo.svg" stableUrl={release.downloadUrls.velocity} experimentalUrl="https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/velocity/build/libs/BanManagerVelocity.jar" showDisabledDownload />
           </div>

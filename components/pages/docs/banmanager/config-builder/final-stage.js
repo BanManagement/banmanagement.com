@@ -7,6 +7,7 @@ const downloadUrls = {
   BungeeCord: 'https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/bungee/build/libs/BanManagerBungeeCord.jar',
   Sponge: 'https://ore.spongepowered.org/confuser/BanManager/versions',
   'CraftBukkit/Spigot/Paper': 'https://dev.bukkit.org/projects/ban-management/files/latest',
+  Fabric: 'https://modrinth.com/mod/banmanager',
   Velocity: 'https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/velocity/build/libs/BanManagerVelocity.jar'
 }
 

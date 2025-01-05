@@ -1,10 +1,8 @@
-import semverRsort from 'semver/functions/rsort'
-
 async function getLatestRelease (type) {
-  const res = await fetch('https://ci.frostcast.net/plugin/repository/everything/me/confuser/banmanager/' + type + '/')
+  const res = await fetch('https://raw.githubusercontent.com/BanManagement/BanManager/refs/heads/master/gradle.properties')
   const text = await res.text()
-  const versions = [...text.matchAll(/<A href='.*?'>(.*?)<\/A>/g)].map(a => a[1])
-  const latest = semverRsort(versions)[0]
+  const versionMatch = text.match(/version=(.*)/)
+  const latest = versionMatch ? versionMatch[1] : null
 
   return latest
 }
@@ -26,6 +24,7 @@ export async function getStaticProps () {
     bukkit: await getLatestRelease('BanManagerBukkit'),
     bungeecord: await getLatestRelease('BanManagerBungeeCord'),
     common: await getLatestRelease('BanManagerCommon'),
+    fabric: await getLatestRelease('BanManagerCommon'),
     sponge: await getLatestRelease('BanManagerSponge')
   }
 
@@ -36,6 +35,6 @@ export async function getStaticProps () {
       versions,
       events: await getEvents()
     },
-    revalidate: 3600 // Cache for an hour
+    revalidate: 86400 // Cache for a day
   }
 }

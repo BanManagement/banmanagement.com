@@ -15,6 +15,8 @@ A full guide for installing, configuring and running BanManager for use on a Min
 ## Option 1 - BungeeCord or Velocity
 **Requirement:** you're using BungeeCord or Velocity and would like punishments to be **shared across every Minecraft server**
 
+Note: Report functionality is not available on the proxy plugin versions
+
 ### Initial Setup
 1. Download the BanManager BungeeCord or Velocity jar from our [downloads page](/download) and save it in an easily accessible location
 1. Copy the BanManager jar file to your proxy's `plugins` folder
@@ -25,14 +27,14 @@ A full guide for installing, configuring and running BanManager for use on a Min
 ## Option 2 - Alternative networks
 **Requirement:** you're using a proxy such as LilyPad and would like punishments to be **shared across every Minecraft server**
 
-Currently only BungeeCord & Velocity have first class support, however alternative networks such as LilyPad *are supported* by installing BanManager on each Minecraft instance (CraftBukkit/Spigot/Paper/Sponge) using the same shared database to sync data.
+Currently only BungeeCord & Velocity have first class support, however alternative networks such as LilyPad *are supported* by installing BanManager on each Minecraft instance (CraftBukkit/Spigot/Paper/Fabric/Sponge) using the same shared database to sync data.
 
 ### Prerequisites
 - MySQL or MariaDB
 
 ### Setup
 1. Download the BanManager jar from our [downloads page](/download) and save it in an easily accessible location
-1. Copy the BanManager jar file to your server `plugins` folder (CraftBukkit/Spigot/Paper) or `mods` folder (Sponge)
+1. Copy the BanManager jar file to your server `plugins` folder (CraftBukkit/Spigot/Paper) or `mods` folder (Fabric/Sponge)
 1. Fully restart your minecraft server
     * This is required to generate the default configuration files
 1. Open `config.yml`, find `databases` and under the `local` section, set `storageType` to `mysql` or `mariadb`. Then populate `host`, `name`, `user` & `password` with your connection details.

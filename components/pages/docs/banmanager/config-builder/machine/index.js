@@ -88,6 +88,10 @@ export const machine = createMachine({
           target: 'storageType',
           actions: setContext('serverType')
         },
+        Fabric: {
+          target: 'storageType',
+          actions: setContext('serverType')
+        },
         Sponge: {
           target: 'storageType',
           actions: setContext('serverType')
