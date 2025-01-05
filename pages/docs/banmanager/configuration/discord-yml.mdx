@@ -5,15 +5,290 @@ navTitle: 'discord.yml'
 category: 'Configuration'
 description: 'Integrate BanManager with your Discord servers. Supports webhooks and custom messaging.'
 ---
-Allows sending messages to Discord server channels when a punishment occurs. Bukkit requires [DiscordSRV](https://www.spigotmc.org/resources/discordsrv.18494/) and Sponge requires [MagiBridge](https://ore.spongepowered.org/Eufranio/MagiBridge).
+Allows sending messages to Discord server channels when a punishment occurs via webhooks.
 
 | Platform | Location |
 | -------- | -------- |
 | CraftBukkit/Spigot/Paper | `/plugins/BanManager/discord.yml` |
-| BungeeCord | Unsupported |
+| BungeeCord | `/plugins/BanManager/discord.yml` |
 | Sponge | `/config/banmanager/discord.yml` |
-| Velocity | Unsupported |
+| Velocity | `/plugins/BanManager/discord.yml` |
 
+<div className="config-info">
+
+- ###### `hooks`
+  - ###### `enabled` - Set to true to enable discord integration, defaults to `false`
+    - ###### `punishments`
+      - ###### `ban`
+        - ###### `url` - The Discord webhook url, see the official [Discord documentation](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) on how to generate one
+        - ###### `ignoreSilent` - Set to false to send silent punishments, defaults to true
+        - ###### `payload` - The JSON payload in a YAML format to send to Discord. See the Discord [Developer Docs]() for all fields
+
+</div>
+
+## Example
+```yml
+# More info at https://banmanagement.com/docs/banmanager/configuration/discord-yml
+hooks:
+  enabled: false
+  punishments:
+    ban:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] banned'
+            description: '[reason]'
+            color: 10033947
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    tempban:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] banned'
+            description: '[reason]'
+            color: 15680580
+            fields:
+              - name: Duration
+                value: '[expires]'
+                inline: true
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    unban:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] unbanned'
+            description: '[reason]'
+            color: 2278750
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    banip:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[ip] Banned'
+            description: '[reason]'
+            color: 10033947
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    tempbanip:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[ip] banned'
+            description: '[reason]'
+            color: 15680580
+            fields:
+              - name: Duration
+                value: '[expires]'
+                inline: true
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    unbanip:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[ip] Unbanned'
+            description: '[reason]'
+            color: 2278750
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    kick:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] kicked'
+            description: '[reason]'
+            color: 16776960
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    mute:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] muted'
+            description: '[reason]'
+            color: 3616931
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    tempmute:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] muted'
+            description: '[reason]'
+            color: 6514417
+            fields:
+              - name: Duration
+                value: '[expires]'
+                inline: true
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    unmute:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] unmuted'
+            description: '[reason]'
+            color: 2278750
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    tempwarning:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] warned'
+            description: '[reason]'
+            color: 16096779
+            fields:
+              - name: Duration
+                value: '[expires]'
+                inline: true
+              - name: Points
+                value: '[points]'
+                inline: true
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    warning:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] warned'
+            description: '[reason]'
+            color: 9584654
+            fields:
+              - name: Points
+                value: '[points]'
+                inline: true
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    report:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] reported'
+            description: '[reason]'
+            color: 16737894
+            fields:
+              - name: '[player] location'
+                value: '[playerX] [playerY] [playerZ] [playerPitch] [playerYaw] [playerWorld]'
+                inline: true
+              - name: '[actor] location'
+                value: '[actorX] [actorY] [actorZ] [actorPitch] [actorYaw] [actorWorld]'
+                inline: true
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+
+```
+
+## Previous BanManager versions
+
+Versions prior to v7.10 only support Bukkit via [DiscordSRV](https://www.spigotmc.org/resources/discordsrv.18494/) and Sponge via [MagiBridge](https://ore.spongepowered.org/Eufranio/MagiBridge). The documentation below exists for users on older versions. This has been removed in later versions and it is recommended you migrate to webhooks.
 <div className="config-info">
 
 - ###### `enabled` - Set to true to enable discord integration, defaults to `false`
@@ -32,7 +307,7 @@ Allows sending messages to Discord server channels when a punishment occurs. Buk
 
 </div>
 
-## Example
+### Example
 ```yml
 enabled: true
 messagesFromActor: true
