@@ -33,7 +33,7 @@
     "@headlessui/react": "1.7.17",
     "@tailwindcss/typography": "0.4.1",
     "@xstate/react": "1.6.3",
-    "autoprefixer": "10.4.20",
+    "autoprefixer": "10.4.21",
     "babel-plugin-import-glob-array": "0.2.0",
     "clsx": "1.2.1",
     "date-fns": "2.30.0",
