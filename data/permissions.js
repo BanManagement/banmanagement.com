@@ -55,6 +55,7 @@ const permissions = [
   ['bm.command.bminfo.history.mutes', 'Allows listing the past mutes of a player via /bminfo', 'bm.command.bminfo.history.mutes', '/bminfo confuser -m'],
   ['bm.command.bminfo.history.notes', 'Allows listing all notes associated with a player via /bminfo', 'bm.command.bminfo.history.notes', '/bminfo confuser -n'],
   ['bm.command.bminfo.history.warnings', 'Allows listing all warnings of a player via /bminfo', 'bm.command.bminfo.history.warnings', '/bminfo confuser -w'],
+  ['bm.command.bminfo.history.reports', 'Allows listing reports against a player via /bminfo', 'bm.command.bminfo.history.reports', '/bminfo confuser -r'],
   ['bm.command.banip', 'Allows you to ban an ip'],
   ['bm.command.banip.override', 'Allows overriding an existing ip ban'],
   ['bm.command.tempbanip', 'Allows you to tempban an ip'],
@@ -63,12 +64,17 @@ const permissions = [
   ['bm.command.unbanip.own', 'Allows a player to unban an ip they banned'],
   ['bm.command.import', 'Allows importing of banned players and ips from banned-players.json and banned-ips.json files'],
   ['bm.command.kick', 'Allows you to kick another player'],
+  ['bm.command.kickall', 'Allows you to kick all players from the server'],
+  ['bm.command.kickall.silent', 'Allows silently kicking all players from the server'],
   ['bm.command.nlkick', 'Allows you to kick another player without logging it'],
+  ['bm.command.nlkickall', 'Allows you to kick all players from the server without logging'],
+  ['bm.command.nlkickall.silent', 'Allows silently kicking all players without logging'],
   ['bm.command.mute', 'Allows you to mute a player'],
   ['bm.command.mute.offline', 'Required to permanently mute an offline player'],
   ['bm.command.mute.override', 'Allows you to override an existing mute'],
   ['bm.command.tempmute', 'Allows you to temp mute a player'],
   ['bm.command.tempmute.offline', 'Required to temporary mute an offline player'],
+  ['bm.command.tempmute.online', 'Allows creating online-only temp mutes via the -o flag'],
   ['bm.command.tempmute.override', 'Allows you to override an existing mute'],
   ['bm.command.unmute', 'Allows you to unmute a player'],
   ['bm.command.unmute.own', 'Allows a player to only unmute a player they muted'],
@@ -103,6 +109,10 @@ const permissions = [
   ['bm.exempt.override.banip', 'Allows a player to ip ban an exempt player'],
   ['bm.exempt.tempbanip', 'Online players with this permission cannot be temporarily banned, highly recommended for admins'],
   ['bm.exempt.override.tempbanip', 'Allows a player to temporarily ip ban an exempt player'],
+  ['bm.exempt.baniprange', 'Online players with this permission cannot be ip range banned'],
+  ['bm.exempt.override.baniprange', 'Allows a player to ip range ban an exempt player'],
+  ['bm.exempt.tempbaniprange', 'Online players with this permission cannot be temporarily ip range banned'],
+  ['bm.exempt.override.tempbaniprange', 'Allows a player to temporarily ip range ban an exempt player'],
   ['bm.exempt.warn', 'Online players with this permission cannot be warned'],
   ['bm.exempt.override.warn', 'Allows a player to warn an exempt player'],
   ['bm.exempt.tempwarn', 'Online players with this permission cannot be temporarily warned'],
@@ -162,7 +172,8 @@ const permissions = [
   ['bm.command.reports.unassign', 'Unassign a report'],
   ['bm.command.bmutils', 'Allows access utility commands'],
   ['bm.command.bmutils.missingplayers', 'Allows access to missingplayers subcommand'],
-  ['bm.command.bmutils.duplicates', 'Allows access to duplicates subcommand']
+  ['bm.command.bmutils.duplicates', 'Allows access to duplicates subcommand'],
+  ['bm.command.bmnames', 'Allows viewing player name history']
 ]
 
 export default permissions

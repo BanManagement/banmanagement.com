@@ -24,6 +24,13 @@ Note: Report functionality is not available on the proxy plugin versions
     * This is required to generate the default configuration files and enable BanManager
 1. Check your server logs to confirm BanManager enables correctly
 
+### Velocity-specific Configuration
+Velocity has an additional configuration file [`velocity.yml`](/docs/banmanager/configuration/velocity-yml) with the following options:
+- `features.commands` - Enable/disable BanManager commands on the proxy
+- `features.forceEnableMute` - Force enable mute support without [SignedVelocity](https://modrinth.com/plugin/signedvelocity)
+
+For mute functionality on Minecraft 1.19.1+, you should either install the [SignedVelocity](https://modrinth.com/plugin/signedvelocity) plugin or set `forceEnableMute: true` in `velocity.yml`.
+
 ## Option 2 - Alternative networks
 **Requirement:** you're using a proxy such as LilyPad and would like punishments to be **shared across every Minecraft server**
 

@@ -1,0 +1,42 @@
+---
+layout: 'docs'
+title: 'velocity.yml'
+navTitle: 'velocity.yml'
+category: 'Configuration'
+description: 'Velocity-specific configuration options for BanManager.'
+---
+Configuration options specific to the Velocity proxy platform.
+
+| Platform | Location |
+| -------- | -------- |
+| Velocity | `/plugins/BanManager/velocity.yml` |
+
+<div className="config-info">
+
+- ###### `features`
+  - ###### `commands` - Set to `true` to enable BanManager commands on Velocity. Defaults to `true`.
+  - ###### `forceEnableMute` - Set to `true` to force enable mute functionality without requiring [SignedVelocity](https://modrinth.com/plugin/signedvelocity). Defaults to `false`.
+
+</div>
+
+## Mute Support
+
+Due to Minecraft's signed chat system introduced in 1.19.1+, intercepting and blocking chat messages on a proxy requires special handling. BanManager on Velocity supports mutes in two ways:
+
+1. **With SignedVelocity plugin** (recommended) - Install the [SignedVelocity](https://modrinth.com/plugin/signedvelocity) plugin on your Velocity proxy and the corresponding mod on your backend servers. This allows proper interception of signed chat messages.
+
+2. **Force enable** - Set `forceEnableMute: true` to enable mute functionality without SignedVelocity. Note that this may not work correctly with signed chat on 1.19.1+ servers.
+
+## Example
+
+```yml
+features:
+  commands: true
+  forceEnableMute: false
+```
+
+## Notes
+
+- This configuration file only exists on Velocity installations
+- Other configuration files (`config.yml`, `messages.yml`, etc.) work the same as on other platforms
+- Report functionality is not available on Velocity

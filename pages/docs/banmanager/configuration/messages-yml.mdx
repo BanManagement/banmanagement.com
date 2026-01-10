@@ -9,7 +9,7 @@ import { Message } from 'components/pages/docs/banmanager/configuration/message'
 
 Defines BanManager's messages throughout the plugin.
 
-Messages support [JSON](https://minecraft.fandom.com/wiki/Raw_JSON_text_format) and [Minecraft colour codes](https://gamedb.gg/games/minecraft/bukkit-color-codes/) using the `&` delimiter. Use `\n` for new lines. Text wrapped inside square brackets i.e. `[player]` are tokens which will be replaced with their corresponding value. Set values to an empty string, i.e. `''` if you do not wish the message to display.
+Messages support [JSON](https://minecraft.fandom.com/wiki/Raw_JSON_text_format), [Minecraft colour codes](https://gamedb.gg/games/minecraft/bukkit-color-codes/) and RGB hex colors e.g. `&#ff5500` using the `&` delimiter. Use `\n` for new lines. Text wrapped inside square brackets i.e. `[player]` are tokens which will be replaced with their corresponding value. Set values to an empty string, i.e. `''` if you do not wish the message to display.
 
 | Platform | Location |
 | -------- | -------- |
@@ -18,6 +18,11 @@ Messages support [JSON](https://minecraft.fandom.com/wiki/Raw_JSON_text_format) 
 | Fabric | `/config/banmanager/messages.yml` |
 | Sponge | `/config/banmanager/messages.yml` |
 | Velocity | `/plugins/BanManager/messages.yml` |
+
+### PlaceholderAPI Support (Bukkit)
+On Bukkit-based servers with [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) installed, you can use PlaceholderAPI tokens directly in messages. For example: `%player_name%`, `%server_online%`, etc.
+
+### Message Types
 
 <div className="config-info">
 
@@ -285,6 +290,5 @@ Displayed when no alts for a player are found via `/alts` command.
       See Java's [DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#patterns) for a list of available symbols.
       <Message name="info.ips.dateTimeFormat" type="none" />
 
----
 
 </div>
