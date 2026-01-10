@@ -17,8 +17,8 @@ export const WebHero = () => (
           </div>
 
         </div>
-        <div className="lg:w-5/12 order-2 border-1 border-gray-100 rounded-lg shadow">
-          <Image src="/images/feature-player.png" alt="WebUI player page" className="rounded-lg" width="1360" height="971" />
+        <div className="lg:w-5/12 order-2 border-1 border-gray-100 rounded-lg shadow overflow-hidden">
+          <Image src="/images/webui-player.png" alt="WebUI player page showing punishment history" className="rounded-lg" width="1440" height="900" />
         </div>
       </div>
 
