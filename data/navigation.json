@@ -1,0 +1,328 @@
+{
+  "pages": [
+    {
+      "layout": "docs",
+      "title": "API",
+      "navTitle": "API",
+      "category": "Developers",
+      "description": "Integrate with the BanManager API to manage punishments and be notified of changes via custom events.",
+      "__resourcePath": "docs/banmanager/api.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Commands",
+      "navTitle": "Commands",
+      "category": "Usage",
+      "description": "A list of every command available within BanManager.",
+      "__resourcePath": "docs/banmanager/commands.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "FAQ",
+      "navTitle": "FAQ",
+      "category": "Getting Started",
+      "description": "Get to know more about BanManager with the frequently asked questions.",
+      "__resourcePath": "docs/banmanager/faq.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Install (on multiple servers)",
+      "navTitle": "Install (on multiple servers)",
+      "category": "Getting Started",
+      "description": "Install and configure BanManager across multiple Minecraft servers and networks.",
+      "__resourcePath": "docs/banmanager/install-network.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Install",
+      "navTitle": "Install (on a single server)",
+      "category": "Getting Started",
+      "description": "Install and configure BanManager on an individual Minecraft server.",
+      "__resourcePath": "docs/banmanager/install.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Permissions",
+      "navTitle": "Permissions",
+      "category": "Usage",
+      "description": "A list of every permission available within BanManager.",
+      "__resourcePath": "docs/banmanager/permissions.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Placeholders",
+      "navTitle": "Placeholders",
+      "category": "Usage",
+      "description": "A list of every placeholder available within BanManager.",
+      "__resourcePath": "docs/banmanager/placeholders.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Storage",
+      "navTitle": "Storage",
+      "category": "Usage",
+      "description": "A list of every supported database for BanManager.",
+      "__resourcePath": "docs/banmanager/storage-types.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Install",
+      "navTitle": "Install",
+      "category": "Web UI",
+      "description": "Install and configure the BanManager WebUI to aggregate and manage punishment data from your mobile or computer",
+      "__resourcePath": "docs/webui/install.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Update",
+      "navTitle": "Update",
+      "category": "Web UI",
+      "description": "Update the BanManager WebUI to the latest version",
+      "__resourcePath": "docs/webui/update.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "config.yml",
+      "navTitle": "config.yml",
+      "category": "Configuration",
+      "description": "BanManager offers flexibility by providing a large range of configuration options found here.",
+      "__resourcePath": "docs/banmanager/configuration/config-yml.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "console.yml",
+      "navTitle": "console.yml",
+      "category": "Configuration",
+      "description": "This configuration file defines properties to identify punishments issued via the console.",
+      "__resourcePath": "docs/banmanager/configuration/console-yml.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "discord.yml (Deprecated)",
+      "navTitle": "discord.yml (Deprecated)",
+      "category": "Configuration",
+      "description": "Legacy Discord integration for BanManager versions prior to v7.10.",
+      "__resourcePath": "docs/banmanager/configuration/discord-yml.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "exemptions.yml",
+      "navTitle": "exemptions.yml",
+      "category": "Configuration",
+      "description": "List players to exempt them from punishments, even when they are offline.",
+      "__resourcePath": "docs/banmanager/configuration/exemptions-yml.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "geoip.yml",
+      "navTitle": "geoip.yml",
+      "category": "Configuration",
+      "description": "GeoIP functions adds geofencing capabilities to your Minecraft server",
+      "__resourcePath": "docs/banmanager/configuration/geoip-yml.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Configuration",
+      "navTitle": "Configuration",
+      "category": "Usage",
+      "description": "Learn more about the configuration files used by BanManager to manage your server.",
+      "__resourcePath": "docs/banmanager/configuration/index.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "messages.yml",
+      "navTitle": "messages.yml",
+      "category": "Configuration",
+      "description": "All messages can be fully customised, supporting JSON, colour codes and more!",
+      "__resourcePath": "docs/banmanager/configuration/messages-yml.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "reasons.yml",
+      "navTitle": "reasons.yml",
+      "category": "Configuration",
+      "description": "Set shortcuts for reasons for a consistent banning process.",
+      "__resourcePath": "docs/banmanager/configuration/reasons-yml.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "schedules.yml",
+      "navTitle": "schedules.yml",
+      "category": "Configuration",
+      "description": "Control how often BanManager syncs data between the database and the Minecraft server.",
+      "__resourcePath": "docs/banmanager/configuration/schedules-yml.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "velocity.yml",
+      "navTitle": "velocity.yml",
+      "category": "Configuration",
+      "description": "Velocity-specific configuration options for BanManager.",
+      "__resourcePath": "docs/banmanager/configuration/velocity-yml.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "webhooks.yml",
+      "navTitle": "webhooks.yml",
+      "category": "Configuration",
+      "description": "Send punishment notifications to Discord, Slack, or any HTTP endpoint via webhooks.",
+      "__resourcePath": "docs/banmanager/configuration/webhooks-yml.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Migrating from AdvancedBan",
+      "navTitle": "AdvancedBan",
+      "category": "Migration Guides",
+      "__resourcePath": "docs/banmanager/migrations/advancedban.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Migrating from BanManager H2",
+      "navTitle": "BanManager H2",
+      "category": "Migration Guides",
+      "__resourcePath": "docs/banmanager/migrations/h2.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Migrating to BanManager",
+      "navTitle": "Migrations",
+      "category": "Migration Guides",
+      "__resourcePath": "docs/banmanager/migrations/index.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Migrating from Minecraft Java Edition",
+      "navTitle": "Minecraft Java Edition",
+      "category": "Migration Guides",
+      "__resourcePath": "docs/banmanager/migrations/minecraft-java-edition.mdx"
+    }
+  ],
+  "docsNav": {
+    "Getting Started": [
+      {
+        "layout": "docs",
+        "title": "FAQ",
+        "navTitle": "FAQ",
+        "category": "Getting Started",
+        "description": "Get to know more about BanManager with the frequently asked questions.",
+        "__resourcePath": "docs/banmanager/faq.mdx"
+      },
+      {
+        "layout": "docs",
+        "title": "Install (on multiple servers)",
+        "navTitle": "Install (on multiple servers)",
+        "category": "Getting Started",
+        "description": "Install and configure BanManager across multiple Minecraft servers and networks.",
+        "__resourcePath": "docs/banmanager/install-network.mdx"
+      },
+      {
+        "layout": "docs",
+        "title": "Install",
+        "navTitle": "Install (on a single server)",
+        "category": "Getting Started",
+        "description": "Install and configure BanManager on an individual Minecraft server.",
+        "__resourcePath": "docs/banmanager/install.mdx"
+      }
+    ],
+    "Usage": [
+      {
+        "layout": "docs",
+        "title": "Commands",
+        "navTitle": "Commands",
+        "category": "Usage",
+        "description": "A list of every command available within BanManager.",
+        "__resourcePath": "docs/banmanager/commands.mdx"
+      },
+      {
+        "layout": "docs",
+        "title": "Permissions",
+        "navTitle": "Permissions",
+        "category": "Usage",
+        "description": "A list of every permission available within BanManager.",
+        "__resourcePath": "docs/banmanager/permissions.mdx"
+      },
+      {
+        "layout": "docs",
+        "title": "Placeholders",
+        "navTitle": "Placeholders",
+        "category": "Usage",
+        "description": "A list of every placeholder available within BanManager.",
+        "__resourcePath": "docs/banmanager/placeholders.mdx"
+      },
+      {
+        "layout": "docs",
+        "title": "Storage",
+        "navTitle": "Storage",
+        "category": "Usage",
+        "description": "A list of every supported database for BanManager.",
+        "__resourcePath": "docs/banmanager/storage-types.mdx"
+      },
+      {
+        "layout": "docs",
+        "title": "Configuration",
+        "navTitle": "Configuration",
+        "category": "Usage",
+        "description": "Learn more about the configuration files used by BanManager to manage your server.",
+        "__resourcePath": "docs/banmanager/configuration/index.mdx"
+      }
+    ],
+    "Migration Guides": [
+      {
+        "layout": "docs",
+        "title": "Migrating from AdvancedBan",
+        "navTitle": "AdvancedBan",
+        "category": "Migration Guides",
+        "__resourcePath": "docs/banmanager/migrations/advancedban.mdx"
+      },
+      {
+        "layout": "docs",
+        "title": "Migrating from BanManager H2",
+        "navTitle": "BanManager H2",
+        "category": "Migration Guides",
+        "__resourcePath": "docs/banmanager/migrations/h2.mdx"
+      },
+      {
+        "layout": "docs",
+        "title": "Migrating to BanManager",
+        "navTitle": "Migrations",
+        "category": "Migration Guides",
+        "__resourcePath": "docs/banmanager/migrations/index.mdx"
+      },
+      {
+        "layout": "docs",
+        "title": "Migrating from Minecraft Java Edition",
+        "navTitle": "Minecraft Java Edition",
+        "category": "Migration Guides",
+        "__resourcePath": "docs/banmanager/migrations/minecraft-java-edition.mdx"
+      }
+    ],
+    "Developers": [
+      {
+        "layout": "docs",
+        "title": "API",
+        "navTitle": "API",
+        "category": "Developers",
+        "description": "Integrate with the BanManager API to manage punishments and be notified of changes via custom events.",
+        "__resourcePath": "docs/banmanager/api.mdx"
+      }
+    ],
+    "Web UI": [
+      {
+        "layout": "docs",
+        "title": "Install",
+        "navTitle": "Install",
+        "category": "Web UI",
+        "description": "Install and configure the BanManager WebUI to aggregate and manage punishment data from your mobile or computer",
+        "__resourcePath": "docs/webui/install.mdx"
+      },
+      {
+        "layout": "docs",
+        "title": "Update",
+        "navTitle": "Update",
+        "category": "Web UI",
+        "description": "Update the BanManager WebUI to the latest version",
+        "__resourcePath": "docs/webui/update.mdx"
+      }
+    ]
+  }
+}

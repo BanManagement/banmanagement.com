@@ -1,24 +1,6 @@
-const withTM = require('next-transpile-modules')(['minecraft-text'])
-const withMdxEnhanced = require('next-mdx-enhanced')
-const autoLinkHeadings = require('rehype-autolink-headings')
-const highlight = require('rehype-highlight')
-const headings = require('./remark/headings')
-const toc = require('@docusaurus/mdx-loader/lib/remark/toc')
-
-module.exports = withTM(withMdxEnhanced({
-  layoutPath: 'components/layouts',
-  defaultLayout: false,
-  fileExtensions: ['mdx'],
-  remarkPlugins: [headings, toc.default],
-  rehypePlugins: [[autoLinkHeadings, { properties: { ariaHidden: true, tabIndex: -1, class: 'heading-link' } }], highlight],
-  usesSrc: false,
-  extendFrontMatter: {
-    process: (mdxContent, frontMatter) => {},
-    phase: 'prebuild|loader|both'
-  },
-  reExportDataFetching: false
-})({
-  webpack5: false,
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  transpilePackages: ['minecraft-text'],
   eslint: {
     ignoreDuringBuilds: true
   },
@@ -86,4 +68,6 @@ module.exports = withTM(withMdxEnhanced({
       }
     ]
   }
-}))
+}
+
+export default nextConfig

@@ -13,7 +13,7 @@ COPY .npmrc ./
 FROM base AS dependencies
 # install node packages
 RUN npm set progress=false && npm config set depth 0
-ENV NPM_CONFIG_LOGLEVEL warn
+ENV NPM_CONFIG_LOGLEVEL=warn
 RUN npm ci --no-audit --omit=dev
 
 #
@@ -24,10 +24,8 @@ COPY --from=dependencies /usr/src/app/node_modules ./node_modules
 # copy app sources
 COPY . .
 
-ENV NEXT_TELEMETRY_DISABLED 1
-ENV NODE_ENV production
-
-ENV NODE_OPTIONS --openssl-legacy-provider
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
 
 RUN npm run build
 

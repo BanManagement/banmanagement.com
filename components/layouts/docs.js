@@ -2,7 +2,6 @@ import { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import GithubSlugger from 'github-slugger'
-import { useFilteredAndTreeifiedTOC } from '@docusaurus/theme-common/lib/utils/tocUtils'
 import { FaEdit } from 'react-icons/fa'
 import { Layout } from 'components/layout'
 import { BreadcrumbHeader } from 'components/breadcrumb-header'
@@ -13,17 +12,15 @@ import { docsNav, formatPath, pages } from 'data/navigation'
 const slugger = new GithubSlugger()
 
 function DocsLayout ({ children, frontMatter, toc }) {
-  const tocTree = useFilteredAndTreeifiedTOC({
-    toc,
-    minHeadingLevel: 2,
-    maxHeadingLevel: 3
-  })
+  // TOC is already in the correct format { id, value, children }[] from lib/mdx.js
+  const tocTree = toc || []
+
   const router = useRouter()
-  const nav = Object.entries(docsNav).map(([category, pages]) => (
+  const nav = Object.entries(docsNav).map(([category, categoryPages]) => (
     <Fragment key={category}>
       <h4 className="px-3 mb-3 lg:mb-3 uppercase tracking-wide font-semibold text-sm lg:text-xs text-gray-900">{category}</h4>
       <ul className="text-sm mb-8">
-        {pages.map((page) => (
+        {categoryPages && categoryPages.map((page) => (
           <li key={page.__resourcePath} className="py-1">
             <a className={`px-3 py-2 transition-colors duration-200 relative block hover:text-gray-900 text-gray-500 ${router.asPath === formatPath(page.__resourcePath) ? 'font-bold' : ''}`} href={formatPath(page.__resourcePath)}>{page.navTitle}</a>
           </li>
@@ -57,6 +54,11 @@ function DocsLayout ({ children, frontMatter, toc }) {
     breadcrumbs.push([frontMatter.navTitle || frontMatter.title, router.asPath])
   }
 
+  // Convert __resourcePath from docs/... to content/...
+  const editPath = frontMatter.__resourcePath
+    ? `content/${frontMatter.__resourcePath}`
+    : ''
+
   return (
     <Layout title={title} description={frontMatter.description}>
       <BreadcrumbHeader breadcrumbs={breadcrumbs} />
@@ -77,7 +79,7 @@ function DocsLayout ({ children, frontMatter, toc }) {
                 {children}
                 <div className="mt-12 border-t border-gray-200 pt-6 text-right">
                   <a
-                    href={`${GITHUB_ORG}/banmanagement.com/edit/master/pages/${frontMatter.__resourcePath}`}
+                    href={`${GITHUB_ORG}/banmanagement.com/edit/master/${editPath}`}
                     target='_blank'
                     rel='noreferrer noopener'
                     className="mt-10 text-sm hover:text-gray-900"
@@ -111,9 +113,9 @@ DocsLayout.propTypes = {
   children: PropTypes.node,
   frontMatter: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    description: PropTypes.string,
     navTitle: PropTypes.string,
-    __resourcePath: PropTypes.string.isRequired
+    __resourcePath: PropTypes.string
   }),
   toc: PropTypes.array
 }
