@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { MDXRemote } from 'next-mdx-remote'
+import { FAQPageJsonLd } from 'next-seo'
 import DocsLayout from 'components/layouts/docs'
 
 // Import all custom components that might be used in MDX
@@ -24,9 +25,34 @@ const components = {
   Code
 }
 
-export default function BanManagerDocPage ({ source, frontMatter, toc, scope }) {
+// FAQ questions for structured data (extracted from FAQ page content)
+const faqQuestions = [
+  {
+    questionName: 'BanManager is showing as red in /plugins',
+    acceptedAnswerText: 'Please ensure you have configured the plugin correctly and check either your server log or console for more information.'
+  },
+  {
+    questionName: 'When trying to /ban a player it displays /ban <player> <reason>',
+    acceptedAnswerText: 'The plugin is not enabled, please check your server startup log for more information.'
+  },
+  {
+    questionName: 'BanManager is unable to connect to the database',
+    acceptedAnswerText: 'This can be caused by a number of issues. Verify you are using the correct address, port, username and password. Ensure the database exists and is accessible by the user. Check that no firewall rules are blocking the connection.'
+  },
+  {
+    questionName: 'How can I add new lines to the player denied screen when a banned player tries to join?',
+    acceptedAnswerText: String.raw`Use \n within the message in the messages.yml wherever you'd like a new line to start.`
+  },
+  {
+    questionName: 'I punished a player but it doesn\'t appear to have synced across all servers',
+    acceptedAnswerText: 'Each server polls for data changes including new punishments. Check your schedules.yml file and adjust timings. By default local punishments are checked every 30 seconds and global punishments every 2 minutes.'
+  }
+]
+
+export default function BanManagerDocPage ({ source, frontMatter, toc, scope, isFaq }) {
   return (
     <DocsLayout frontMatter={frontMatter} toc={toc}>
+      {isFaq && <FAQPageJsonLd mainEntity={faqQuestions} />}
       <MDXRemote {...source} components={components} scope={scope} />
     </DocsLayout>
   )
@@ -36,7 +62,8 @@ BanManagerDocPage.propTypes = {
   source: PropTypes.object.isRequired,
   frontMatter: PropTypes.object.isRequired,
   toc: PropTypes.array.isRequired,
-  scope: PropTypes.object
+  scope: PropTypes.object,
+  isFaq: PropTypes.bool
 }
 
 export async function getStaticProps ({ params }) {
@@ -56,7 +83,8 @@ export async function getStaticProps ({ params }) {
       source,
       frontMatter,
       toc,
-      scope: returnedScope
+      scope: returnedScope,
+      isFaq: slug === 'faq'
     },
     // Revalidate every 24 hours for pages with dynamic data
     revalidate: fullSlug === 'banmanager/api' ? 86400 : false

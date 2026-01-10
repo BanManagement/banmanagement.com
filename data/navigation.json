@@ -173,6 +173,7 @@
       "title": "Migrating from AdvancedBan",
       "navTitle": "AdvancedBan",
       "category": "Migration Guides",
+      "description": "Import bans, IP bans, mutes and warnings from AdvancedBan to BanManager.",
       "__resourcePath": "docs/banmanager/migrations/advancedban.mdx"
     },
     {
@@ -180,6 +181,7 @@
       "title": "Migrating from BanManager H2",
       "navTitle": "BanManager H2",
       "category": "Migration Guides",
+      "description": "Migrate BanManager data from H2 to MySQL or MariaDB for cross-server sync and WebUI support.",
       "__resourcePath": "docs/banmanager/migrations/h2.mdx"
     },
     {
@@ -187,6 +189,7 @@
       "title": "Migrating to BanManager",
       "navTitle": "Migrations",
       "category": "Migration Guides",
+      "description": "Step-by-step guides for migrating punishment data from other plugins to BanManager.",
       "__resourcePath": "docs/banmanager/migrations/index.mdx"
     },
     {
@@ -194,6 +197,7 @@
       "title": "Migrating from Minecraft Java Edition",
       "navTitle": "Minecraft Java Edition",
       "category": "Migration Guides",
+      "description": "Import bans and IP bans from Minecraft Java Edition's built-in banning system to BanManager.",
       "__resourcePath": "docs/banmanager/migrations/minecraft-java-edition.mdx"
     }
   ],
@@ -272,6 +276,7 @@
         "title": "Migrating from AdvancedBan",
         "navTitle": "AdvancedBan",
         "category": "Migration Guides",
+        "description": "Import bans, IP bans, mutes and warnings from AdvancedBan to BanManager.",
         "__resourcePath": "docs/banmanager/migrations/advancedban.mdx"
       },
       {
@@ -279,6 +284,7 @@
         "title": "Migrating from BanManager H2",
         "navTitle": "BanManager H2",
         "category": "Migration Guides",
+        "description": "Migrate BanManager data from H2 to MySQL or MariaDB for cross-server sync and WebUI support.",
         "__resourcePath": "docs/banmanager/migrations/h2.mdx"
       },
       {
@@ -286,6 +292,7 @@
         "title": "Migrating to BanManager",
         "navTitle": "Migrations",
         "category": "Migration Guides",
+        "description": "Step-by-step guides for migrating punishment data from other plugins to BanManager.",
         "__resourcePath": "docs/banmanager/migrations/index.mdx"
       },
       {
@@ -293,6 +300,7 @@
         "title": "Migrating from Minecraft Java Edition",
         "navTitle": "Minecraft Java Edition",
         "category": "Migration Guides",
+        "description": "Import bans and IP bans from Minecraft Java Edition's built-in banning system to BanManager.",
         "__resourcePath": "docs/banmanager/migrations/minecraft-java-edition.mdx"
       }
     ],

@@ -8,12 +8,13 @@
     "build": "node scripts/generate-navigation.mjs && next build",
     "start": "next start -p $PORT",
     "refresh": "rm -rf .next/cache",
-    "prebuild": "node scripts/generate-navigation.mjs",
+    "prebuild": "node scripts/generate-navigation.mjs && node scripts/generate-og-images.mjs",
     "heroku-postbuild": "npm run build",
     "test": "npm run lint && npm run build",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --fix",
     "postbuild": "next-sitemap",
-    "generate-nav": "node scripts/generate-navigation.mjs"
+    "generate-nav": "node scripts/generate-navigation.mjs",
+    "generate-og": "node scripts/generate-og-images.mjs"
   },
   "author": "James Mortemore (jamesmortemore@gmail.com)",
   "license": "MIT",
@@ -70,6 +71,8 @@
     "@next/eslint-plugin-next": "^15.3.3",
     "eslint": "9.39.2",
     "eslint-plugin-react": "7.37.5",
-    "globals": "^16.2.0"
+    "globals": "^16.2.0",
+    "satori": "^0.18.3",
+    "sharp": "^0.34.5"
   }
 }

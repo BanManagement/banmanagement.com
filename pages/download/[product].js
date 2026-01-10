@@ -14,6 +14,7 @@ import { FaFileAlt, FaDesktop, FaCog, FaFlask, FaSearch, FaGavel, FaUserShield, 
 import Image from 'next/image'
 import { DEMO } from 'constants/urls'
 import downloadsData from 'data/downloads.json'
+import { SoftwareAppJsonLd } from 'next-seo'
 
 // Feature card component for Web UI
 function FeatureCard ({ icon: Icon, title, description }) {
@@ -131,6 +132,14 @@ function DownloadProductPage ({ product, productData, release }) {
       title={`Download ${productData.name}`}
       description={`Download ${productData.name} for your Minecraft server. ${productData.description}`}
     >
+      <SoftwareAppJsonLd
+        name={productData.name}
+        price="0"
+        priceCurrency="USD"
+        applicationCategory="GameApplication"
+        operatingSystem="Minecraft Server (Java Edition)"
+        description={productData.description}
+      />
       <PageHeader>Download</PageHeader>
 
       {/* Main Content */}
@@ -202,9 +211,9 @@ function DownloadProductPage ({ product, productData, release }) {
               {/* Hero Screenshot Gallery */}
               {productData.screenshots && productData.screenshots.length > 0 && (
                 <div className="grid lg:grid-cols-2 gap-6">
-                  {productData.screenshots.map((screenshot, index) => (
+                  {productData.screenshots.map((screenshot) => (
                     <div
-                      key={index}
+                      key={screenshot.src}
                       className="group relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gray-900/10"
                     >
                       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10" />
