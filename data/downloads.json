@@ -71,7 +71,9 @@
     "description": "Required plugin for Web UI integration",
     "snapshotOnly": true,
     "ciUrl": "https://ci.frostcast.net/job/BanManager-WebEnhancer/",
-    "requires": ["banmanager"],
+    "requires": [
+      "banmanager"
+    ],
     "platforms": {
       "bukkit": {
         "name": "Bukkit",
@@ -138,7 +140,10 @@
   "webui": {
     "name": "Web UI",
     "description": "Browser dashboard for managing punishments",
-    "requires": ["banmanager", "webenhancer"],
+    "requires": [
+      "banmanager",
+      "webenhancer"
+    ],
     "requiresDatabase": "MySQL or MariaDB",
     "installUrl": "/docs/webui/install",
     "demoUrl": "https://demo.banmanagement.com",
