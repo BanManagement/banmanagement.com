@@ -42,7 +42,7 @@ export const ConnectionForm = ({ currentState, handleNext }) => {
         <h3 className="text-sm">Optional and only to used to generate a config.yml in your browser</h3>
         {fields.map(({ name, label, type }) => (
           <Field key={name} name={name}>
-            {({ field, form }) => (
+            {({ field }) => (
               <div className="relative">
                 <label
                   htmlFor={name}

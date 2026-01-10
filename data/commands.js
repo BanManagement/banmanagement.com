@@ -25,7 +25,7 @@ const commands = [
   ['/nlkickall [reason]', 'Kick all players from the server without logging', '-s', 'bm.command.nlkickall'],
   ['/bminfo [player]', 'Look up information of a player', '-bans, -kicks, -ips, -mutes, -notes, -reports, -time, -warnings', 'bm.command.bminfo'],
   ['/bmnames <player>', 'View player name history', '', 'bm.command.bmnames'],
-  ['/bmimport', <>Check the <a href='/docs/banmanager/migrations'>migration guides</a> for more information</>, '', 'bm.command.import'],
+  ['/bmimport', 'Check the migration guides for more information', '', 'bm.command.import'],
   ['/bmexport <players || ips>', 'Export bans to vanilla format', '', 'bm.command.export'],
   ['/bmreload', 'Reload plugin configuration and messages (excludes database connection info)', '', 'bm.command.reload'],
   ['/banlist [players || ipranges || ips]', 'List all bans stored in memory', '', 'bm.command.banlist'],

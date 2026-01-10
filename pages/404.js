@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Layout } from 'components/layout'
 
 export default function Custom404 () {
@@ -11,7 +12,7 @@ export default function Custom404 () {
               className="text-2xl md:text-3xl font-light leading-normal"
             >Sorry, we couldn&apos;t find this page. </p>
 
-            <a href='/' className="mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-primary-500 hover:bg-primary-600 rounded-lg shadow">Homepage</a>
+            <Link href='/' className="mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-primary-500 hover:bg-primary-600 rounded-lg shadow">Homepage</Link>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState, Fragment } from 'react'
 import clsx from 'clsx'
@@ -44,10 +45,10 @@ export const Nav = () => {
       <div className="max-w-8xl mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <a href="/">
+            <Link href="/">
               <span className="sr-only">Home</span>
               <Image src="/images/banmanager-icon.png" alt="Logo" className="h-8 w-auto sm:h-10" width="40" height="40" />
-            </a>
+            </Link>
           </div>
           <div className="-mr-2 -my-2 md:hidden">
             <button type="button" className="rounded-md p-2 inline-flex items-center justify-center text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500 text-2xl" onClick={() => setDrawerOpen(true)}>
@@ -100,10 +101,10 @@ export const Nav = () => {
         <div className="pt-5 pb-6 px-5">
           <div className="flex items-center justify-between">
             <div>
-              <a href="/">
+              <Link href="/">
                 <span className="sr-only">Home</span>
-                <img className="h-8 w-auto" src="/images/banmanager-icon.png" alt="Logo" />
-              </a>
+                <Image className="h-8 w-auto" src="/images/banmanager-icon.png" alt="Logo" width="32" height="32" />
+              </Link>
             </div>
             <div className="-mr-2">
               <button type="button" className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-grey-500" onClick={() => setDrawerOpen(false)}>

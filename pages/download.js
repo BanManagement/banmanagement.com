@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 import { Layout } from 'components/layout'
 import { DownloadCard } from 'components/pages/download/download-card'
 import { DEMO } from 'constants/urls'
@@ -91,13 +92,13 @@ function DownloadPage ({ release }) {
               <FaDesktop className="fill-current w-4 h-4 mr-2" />
               Demo
             </a>
-            <a
+            <Link
               href="/docs/webui/install"
               className="py-3 px-4 text-white bg-primary-500 hover:bg-primary-800 rounded-lg shadow inline-flex items-center ml-4"
             >
               <FaCog className="fill-current w-4 h-4 mr-2" />
               <span>Install</span>
-            </a>
+            </Link>
           </DownloadCard>
           <DownloadCard title="Legacy" description="A PHP based UI to manage punishment data" imgSrc="/images/php-logo.svg" size='md'>
             {/* <a

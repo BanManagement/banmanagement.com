@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { FaGithub, FaShieldAlt, FaBan } from 'react-icons/fa'
 import { GITHUB_ORG } from 'constants/urls'
 
@@ -185,12 +186,12 @@ export const Hero = () => (
               A suite of moderation plugins &amp; apps for Minecraft servers
             </p>
 
-            <a
+            <Link
               href="/docs"
               className="mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-red-500 hover:bg-red-600 rounded-lg shadow"
               >
                 Get Started
-              </a>
+              </Link>
           </div>
           <div className="md:w-1/2 relative">
             <div className="hidden md:block">

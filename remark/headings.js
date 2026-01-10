@@ -37,7 +37,7 @@ function headings () {
     slugs.reset()
 
     function visitor (headingNode) {
-      const data = headingNode.data || (headingNode.data = {}); // eslint-disable-line
+      const data = headingNode.data || (headingNode.data = {});  
       const properties = data.hProperties || (data.hProperties = {})
       let { id } = properties
 

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { DEMO } from 'constants/urls'
 
 export const Footer = () => {
@@ -17,7 +18,7 @@ export const Footer = () => {
                 <a href="/faq" className="text-gray-300 hover:text-gray-100">FAQ</a>
               </li>
               <li className="mt-2 inline-block mr-2 sm:block sm:mr-0">
-                <a href="/support" className="text-gray-300 hover:text-gray-100">Support</a>
+                <Link href="/support" className="text-gray-300 hover:text-gray-100">Support</Link>
               </li>
             </ul>
           </div>
