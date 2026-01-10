@@ -1,0 +1,88 @@
+---
+layout: 'docs'
+title: 'discord.yml (Deprecated)'
+navTitle: 'discord.yml (Deprecated)'
+category: 'Configuration'
+description: 'Legacy Discord integration for BanManager versions prior to v7.10.'
+---
+
+> **Deprecated:** This configuration file has been replaced by [`webhooks.yml`](/docs/banmanager/configuration/webhooks-yml) in BanManager v7.10+. New installations should use `webhooks.yml` instead. This page is maintained for users on older versions.
+
+---
+
+## Legacy Documentation
+
+This page documents the legacy `discord.yml` configuration for BanManager versions **prior to v7.10**.
+
+| Platform | Location |
+| -------- | -------- |
+| CraftBukkit/Spigot/Paper | `/plugins/BanManager/discord.yml` |
+| BungeeCord | `/plugins/BanManager/discord.yml` |
+| Sponge | `/config/banmanager/discord.yml` |
+
+Versions prior to v7.10 only support Bukkit via [DiscordSRV](https://www.spigotmc.org/resources/discordsrv.18494/) and Sponge via [MagiBridge](https://ore.spongepowered.org/Eufranio/MagiBridge). This has been removed in later versions and it is recommended you migrate to [webhooks.yml](/docs/banmanager/configuration/webhooks-yml).
+<div className="config-info">
+
+- ###### `enabled` - Set to true to enable discord integration, defaults to `false`
+- ###### `messagesFromActor` - Set to true to show punishment messages as if they were sent by the minecraft user, defaults to `true`
+- ###### `punishments`
+  - ###### `ban`
+    - ###### `channel`
+    The Discord channel name (for `DiscordSRV`) or ID (for `MagiBridge`) of the Discord channel.
+    For `DiscordSRV`, this name must specified under `Channels` in your DiscordSRV config.yml, i.e.
+    ```json
+    # The first part of channel pairs is not the Discord channel name!
+    Channels: {"global": "219559668236681217", "punishments": "221419146028646402"}
+    ```
+    - ###### `message` - Supports [Discord Markdown](https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-), use `\n` to represent a new line
+    - ###### `ignoreSilent` - Set to false to send silent punishments, defaults to true
+
+</div>
+
+### Example
+```yml
+enabled: true
+messagesFromActor: true
+punishments:
+  ban:
+    channel: 'punishments'
+    message: "[player] has been permanently banned\nBy: [actor]\nReason:[reason]"
+    ignoreSilent: true
+  tempban:
+    channel: 'punishments'
+    message: "[player] has been temporarily banned for [expires]\nBy: [actor]\nReason:[reason]"
+    ignoreSilent: true
+  unban:
+    channel: 'punishments'
+    message: "[player] has been unbanned\nBy: [actor]\nReason:[reason]"
+  banip:
+    channel: 'punishments'
+    message: "[ip] has been permanently banned\nBy: [actor]\nReason:[reason]"
+    ignoreSilent: true
+  tempbanip:
+    channel: 'punishments'
+    message: "[ip] has been temporarily banned for [expires]\nBy: [actor]\nReason:[reason]"
+    ignoreSilent: true
+  unbanip:
+    channel: 'punishments'
+    message: "[ip] has been unbanned\nBy: [actor]\nReason:[reason]"
+  kick:
+    channel: 'punishments'
+    message: "[player] has been kicked\nBy: [actor]\nReason:[reason]"
+    ignoreSilent: true
+  mute:
+    channel: 'punishments'
+    message: "[player] has been permanently muted\nBy: [actor]\nReason:[reason]"
+    ignoreSilent: true
+  tempmute:
+    channel: 'punishments'
+    message: "[player] has been temporarily muted for [expires]\nBy: [actor]\nReason:[reason]"
+    ignoreSilent: true
+  unmute:
+    channel: 'punishments'
+    message: "[player] has been unmuted\nBy: [actor]\nReason:[reason]"
+  warning:
+    channel: 'punishments'
+    message: "[player] has been warned\nBy: [actor]\nReason:[reason]"
+    ignoreSilent: true
+```

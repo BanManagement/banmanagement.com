@@ -1,0 +1,30 @@
+---
+layout: 'docs'
+title: 'Configuration'
+navTitle: 'Configuration'
+category: 'Usage'
+description: 'Learn more about the configuration files used by BanManager to manage your server.'
+---
+By default, BanManager uses H2 and does not require any configuration changes. In order to leverage features such as cross server punishments and the WebUI, a MySQL or MariaDB database is required. View the [installation guide](/docs/banmanager/install) for more information.
+
+The configuration files for BanManager can be found at the following locations:
+
+| Platform | Location |
+| -------- | -------- |
+| CraftBukkit/Spigot/Paper | `/plugins/BanManager/` |
+| BungeeCord | `/plugins/BanManager/` |
+| Fabric | `/config/banmanager/` |
+| Sponge | `/config/banmanager/` |
+| Velocity | `/plugins/BanManager/` |
+
+## Files
+- [config.yml](/docs/banmanager/configuration/config-yml)
+- [console.yml](/docs/banmanager/configuration/console-yml)
+- [discord.yml](/docs/banmanager/configuration/discord-yml) *(deprecated, see webhooks.yml)*
+- [exemptions.yml](/docs/banmanager/configuration/exemptions-yml)
+- [geoip.yml](/docs/banmanager/configuration/geoip-yml)
+- [messages.yml](/docs/banmanager/configuration/messages-yml)
+- [reasons.yml](/docs/banmanager/configuration/reasons-yml)
+- [schedules.yml](/docs/banmanager/configuration/schedules-yml)
+- [velocity.yml](/docs/banmanager/configuration/velocity-yml) *(Velocity only)*
+- [webhooks.yml](/docs/banmanager/configuration/webhooks-yml)

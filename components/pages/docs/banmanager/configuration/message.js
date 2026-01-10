@@ -43,16 +43,15 @@ export const Message = ({ name, type = '' }) => {
     example = ''
   } else {
     example = (
-      <div className="relative">
+      <div className="relative overflow-hidden min-h-[100px]">
         <Image
           src="/images/message-background.png"
           alt="Minecraft hill"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="bottom"
-          className="z-0"
+          fill
+          sizes="100vw"
+          className="object-cover object-bottom not-prose"
         />
-        <p className="font-minecraft z-10 relative p-3" dangerouslySetInnerHTML={{
+        <p className="font-minecraft relative p-3 z-10" dangerouslySetInnerHTML={{
           __html: render(exampleMessage, '&')
         }}></p>
       </div>

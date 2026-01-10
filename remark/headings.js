@@ -1,5 +1,5 @@
 // Based on @docusaurus/mdx-loader/src/remark/headings
-// Modified to handle .config-info ids
+// Modified to handle .config-info ids and remove Docusaurus dependency
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -9,19 +9,28 @@
 
 /* Based on remark-slug (https://github.com/remarkjs/remark-slug) */
 
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-/* Based on remark-slug (https://github.com/remarkjs/remark-slug) and gatsby-remark-autolink-headers (https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-remark-autolink-headers) */
-
-const { parseMarkdownHeadingId } = require('@docusaurus/utils')
 const visit = require('unist-util-visit')
 const toString = require('mdast-util-to-string')
 const slugs = require('github-slugger')()
+
+/**
+ * Parse markdown heading ID from text like "Heading {#custom-id}"
+ * @param {string} heading - The heading text
+ * @returns {{ text: string, id: string | null }}
+ */
+function parseMarkdownHeadingId (heading) {
+  const match = heading.match(/^(.+?)\s*\{#([^}]+)\}\s*$/)
+  if (match) {
+    return {
+      text: match[1].trim(),
+      id: match[2]
+    }
+  }
+  return {
+    text: heading,
+    id: null
+  }
+}
 
 function headings () {
   const transformer = (ast) => {

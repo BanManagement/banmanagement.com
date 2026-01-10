@@ -1,0 +1,53 @@
+---
+layout: 'docs'
+title: 'Install'
+navTitle: 'Install (on a single server)'
+category: 'Getting Started'
+description: 'Install and configure BanManager on an individual Minecraft server.'
+---
+A full guide for installing, configuring and running BanManager for use in production on a Minecraft Server
+
+## Prerequisites
+- Java 8+
+    - [CraftBukkit/Spigot/Paper](https://www.spigotmc.org/wiki/buildtools/) for Minecraft 1.7.2+
+    - [Sponge API 7](https://www.spongepowered.org/downloads/) for Minecraft 1.12.2
+- Java 17+
+    - [Sponge API 11+](https://www.spongepowered.org/downloads/) for Minecraft 1.20+
+    - [Fabric](https://fabricmc.net/use/installer/) for Minecraft 1.20.1, 1.21.1, 1.21.4
+
+---
+
+## Initial Setup
+1. Download the BanManager jar from our [downloads page](/download) and save it in an easily accessible location
+    * If you're not sure which version you need, try our [configuration builder](/docs/banmanager/config-builder)
+1. Copy the BanManager jar file to your server `plugins` folder (CraftBukkit/Spigot/Paper) or `mods` folder (Fabric/Sponge)
+1. Fully restart your minecraft server
+    * This is required to generate the default configuration files
+1. Check your server logs to confirm BanManager enables correctly
+
+### Setup shared database (optional)
+By default, BanManager stores its data in a file backed in-memory database named [H2](https://www.h2database.com). This is sufficient for most servers and allows the plugin to work out-of-the-box. However, if you would like to share data, e.g. across a network or use the WebUI, a remote database such as `MySQL` or `MariaDB` is required.
+
+Once the database is setup/configured, you should have a hostname, a database name, and a username and password.
+
+Open `config.yml`, find `databases` and under the `local` section, set `storageType` to `mysql` or `mariadb`. Then populate `host`, `name`, `user` & `password` with your connection details.
+
+Save the file and then restart your minecraft server. Check the server logs to confirm the plugin has enabled correctly.
+
+---
+
+## FAQ
+
+### Startup Issues
+
+#### BanManager is showing as red in /plugins
+Please ensure you have configured the plugin correctly and check either your server log or console for more information
+
+#### When trying to /ban a player it displays `/ban <player> <reason>`
+The plugin is not enabled, please check your server startup log for more information
+
+#### BanManager is unable to connect to the database
+This can be caused by a number of issues, below lists the most common. If these do not resolve your issue, feel free to request [Support](/support).
+- Ensure you have created the database. Verify this by logging in with the user you are connecting with (via mysql -p -u) and running `SHOW DATABASES;`. If the database is not contained in the results, it either has not been created or the user does not have permission to access it.
+- If you are connecting to the database from another server, you need to explicitly grant access to it for the remote ip address as follows: `GRANT ALL PRIVILEGES ON dbname.* TO username@'IP' IDENTIFIED BY 'password';` replacing dbname, username and password with your respective details. Then run `FLUSH PRIVILEGES;` to ensure they are updated.
+- If after verifing the aforementioned checks the plugin is still unable to connect, check the MySQL/MariaDB error logs.

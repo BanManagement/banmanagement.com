@@ -1,8 +1,11 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  mode: 'jit',
-  important: true,
-  purge: ['./components/**/*.{js,ts,jsx,tsx,mdx}', './pages/**/*.{js,ts,jsx,tsx,mdx}'],
-  darkMode: 'class', // 'media' or 'class'
+  content: [
+    './components/**/*.{js,ts,jsx,tsx}',
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './content/**/*.mdx'
+  ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -54,13 +57,9 @@ module.exports = {
       minecraft: ['minecraftiaregular', 'sans-serif']
     }
   },
-  variants: {
-    extend: {}
-  },
   plugins: [
     require('tailwind-heropatterns')({
       patterns: ['floating-cogs'],
-      // The foreground opacity
       includeThemeColors: true,
       colors: {
         default: '#312D2A'

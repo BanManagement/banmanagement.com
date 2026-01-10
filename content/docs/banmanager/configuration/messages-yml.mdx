@@ -1,0 +1,293 @@
+---
+layout: 'docs'
+title: 'messages.yml'
+navTitle: 'messages.yml'
+category: 'Configuration'
+description: 'All messages can be fully customised, supporting JSON, colour codes and more!'
+---
+
+Defines BanManager's messages throughout the plugin.
+
+Messages support [JSON](https://minecraft.fandom.com/wiki/Raw_JSON_text_format), [Minecraft colour codes](https://gamedb.gg/games/minecraft/bukkit-color-codes/) and RGB hex colors e.g. `&#ff5500` using the `&` delimiter. Use `\n` for new lines. Text wrapped inside square brackets i.e. `[player]` are tokens which will be replaced with their corresponding value. Set values to an empty string, i.e. `''` if you do not wish the message to display.
+
+| Platform | Location |
+| -------- | -------- |
+| CraftBukkit/Spigot/Paper | `/plugins/BanManager/messages.yml` |
+| BungeeCord | `/plugins/BanManager/messages.yml` |
+| Fabric | `/config/banmanager/messages.yml` |
+| Sponge | `/config/banmanager/messages.yml` |
+| Velocity | `/plugins/BanManager/messages.yml` |
+
+### PlaceholderAPI Support (Bukkit)
+On Bukkit-based servers with [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) installed, you can use PlaceholderAPI tokens directly in messages. For example: `%player_name%`, `%server_online%`, etc.
+
+### Message Types
+
+<div className="config-info">
+
+###### `duplicateIP`
+Sent to players with the [bm.notify.duplicateips](/docs/banmanager/permissions#bm.notify.duplicateips) permission when the same IP address of a banned player joins.
+<Message name="duplicateIP" />
+
+---
+
+###### `duplicateIPAlts`
+Sent to players with the [bm.notify.alts](/docs/banmanager/permissions#bm.notify.alts) permission when a player joins with an IP address associated to other players.
+<Message name="duplicateIPAlts" />
+
+---
+
+###### `configReloaded`
+Sent when the config is reloaded via `/bmreload`.
+<Message name="configReloaded" />
+
+---
+
+- ###### `deniedNotify`
+  - ###### `player`
+    Sent to players with the [bm.notify.denied.player](/docs/banmanager/permissions#bm.notify.denied.player) permission when a banned player is denied from joining the server.
+    <Message name="deniedNotify.player" />
+  - ###### `ip`
+    Sent to players with the [bm.notify.denied.ip](/docs/banmanager/permissions#bm.notify.denied.ip) permission when a banned IP address is denied from joining the server.
+    <Message name="deniedNotify.ip" />
+
+---
+
+###### `deniedMaxIp`
+Server join deny message when [maxOnlinePerIp](/docs/banmanager/configuration/config-yml#maxonlineperip) limit reached.
+<Message name="deniedMaxIp" type="denied" />
+
+---
+
+###### `deniedMultiaccounts`
+Server join deny message when [maxMultiaccountsRecently](/docs/banmanager/configuration/config-yml#maxmultiaccountsrecently) limit reached.
+<Message name="deniedMultiaccounts" type="denied" />
+
+---
+
+###### `deniedCountry`
+Server join deny message when player connecting from a country not on the [countries](/docs/banmanager/configuration/geoip-yml#countries) list.
+<Message name="deniedCountry" type="denied" />
+
+---
+
+- ###### `time`
+  A list of components to display a length of time, e.g. temporary banning a player for `1y2m3w4d5m` is displayed as `1 year 2 months 3 weeks 4 days 5 minutes`
+  - ###### `now`
+  - ###### `year`
+  - ###### `years`
+  - ###### `month`
+  - ###### `months`
+  - ###### `week`
+  - ###### `weeks`
+  - ###### `day`
+  - ###### `days`
+  - ###### `hour`
+  - ###### `hours`
+  - ###### `minute`
+  - ###### `minutes`
+  - ###### `second`
+  - ###### `seconds`
+  - ###### `never`
+    Displayed when a punishment is permanent and never expires
+  - ###### `error`
+    - ###### `invalid`
+      Displayed when entering an incorrect duration, e.g. `/tempban confuser 6ha Hacking`
+      <Message name="time.error.invalid" />
+
+---
+
+###### `none`
+Displayed when no alts for a player are found via `/alts` command.
+
+---
+
+- ###### `sender`
+  A list of generic messages used by most commands for common scenarios.
+  - ###### `error`
+    - ###### `notFound`
+      Displayed when attempting to perform a command on a player which cannot be found in BanManager's database
+      <Message name="sender.error.notFound" />
+    - ###### `offline`
+      Displayed when attempting to perform a command which requires a player to be online, e.g. `/kick <player> <reason>`
+      <Message name="sender.error.offline" />
+    - ###### `noSelf`
+      Displayed when attempting to perform a command on yourself, e.g. banning yourself
+      <Message name="sender.error.noSelf" />
+    - ###### `exception`
+      Displayed when attempting an unknown error occurs, check your server console &amp; logs for further information.
+      <Message name="sender.error.exception" />
+    - ###### `invalidIp`
+      Displayed when attempting to perform a command with an incorrectly formatted IP address, e.g. `/banip 127.0.1`
+      <Message name="sender.error.invalidIp" />
+    - ###### `ipNotSupported`
+      Displayed when attempting to perform a command which does not support IP addresses, e.g. `/bminfo 127.0.0.1`
+      <Message name="sender.error.ipNotSupported" />
+    - ###### `offlinePermission`
+      Displayed when attempting to perform a command on an offline player without the neccessary offline permission, e.g. [bm.command.ban.offline](/docs/banmanager/permissions?search=offline)
+      <Message name="sender.error.offlinePermission" />
+    - ###### `exempt`
+      Displayed when attempting to perform a command on a [player who is exempt](/docs/banmanager/configuration/exemptions-yml)
+      <Message name="sender.error.exempt" />
+    - ###### `noPermission`
+      Displayed when attempting to perform a command without the neccessary permissions, such as attempting to use a command flag e.g. `/ban -silent <player> <reason>`
+      <Message name="sender.error.noPermission" />
+    - ###### `invalidReason`
+      Displayed when attempting to use a reason shortcut which does not exist, e.g. `/ban confuser #doesnotexist`, requires enabling [blockInvalidReasons](/docs/banmanager/config-yaml#blockinvalidreasons)
+      <Message name="sender.error.invalidReason" />
+
+---
+
+- ###### `alts`
+  Messages used by the [/alts](/docs/banmanager/commands?search=alts) command
+  - ###### `header`
+    First line sent when using the `/alts <player || ip>` command
+    <Message name="alts.header" />
+
+---
+
+- ###### `export`
+  Messages used by the [/bmexport](/docs/banmanager/commands?search=bmexport) command
+  - ###### `error`
+    - ###### `inProgress`
+      Displayed when an export is already in progress
+      <Message name="export.error.inProgress" />
+  - ###### `player`
+    Messages used by `/bmexport players`
+    - ###### `started`
+      Displayed when an export begins
+      <Message name="export.player.started" />
+    - ###### `finished`
+      Displayed when an export successfully completes
+      <Message name="export.player.finished" />
+  - ###### `ip`
+    Messages used by `/bmexport ips`
+    - ###### `started`
+      Displayed when an export begins
+      <Message name="export.ip.started" />
+    - ###### `finished`
+      Displayed when an export successfully completes
+      <Message name="export.ip.finished" />
+
+---
+
+- ###### `import`
+  Messages used by the [/bmimport](/docs/banmanager/commands?search=bmimport) command
+  - ###### `error`
+    - ###### `inProgress`
+      Displayed when an import is already in progress
+      <Message name="import.error.inProgress" />
+  - ###### `player`
+    Messages used by [/bmimport players](/docs/banmanager/migrations/minecraft-java-edition)
+    - ###### `started`
+      Displayed when an import begins
+      <Message name="import.player.started" />
+    - ###### `finished`
+      Displayed when an import successfully completes
+      <Message name="import.player.finished" />
+  - ###### `ip`
+    Messages used by [/bmimport ips](/docs/banmanager/migrations/minecraft-java-edition)
+    - ###### `started`
+      Displayed when an import begins
+      <Message name="import.ip.started" />
+    - ###### `finished`
+      Displayed when an import successfully completes
+      <Message name="import.ip.finished" />
+  - ###### `advancedban`
+    Messages used by [/bmimport advancedban](/docs/banmanager/migrations/advancedban)
+    - ###### `started`
+      Displayed when an import begins
+      <Message name="import.advancedban.started" />
+    - ###### `finished`
+      Displayed when an import successfully completes
+      <Message name="import.advancedban.finished" />
+  - ###### `h2`
+    Messages used by [/bmimport h2](/docs/banmanager/migrations/h2)
+    - ###### `started`
+      Displayed when an import begins
+      <Message name="import.h2.started" />
+    - ###### `finished`
+      Displayed when an import successfully completes
+      <Message name="import.h2.finished" />
+
+---
+
+- ###### `info`
+  Messages used by the [/bminfo](/docs/banmanager/commands?search=bminfo) command
+  - ###### `error`
+    - ###### `indexRequired`
+      Displayed when multiple players with the same name are found
+      <Message name="info.error.indexRequired" />
+    - ###### `invalidIndex`
+      Displayed when an invalid index number is provided, e.g. `/bminfo confuser asb`
+      <Message name="info.error.invalidIndex" />
+    - ###### `index`
+      Displays a list of players to choose from
+      <Message name="info.error.index" />
+  - ###### `stats`
+    - ###### `player`
+      Displays the sum of player punishments, separated by type
+      <Message name="info.stats.player" />
+    - ###### `ip`
+      Displays the sum of IP punishments, separated by type
+      <Message name="info.stats.ip" />
+  - ###### `connection`
+    Displays the player's last connection
+    <Message name="info.connection" />
+  - ###### `geoip`
+    Displays the player's geolocation information, requires [geoip](/docs/banmanager/configuration/geoip-yml) to be enabled
+    <Message name="info.geoip" />
+  - ###### `ban`
+    - ###### `permanent`
+      Displays the player's current permanent ban information
+      <Message name="info.ban.permanent" />
+    - ###### `temporary`
+      Displays the player's current temporary ban information
+      <Message name="info.ban.temporary" />
+    - ###### `dateTimeFormat`
+      Defines the format of when the ban was issued
+      <Message name="info.ban.dateTimeFormat" type="none" />
+  - ###### `ipban`
+    - ###### `permanent`
+      Displays an associated permanent IP ban
+      <Message name="info.ipban.permanent" />
+    - ###### `temporary`
+      Displays an associated temporary IP ban
+      <Message name="info.ipban.temporary" />
+    - ###### `dateTimeFormat`
+      Defines the format of when the ban was issued
+      <Message name="info.ipban.dateTimeFormat" type="none" />
+  - ###### `mute`
+    - ###### `permanent`
+      Displays the player's current permanent mute information
+      <Message name="info.mute.permanent" />
+    - ###### `temporary`
+      Displays the player's current temporary mute information
+      <Message name="info.mute.temporary" />
+    - ###### `dateTimeFormat`
+      See Java's [DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#patterns) for a list of available symbols.
+      <Message name="info.mute.dateTimeFormat" type="none" />
+  - ###### `website`
+    - ###### `player`
+      Displays a link to view the player's profile
+      <Message name="info.website.player" />
+  - ###### `history`
+    Displays records for a player via [/bminfo confuser -bans -mutes](/docs/banmanager/commands?search=bminfo), requires permissions [bm.command.bminfo.history.[type]](/docs/banmanager/permissions?search=bm.command.bminfo.history) depending on record types.
+    - ###### `row`
+      <Message name="info.history.row" />
+    - ###### `noResults`
+      Displayed when no records found
+      <Message name="info.history.noResults" />
+    - ###### `dateTimeFormat`
+      See Java's [DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#patterns) for a list of available symbols.
+      <Message name="info.history.dateTimeFormat" type="none" />
+  - ###### `ips`
+    Shows join and leave times of player via [/bminfo confuser -ips](/docs/banmanager/commands?search=bminfo), requires permission [bm.command.bminfo.history.ips](/docs/banmanager/permissions#bm.command.bminfo.history.ips) and requires [logIps](/docs/banmanager/config-yaml#logips) to be enabled.
+    - ###### `row`
+      <Message name="info.ips.row" />
+    - ###### `dateTimeFormat`
+      See Java's [DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html#patterns) for a list of available symbols.
+      <Message name="info.ips.dateTimeFormat" type="none" />
+
+
+</div>

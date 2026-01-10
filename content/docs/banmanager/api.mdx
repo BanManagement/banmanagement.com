@@ -5,16 +5,14 @@ navTitle: 'API'
 category: 'Developers'
 description: 'Integrate with the BanManager API to manage punishments and be notified of changes via custom events.'
 ---
-export { getStaticProps } from 'components/pages/docs/banmanager/developers/get-static-props'
-import { Code } from 'components/code'
 
-BanManager hs a developer API allowing other plugins to read and modify punishment data
+BanManager has a developer API allowing other plugins to read and modify punishment data
 
 ## Versioning
 The API uses [Semantic Versioning](https://semver.org/), meaning whenever a non-backwards compatible change is made, the major version will increment. You can rest assured knowing your integration will not break between releases, providing the major version remains the same.
 
 <ul>
-  <li>The latest version is <code>{props.versions.bukkit}</code></li>
+  <li>The latest version is <code>{versions.bukkit}</code></li>
   <li>JavaDocs are available either in a <a href="https://javadocs.banmanagement.com/">standard JavaDoc layout</a>, or within the <a href="https://github.com/BanManagement/BanManager/tree/master/common/src/main/java/me/confuser/banmanager/common/api">source code</a></li>
 </ul>
 
@@ -41,7 +39,7 @@ To make use of BanManager's API, simply add the relevant build as a Maven depend
   <dependency>
     <groupId>me.confuser.banmanager</groupId>
     <artifactId>BanManagerCommon</artifactId>
-    <version>${props.versions.common}</version>
+    <version>${versions.common}</version>
     <scope>provided</scope>
   </dependency>
 </dependencies>`}
@@ -52,7 +50,7 @@ To make use of BanManager's API, simply add the relevant build as a Maven depend
   <dependency>
     <groupId>me.confuser.banmanager</groupId>
     <artifactId>BanManagerBukkit</artifactId>
-    <version>${props.versions.bukkit}</version>
+    <version>${versions.bukkit}</version>
     <scope>provided</scope>
   </dependency>
 </dependencies>`}
@@ -63,7 +61,7 @@ To make use of BanManager's API, simply add the relevant build as a Maven depend
   <dependency>
     <groupId>me.confuser.banmanager</groupId>
     <artifactId>BanManagerBungeeCord</artifactId>
-    <version>${props.versions.bungeecord}</version>
+    <version>${versions.bungeecord}</version>
     <scope>provided</scope>
   </dependency>
 </dependencies>`}
@@ -74,7 +72,7 @@ To make use of BanManager's API, simply add the relevant build as a Maven depend
   <dependency>
     <groupId>me.confuser.banmanager</groupId>
     <artifactId>BanManagerFabric</artifactId>
-    <version>${props.versions.fabric}</version>
+    <version>${versions.fabric}</version>
     <scope>provided</scope>
   </dependency>
 </dependencies>`}
@@ -85,7 +83,7 @@ To make use of BanManager's API, simply add the relevant build as a Maven depend
   <dependency>
     <groupId>me.confuser.banmanager</groupId>
     <artifactId>BanManagerSponge</artifactId>
-    <version>${props.versions.sponge}</version>
+    <version>${versions.sponge}</version>
     <scope>provided</scope>
   </dependency>
 </dependencies>`}
@@ -96,7 +94,7 @@ To make use of BanManager's API, simply add the relevant build as a Maven depend
   <dependency>
     <groupId>me.confuser.banmanager</groupId>
     <artifactId>BanManagerVelocity</artifactId>
-    <version>${props.versions.velocity}</version>
+    <version>${versions.velocity}</version>
     <scope>provided</scope>
   </dependency>
 </dependencies>`}
@@ -124,7 +122,7 @@ These events are used internally by BanManager and are triggered **asynchronousl
 
 The following events are supported:
 
-<ul>{props.events.map(e => <li key={e}>{e}</li>)}</ul>
+<ul>{events.map(e => <li key={e}>{e}</li>)}</ul>
 
 ### Examples
 

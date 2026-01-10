@@ -1,0 +1,287 @@
+---
+layout: 'docs'
+title: 'webhooks.yml'
+navTitle: 'webhooks.yml'
+category: 'Configuration'
+description: 'Send punishment notifications to Discord, Slack, or any HTTP endpoint via webhooks.'
+---
+Send HTTP webhook requests when punishments occur. Supports Discord, Slack, and any custom HTTP endpoint.
+
+| Platform | Location |
+| -------- | -------- |
+| CraftBukkit/Spigot/Paper | `/plugins/BanManager/webhooks.yml` |
+| BungeeCord | `/plugins/BanManager/webhooks.yml` |
+| Fabric | `/config/banmanager/webhooks.yml` |
+| Sponge | `/config/banmanager/webhooks.yml` |
+| Velocity | `/plugins/BanManager/webhooks.yml` |
+
+<div className="config-info">
+
+- ###### `hooks`
+  - ###### `enabled` - Set to `true` to enable webhook integration, defaults to `false`
+  - ###### `punishments`
+    - ###### `<punishment_type>` - One of: `ban`, `tempban`, `unban`, `banip`, `tempbanip`, `unbanip`, `kick`, `mute`, `tempmute`, `unmute`, `warning`, `tempwarning`, `report`
+      - ###### `url` - The webhook URL to send requests to
+      - ###### `method` - HTTP method: `GET`, `POST`, `PUT`, `PATCH`, or `DELETE`. Defaults to `POST`
+      - ###### `headers` - Custom HTTP headers as key-value pairs. Useful for authentication tokens
+      - ###### `ignoreSilent` - Set to `false` to send silent punishments, defaults to `true`
+      - ###### `payload` - The JSON payload in YAML format to send. Supports placeholders
+
+</div>
+
+## Placeholders
+
+The following placeholders are available for use in payloads and headers:
+
+| Placeholder | Description |
+| ----------- | ----------- |
+| `[player]` | The punished player's name |
+| `[playerId]` | The punished player's UUID |
+| `[actor]` | The staff member's name who issued the punishment |
+| `[actorId]` | The staff member's UUID |
+| `[reason]` | The punishment reason |
+| `[created]` | When the punishment was created (timestamp) |
+| `[expires]` | When the punishment expires (for temporary punishments) |
+| `[id]` | The punishment ID |
+| `[points]` | Warning points (for warnings only) |
+| `[ip]` | IP address (for IP punishments only) |
+
+For reports, additional location placeholders are available:
+- `[playerX]`, `[playerY]`, `[playerZ]`, `[playerPitch]`, `[playerYaw]`, `[playerWorld]`
+- `[actorX]`, `[actorY]`, `[actorZ]`, `[actorPitch]`, `[actorYaw]`, `[actorWorld]`
+
+## Multiple Webhooks
+
+You can configure multiple webhooks per punishment type using an array format:
+
+```yml
+hooks:
+  enabled: true
+  punishments:
+    ban:
+      - name: discord
+        url: 'https://discord.com/api/webhooks/...'
+        method: POST
+        headers: {}
+        ignoreSilent: true
+        payload:
+          embeds:
+            - title: '[player] banned'
+              description: '[reason]'
+      - name: custom-api
+        url: 'https://my-api.com/events'
+        method: POST
+        headers:
+          Authorization: 'Bearer your-token-here'
+        payload:
+          event: 'player_banned'
+          player: '[player]'
+```
+
+## Example (Discord)
+
+```yml
+# More info at https://banmanagement.com/docs/banmanager/configuration/webhooks-yml
+hooks:
+  enabled: true
+  punishments:
+    ban:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      method: POST
+      headers: {}
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] banned'
+            description: '[reason]'
+            color: 10033947
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    tempban:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      method: POST
+      headers: {}
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] temporarily banned'
+            description: '[reason]'
+            color: 15680580
+            fields:
+              - name: Duration
+                value: '[expires]'
+                inline: true
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    unban:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      method: POST
+      headers: {}
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] unbanned'
+            description: '[reason]'
+            color: 2278750
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    kick:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      method: POST
+      headers: {}
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] kicked'
+            description: '[reason]'
+            color: 16776960
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    mute:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      method: POST
+      headers: {}
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] muted'
+            description: '[reason]'
+            color: 3616931
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    tempmute:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      method: POST
+      headers: {}
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] temporarily muted'
+            description: '[reason]'
+            color: 6514417
+            fields:
+              - name: Duration
+                value: '[expires]'
+                inline: true
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    unmute:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      method: POST
+      headers: {}
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] unmuted'
+            description: '[reason]'
+            color: 2278750
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    warning:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      method: POST
+      headers: {}
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] warned'
+            description: '[reason]'
+            color: 9584654
+            fields:
+              - name: Points
+                value: '[points]'
+                inline: true
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+    report:
+      url: 'https://discord.com/api/webhooks/changeMe'
+      method: POST
+      headers: {}
+      ignoreSilent: true
+      payload:
+        embeds:
+          - title: '[player] reported'
+            description: '[reason]'
+            color: 16737894
+            fields:
+              - name: '[player] location'
+                value: '[playerX] [playerY] [playerZ]'
+                inline: true
+              - name: '[actor] location'
+                value: '[actorX] [actorY] [actorZ]'
+                inline: true
+            author:
+              name: BanManager
+              url: 'https://banmanagement.com'
+              icon_url: 'https://banmanagement.com/images/banmanager-icon.png'
+            footer:
+              text: 'By: [actor]'
+              icon_url: 'https://crafthead.net/helm/[actorId]/128'
+            thumbnail:
+              url: 'https://crafthead.net/helm/[playerId]/128'
+```
+
+## Migration from discord.yml
+
+If you're upgrading from a version prior to v7.10, your existing `discord.yml` configuration will no longer work. It is recommended to migrate to `webhooks.yml` for access to new features like:
+
+- Support for any HTTP endpoint (not just Discord)
+- Custom HTTP methods and headers
+- Multiple webhooks per punishment type
+- Available on all platforms including Velocity and Fabric

@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
