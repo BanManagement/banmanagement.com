@@ -5,6 +5,11 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx}',
     './content/**/*.mdx'
   ],
+  safelist: [
+    'max-w-sm',
+    'max-w-md',
+    'max-w-lg'
+  ],
   darkMode: 'class',
   theme: {
     extend: {

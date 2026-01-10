@@ -105,13 +105,13 @@ function DocsIndexPage () {
             </div>
           </Link>
           <div className="md:flex md:w-1/2 lg:w-1/3 py-4 md:p-4">
-            <div className="border-1 border-gray-100 rounded-lg shadow-lg">
-              <Image src="/images/feature-player.png" alt="WebUI player page" className="rounded-lg" width="1360" height="971" />
+            <div className="overflow-hidden">
+              <Image src="/images/webui-screenshot.png" alt="WebUI homepage with appeal, search and login" className="w-full h-auto rounded-xl object-contain" width="1440" height="900" />
             </div>
           </div>
           <div className="md:flex md:w-1/2 lg:w-1/3 py-4 md:p-4">
-            <div className="border-1 border-gray-100 rounded-lg shadow-lg">
-              <Image src="/images/feature-roles.png" alt="WebUI roles page" className="rounded-lg" width="1360" height="971" />
+            <div className="overflow-hidden">
+              <Image src="/images/webui-player.png" alt="WebUI player page showing punishment history" className="w-full h-auto rounded-xl object-contain" width="1440" height="900" />
             </div>
           </div>
         </div>

@@ -1,0 +1,173 @@
+{
+  "banmanager": {
+    "name": "BanManager",
+    "description": "Core punishment management plugin",
+    "repo": "BanManagement/BanManager",
+    "platforms": {
+      "bukkit": {
+        "name": "Bukkit",
+        "description": "CraftBukkit, Spigot, Paper",
+        "compatibility": "MC 1.7.2+",
+        "icon": "/images/bukkit-logo.png",
+        "experimental": "https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/bukkit/build/libs/BanManagerBukkit.jar"
+      },
+      "bungeecord": {
+        "name": "BungeeCord",
+        "description": "Proxy server",
+        "compatibility": "Latest",
+        "icon": "/images/bungeecord-logo.png",
+        "experimental": "https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/bungee/build/libs/BanManagerBungeeCord.jar"
+      },
+      "fabric": {
+        "name": "Fabric",
+        "description": "Fabric mod loader",
+        "icon": "/images/fabric-logo.svg",
+        "versions": {
+          "1.21.4": {
+            "label": "1.21.4",
+            "compatibility": "MC 1.21.4",
+            "experimental": "https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/fabric/versions/1.21.4/build/libs/BanManagerFabric-1.21.4.jar"
+          },
+          "1.21.1": {
+            "label": "1.21.1",
+            "compatibility": "MC 1.21.1",
+            "experimental": "https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/fabric/versions/1.21.1/build/libs/BanManagerFabric-1.21.1.jar"
+          },
+          "1.20.1": {
+            "label": "1.20.1",
+            "compatibility": "MC 1.20.1",
+            "experimental": "https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/fabric/versions/1.20.1/build/libs/BanManagerFabric-1.20.1.jar"
+          }
+        }
+      },
+      "sponge": {
+        "name": "Sponge",
+        "description": "SpongeForge / SpongeVanilla",
+        "icon": "/images/sponge-logo.svg",
+        "versions": {
+          "api8": {
+            "label": "API 8+",
+            "compatibility": "MC 1.16.5+",
+            "experimental": "https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/sponge/build/libs/BanManagerSponge.jar"
+          },
+          "api7": {
+            "label": "API 7",
+            "compatibility": "MC 1.12.2",
+            "experimental": "https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/sponge-api7/build/libs/BanManagerSpongeApi7.jar"
+          }
+        }
+      },
+      "velocity": {
+        "name": "Velocity",
+        "description": "Modern proxy",
+        "compatibility": "Latest",
+        "icon": "/images/velocity-logo.svg",
+        "experimental": "https://ci.frostcast.net/job/BanManager/lastSuccessfulBuild/artifact/velocity/build/libs/BanManagerVelocity.jar"
+      }
+    }
+  },
+  "webenhancer": {
+    "name": "WebEnhancer",
+    "description": "Required plugin for Web UI integration",
+    "snapshotOnly": true,
+    "ciUrl": "https://ci.frostcast.net/job/BanManager-WebEnhancer/",
+    "requires": [
+      "banmanager"
+    ],
+    "platforms": {
+      "bukkit": {
+        "name": "Bukkit",
+        "description": "CraftBukkit, Spigot, Paper",
+        "compatibility": "MC 1.7.2+",
+        "icon": "/images/bukkit-logo.png",
+        "experimental": "https://ci.frostcast.net/job/BanManager-WebEnhancer/lastSuccessfulBuild/artifact/bukkit/build/libs/BanManagerWebEnhancerBukkit.jar"
+      },
+      "bungeecord": {
+        "name": "BungeeCord",
+        "description": "Proxy server",
+        "compatibility": "Latest",
+        "icon": "/images/bungeecord-logo.png",
+        "experimental": "https://ci.frostcast.net/job/BanManager-WebEnhancer/lastSuccessfulBuild/artifact/bungee/build/libs/BanManagerWebEnhancerBungeeCord.jar"
+      },
+      "fabric": {
+        "name": "Fabric",
+        "description": "Fabric mod loader",
+        "icon": "/images/fabric-logo.svg",
+        "versions": {
+          "1.21.4": {
+            "label": "1.21.4",
+            "compatibility": "MC 1.21.4",
+            "experimental": "https://ci.frostcast.net/job/BanManager-WebEnhancer/lastSuccessfulBuild/artifact/fabric/versions/1.21.4/build/libs/BanManagerWebEnhancerFabric-1.21.4.jar"
+          },
+          "1.21.1": {
+            "label": "1.21.1",
+            "compatibility": "MC 1.21.1",
+            "experimental": "https://ci.frostcast.net/job/BanManager-WebEnhancer/lastSuccessfulBuild/artifact/fabric/versions/1.21.1/build/libs/BanManagerWebEnhancerFabric-1.21.1.jar"
+          },
+          "1.20.1": {
+            "label": "1.20.1",
+            "compatibility": "MC 1.20.1",
+            "experimental": "https://ci.frostcast.net/job/BanManager-WebEnhancer/lastSuccessfulBuild/artifact/fabric/versions/1.20.1/build/libs/BanManagerWebEnhancerFabric-1.20.1.jar"
+          }
+        }
+      },
+      "sponge": {
+        "name": "Sponge",
+        "description": "SpongeForge / SpongeVanilla",
+        "icon": "/images/sponge-logo.svg",
+        "versions": {
+          "api8": {
+            "label": "API 8+",
+            "compatibility": "MC 1.16.5+",
+            "experimental": "https://ci.frostcast.net/job/BanManager-WebEnhancer/lastSuccessfulBuild/artifact/sponge/build/libs/BanManagerWebEnhancerSponge.jar"
+          },
+          "api7": {
+            "label": "API 7",
+            "compatibility": "MC 1.12.2",
+            "experimental": "https://ci.frostcast.net/job/BanManager-WebEnhancer/lastSuccessfulBuild/artifact/sponge-api7/build/libs/BanManagerWebEnhancerSpongeApi7.jar"
+          }
+        }
+      },
+      "velocity": {
+        "name": "Velocity",
+        "description": "Modern proxy",
+        "compatibility": "Latest",
+        "icon": "/images/velocity-logo.svg",
+        "experimental": "https://ci.frostcast.net/job/BanManager-WebEnhancer/lastSuccessfulBuild/artifact/velocity/build/libs/BanManagerWebEnhancerVelocity.jar"
+      }
+    }
+  },
+  "webui": {
+    "name": "Web UI",
+    "description": "Browser dashboard for managing punishments",
+    "requires": [
+      "banmanager",
+      "webenhancer"
+    ],
+    "requiresDatabase": "MySQL or MariaDB",
+    "installUrl": "/docs/webui/install",
+    "demoUrl": "https://demo.banmanagement.com",
+    "screenshots": [
+      {
+        "src": "/images/webui-screenshot.png",
+        "alt": "Web UI Homepage",
+        "caption": "Homepage with appeal, search and login"
+      },
+      {
+        "src": "/images/webui-player.png",
+        "alt": "Player Profile",
+        "caption": "Player profile with bans and warnings"
+      }
+    ],
+    "features": [
+      "View player punishment history including bans, mutes and warnings",
+      "Search for players by name across all servers",
+      "Create and manage punishment appeals",
+      "Seamless in-game login via unique pin - no registration required",
+      "Role-based access control for staff members",
+      "Real-time statistics dashboard",
+      "Responsive design - works on desktop and mobile",
+      "Multi-server support"
+    ]
+  }
+}
