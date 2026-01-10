@@ -3,7 +3,7 @@ import { Layout } from 'components/layout'
 
 export default function Custom404 () {
   return (
-    <Layout title="404">
+    <Layout title="Page Not Found" description="The page you're looking for doesn't exist or has been moved.">
       <div className="h-screen flex items-center">
         <div className="container flex flex-col md:flex-row items-center justify-center px-5 text-gray-700">
           <div className="max-w-md">

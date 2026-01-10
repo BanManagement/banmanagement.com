@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import Head from 'next/head'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { Nav } from './nav'
@@ -9,17 +8,18 @@ export const Layout = ({ title, description, children }) => {
   const router = useRouter()
 
   const origin = 'https://banmanagement.com'
-  let url = `${origin}${router.asPath}`
+  // Strip query strings from canonical URL to avoid duplicate content issues
+  const pathname = router.asPath.split('?')[0]
+  let url = `${origin}${pathname}`
 
   if (url.length === (origin.length + 1)) url = origin
 
   return (
     <>
-      <Head>
-        <title>{title}</title>
-      </Head>
       <NextSeo
-        description={description} title={title} openGraph={{
+        title={title}
+        description={description}
+        openGraph={{
           title,
           url,
           description
