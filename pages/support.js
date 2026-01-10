@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Layout } from 'components/layout'
 import { PageHeader } from 'components/page-header'
 import { DISCORD_INVITE, GITHUB_ORG } from 'constants/urls'
@@ -62,7 +63,7 @@ function SupportPage ({ stars, forks, contributorsCount, online }) {
               <p>Found a bug, or want to request a new feature? You can join the discussion on <a href={GITHUB_ORG}>GitHub</a></p>
 
               <h3 className="text-xl font-bold leading-7">Check the FAQ</h3>
-              <p>Review the list of BanManager&apos;s most <a href="/docs/banmanager/faq">frequently asked questions</a></p>
+              <p>Review the list of BanManager&apos;s most <Link href="/docs/banmanager/faq">frequently asked questions</Link></p>
             </div>
             <div className={`${styles.card} bg-discord`}>
               <a href={DISCORD_INVITE}>

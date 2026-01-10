@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 import { Layout } from 'components/layout'
 import Image from 'next/image'
 import { GiCrane } from 'react-icons/gi'
@@ -11,14 +12,14 @@ const styles = {
 }
 
 const MigrationItem = ({ title, icon, href }) => (
-  <a href={href} className="text-center">
+  <Link href={href} className="text-center">
     <div className={`${styles.card.replace('pt-8', 'pt-4').replace('pb-8', 'pb-4')} h-32`}>
       <div className="px-6">
         <div className="w-11 h-11 mx-auto">{icon}</div>
         <div className="text-sm mt-4">{title}</div>
       </div>
     </div>
-  </a>
+  </Link>
 )
 
 MigrationItem.propTypes = {
@@ -42,7 +43,7 @@ function DocsIndexPage () {
           </div>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mt-6">
-          <a href="/docs/banmanager/configuration" className="p-2 sm:p-4 text-left">
+          <Link href="/docs/banmanager/configuration" className="p-2 sm:p-4 text-left">
             <div className={`${styles.card} max-w-sm`}>
               <div className="px-6">
                 <FaWrench className="w-11 h-11 text-green-600" />
@@ -55,8 +56,8 @@ function DocsIndexPage () {
                 </p>
               </div>
             </div>
-          </a>
-          <a href="/docs/banmanager/install" className="p-2 sm:p-4 text-left">
+          </Link>
+          <Link href="/docs/banmanager/install" className="p-2 sm:p-4 text-left">
             <div className={`${styles.card} max-w-sm`}>
               <div className="px-6">
                 <GiCrane className="w-11 h-11 text-blue-600" />
@@ -69,8 +70,8 @@ function DocsIndexPage () {
                 </p>
               </div>
             </div>
-          </a>
-          <a href="/docs/banmanager/config-builder" className="p-2 sm:p-4 text-left">
+          </Link>
+          <Link href="/docs/banmanager/config-builder" className="p-2 sm:p-4 text-left">
             <div className={`${styles.card} max-w-sm`}>
               <div className="px-6">
                 <FaHatWizard className="w-11 h-11 text-purple-600" />
@@ -83,13 +84,13 @@ function DocsIndexPage () {
                 </p>
               </div>
             </div>
-          </a>
+          </Link>
         </div>
       </div>
       <hr className="max-w-8xl mx-auto mt-12" />
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mt-12 md:flex content-center flex-wrap">
-          <a href="/docs/webui/install" className="p-4 md:flex md:w-1/2 lg:w-1/3 text-left">
+          <Link href="/docs/webui/install" className="p-4 md:flex md:w-1/2 lg:w-1/3 text-left">
             <div className={`${styles.card} max-w-sm`}>
               <div className="px-6">
                 <FaGlobe className="w-11 h-11 text-blue-600" />
@@ -102,7 +103,7 @@ function DocsIndexPage () {
                 </p>
               </div>
             </div>
-          </a>
+          </Link>
           <div className="md:flex md:w-1/2 lg:w-1/3 py-4 md:p-4">
             <div className="border-1 border-gray-100 rounded-lg shadow-lg">
               <Image src="/images/feature-player.png" alt="WebUI player page" className="rounded-lg" width="1360" height="971" />

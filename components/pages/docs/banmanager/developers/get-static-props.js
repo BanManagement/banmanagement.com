@@ -1,4 +1,4 @@
-async function getLatestRelease (type) {
+async function getLatestRelease (_type) {
   const res = await fetch('https://raw.githubusercontent.com/BanManagement/BanManager/refs/heads/master/gradle.properties')
   const text = await res.text()
   const versionMatch = text.match(/version=(.*)/)

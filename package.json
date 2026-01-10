@@ -66,12 +66,10 @@
     "xstate": "4.38.3"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@next/eslint-plugin-next": "^15.3.3",
     "eslint": "9.39.2",
-    "eslint-config-next": "14.2.21",
-    "eslint-config-standard": "17.1.0",
-    "eslint-plugin-import": "2.32.0",
-    "eslint-plugin-n": "16.6.2",
-    "eslint-plugin-promise": "7.2.1",
-    "eslint-plugin-react": "7.37.5"
+    "eslint-plugin-react": "7.37.5",
+    "globals": "^16.2.0"
   }
 }
