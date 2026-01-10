@@ -3,7 +3,7 @@ const commands = [
   ['/tempban <player> <timeDiff> <reason>', 'Temporarily ban a player', '-s', 'bm.command.tempban'],
   ['/unban <player> [reason]', 'Unban a player', '-d', 'bm.command.unban'],
   ['/mute <player> <reason>', 'Permanently mute a player', '-s, -soft', 'bm.command.mute'],
-  ['/tempmute <player> <timeDiff> <reason>', 'Temporarily mute a player', '-s, -soft', 'bm.command.tempmute'],
+  ['/tempmute <player> <timeDiff> <reason>', 'Temporarily mute a player', '-s, -soft, -o', 'bm.command.tempmute'],
   ['/unmute <player> [reason]', 'Unmute a player', '', 'bm.command.unmute'],
   ['/banip <player || ip> <reason>', 'Permanently ban an ip address or ip of a player', '-s', 'bm.command.banip'],
   ['/tempbanip <player || ip> <timeDiff> <reason>', 'Temporarily ban an ip address or ip of a player', '-s', 'bm.command.tempbanip'],
@@ -20,8 +20,11 @@ const commands = [
   ['/addnote <player> <message>', 'Add a note against a player', '-s', 'bm.command.addnote'],
   ['/notes [player]', 'View notes of all online players or a particular player', '', 'bm.command.notes, bm.command.notes.online'],
   ['/kick <player> <reason>', 'Kick a player from the server', '-s', 'bm.command.kick'],
+  ['/kickall [reason]', 'Kick all players from the server', '-s', 'bm.command.kickall'],
   ['/nlkick <player> <reason>', 'Kick a player from the server without logging the kick if kick logging enabled', '-s', 'bm.command.nlkick'],
-  ['/bminfo [player]', 'Look up information of a player', '-bans, -kicks, -ips, -mutes, -notes, -time, -warnings', 'bm.command.bminfo'],
+  ['/nlkickall [reason]', 'Kick all players from the server without logging', '-s', 'bm.command.nlkickall'],
+  ['/bminfo [player]', 'Look up information of a player', '-bans, -kicks, -ips, -mutes, -notes, -reports, -time, -warnings', 'bm.command.bminfo'],
+  ['/bmnames <player>', 'View player name history', '', 'bm.command.bmnames'],
   ['/bmimport', <>Check the <a href='/docs/banmanager/migrations'>migration guides</a> for more information</>, '', 'bm.command.import'],
   ['/bmexport <players || ips>', 'Export bans to vanilla format', '', 'bm.command.export'],
   ['/bmreload', 'Reload plugin configuration and messages (excludes database connection info)', '', 'bm.command.reload'],
@@ -72,7 +75,9 @@ const flags = [
   ['-soft', '-st', 'Soft/shadow muting', 'bm.command.<command>.soft', '/tempmute confuser -st 1d Testing'],
   ['-points', '-p', 'Specify severity of a warning', 'bm.command.warn.points', '/warn confuser -p 4 Testing'],
   ['-ips', '-i', 'Display join/leave times of a player along with their ip address', 'bm.command.bminfo.history.ips', '/bminfo confuser -i'],
-  ['-delete', '-d', 'Deletes a ban without creating a record', 'bm.command.unban.delete', '/unban confuser -d']
+  ['-delete', '-d', 'Deletes a ban without creating a record', 'bm.command.unban.delete', '/unban confuser -d'],
+  ['-reports', '-r', 'List reports against a player via /bminfo', 'bm.command.bminfo.history.reports', '/bminfo confuser -r'],
+  ['-online', '-o', 'Online-only temp mute (pauses on disconnect, resumes on reconnect)', 'bm.command.tempmute.online', '/tempmute confuser -o 1d Spamming']
 ]
 
 export { commands, globalCommands, flags }
