@@ -59,7 +59,7 @@
     "react-table": "7.8.0",
     "regenerator-runtime": "0.14.1",
     "rehype-autolink-headings": "7.1.0",
-    "rehype-highlight": "7.0.0",
+    "rehype-highlight": "7.0.2",
     "remark-gfm": "4.0.0",
     "tailwind-heropatterns": "0.0.8",
     "tailwindcss": "3.4.1",
