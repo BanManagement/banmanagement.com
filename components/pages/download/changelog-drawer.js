@@ -4,6 +4,48 @@ import { FaTimes, FaFileAlt } from 'react-icons/fa'
 import { formatDistanceToNowStrict } from 'date-fns'
 import clsx from 'clsx'
 
+/**
+ * Parses basic markdown (bold, italic, code, links) and returns React elements
+ */
+function parseMarkdown (text) {
+  if (!text) return text
+
+  const parts = []
+  let lastIndex = 0
+  let key = 0
+
+  // Combined regex for bold, italic, inline code, and links
+  const regex = /(\*\*(.+?)\*\*)|(`(.+?)`)|(\[(.+?)\]\((.+?)\))/g
+  let match
+
+  while ((match = regex.exec(text)) !== null) {
+    // Add text before match
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index))
+    }
+
+    if (match[1]) {
+      // Bold: **text**
+      parts.push(<strong key={key++} className="font-semibold text-gray-900">{match[2]}</strong>)
+    } else if (match[3]) {
+      // Inline code: `text`
+      parts.push(<code key={key++} className="px-1 py-0.5 bg-gray-100 rounded text-xs font-mono">{match[4]}</code>)
+    } else if (match[5]) {
+      // Link: [text](url)
+      parts.push(<a key={key++} href={match[7]} className="text-primary-600 hover:underline" target="_blank" rel="noopener noreferrer">{match[6]}</a>)
+    }
+
+    lastIndex = match.index + match[0].length
+  }
+
+  // Add remaining text
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex))
+  }
+
+  return parts.length > 0 ? parts : text
+}
+
 export const ChangelogDrawer = ({
   isOpen,
   onClose,
@@ -137,7 +179,7 @@ export const ChangelogDrawer = ({
                   className="flex items-start gap-2 text-sm text-gray-700"
                 >
                   <span className="text-primary-500 mt-1">•</span>
-                  <span>{item}</span>
+                  <span>{parseMarkdown(item)}</span>
                 </li>
               ))}
             </ul>
