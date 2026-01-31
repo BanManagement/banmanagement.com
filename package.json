@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@docsearch/react": "3.9.0",
-    "@headlessui/react": "1.7.19",
+    "@headlessui/react": "2.2.9",
     "@tailwindcss/typography": "0.5.19",
     "@xstate/react": "1.6.3",
     "autoprefixer": "10.4.23",
