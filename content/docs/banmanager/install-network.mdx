@@ -61,6 +61,12 @@ Currently only BungeeCord & Velocity have first class support, however alternati
 1. Follow steps 1 - 4 and 7 from [Option 2](#option-2) for each server.
 1. Use either a **different database** or **different table names** per server when configuring `databases` `local` options.
     * Using the same database can allow sharing of certain punishments and not others, e.g. to share notes use the same `playerNotes` table name across all installations; this is optional.
+    * When multiple instances share the same database, set a unique `instanceId` per server under `databases` `local` to ensure database migrations are tracked independently. For example:
+      ```yml
+      databases:
+        local:
+          instanceId: 'survival'
+      ```
 1. Open `config.yml`, find `databases` and under the `global` section, set `enabled` to `true` and set `storageType` to `mysql` or `mariadb`. Then populate `host`, `name`, `user` & `password` with your connection details.
     * Each server must use the **same** `global` database and table names.
     * This enables [/*all](/docs/banmanager/commands#global-commands) commands e.g. `/banall`. Use these to punish a player globally.
