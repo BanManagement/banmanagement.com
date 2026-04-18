@@ -1,0 +1,220 @@
+---
+layout: 'docs'
+title: 'Install'
+navTitle: 'Install'
+navOrder: 10
+category: 'Web UI'
+description: 'Install and configure the BanManager WebUI to aggregate and manage punishment data from your mobile or computer'
+---
+The BanManager WebUI is a self-hosted web interface for managing your BanManager punishment data. It runs alongside your Minecraft server, talks to the same MySQL/MariaDB database, and adds appeals, reports, role-based permissions, and a single dashboard for one or more servers.
+
+This page walks through the prerequisites that apply to every install, then helps you pick the install method that suits you best.
+
+## Prerequisites
+
+The WebUI works on any host that can reach your BanManager database, including a separate server from your Minecraft host.
+
+- BanManager configured to use [MySQL 5+ or MariaDB 10+](/docs/banmanager/install#setup-shared-database-optional). The default H2 database is not supported.
+- A server with at least 1GB of memory.
+- A registered domain name (required for HTTPS).
+- [Node.js](https://nodejs.org/) LTS (v20 or v22) — only required if you're not using Docker.
+
+---
+
+## BanManager-WebEnhancer
+
+This Minecraft plugin enables web-only features (login pins, appeal links). It's required no matter which install method you choose below.
+
+1. [Download](https://ci.frostcast.net/job/BanManager-WebEnhancer/) the jar and add it to your server. The [source code](https://github.com/BanManagement/BanManager-WebEnhancer) is also available.
+1. Edit BanManager's [messages.yml](/docs/banmanager/configuration/messages-yml), and add a `[pin]` token to the `ban.player.disallowed` and `tempban.player.disallowed` messages:
+    ```yml
+    ban:
+      player:
+        disallowed: '&6You have been banned from this server for &4[reason]&6. Your appeal pin is [pin]'
+    tempban:
+      player:
+        disallowed: '&6You have been temporarily banned from this server for &4[reason]\n&6It expires in [expires]. Your appeal pin is [pin]'
+    ```
+1. Restart your server, or enable the plugin and run `/bmreload`.
+
+---
+
+## Pick your installation method
+
+The WebUI ships three install paths. They all produce the same end result — pick the one that suits how you like to run servers.
+
+### [Install with Docker](/docs/webui/install/docker)
+
+**Recommended.** One `docker compose up -d` and you're done. The container generates its own encryption keys, runs database migrations, and persists state to a volume. Open a browser to finish setup. There are two compose files: one bundles MySQL, one expects you to bring your own.
+
+### [Install with the web installer](/docs/webui/install/web)
+
+Clone the repo, run `node server.js`, and finish the install in a browser at `/setup`. Useful when you want the convenience of a guided UI without Docker, or when you can't keep a long-lived shell session open during install.
+
+### [Install with the CLI](/docs/webui/install/cli)
+
+`npm run setup` walks you through every step in your terminal. The wizard auto-detects your BanManager database connection, console UUID, and table names from your `plugins/BanManager` folder, so you only answer a handful of questions.
+
+---
+
+## After install
+
+The same handful of follow-ups apply no matter which path you took.
+
+### Verify with `bmwebui doctor`
+
+Run a preflight check at any time. It validates your environment variables, database connection, migrations, admin user, BanManager server connection, console player, and plugin tables in one shot.
+
+```bash
+npx bmwebui doctor
+```
+
+Useful flags:
+
+- `--url=http://127.0.0.1:3000/health` — also probe a running server's `/health` endpoint.
+- `--strict` — exit non-zero on warnings (handy in CI).
+
+### Run in production
+
+When you're ready to go live, see [Deployment](/docs/webui/deployment) for `systemd`, Docker restart policy, and reverse-proxy templates (Caddy, Apache, nginx) with HTTPS via Let's Encrypt.
+
+### Add more accounts
+
+The install creates your first admin. To add additional users later:
+
+```bash
+npx bmwebui account create
+```
+
+You'll be prompted for an email, password, Minecraft UUID, and role.
+
+### Health monitoring
+
+Every WebUI exposes an unauthenticated `/health` endpoint that returns JSON suitable for uptime checks and load-balancer probes:
+
+```json
+{
+  "status": "ok",
+  "version": "x.y.z",
+  "migrations": "up-to-date",
+  "admin": "present"
+}
+```
+
+`status` is `"ok"`, `"setup_required"`, or `"db_unreachable"` (HTTP 503 in the latter case).
+
+---
+
+## Environment variables
+
+The WebUI is configured via environment variables — usually written to a `.env` file alongside the app, or to `/app/config/.env` inside the Docker container. You rarely need to set these by hand: the install paths above each generate the required values for you.
+
+### Required
+
+| Variable | Purpose |
+| --- | --- |
+| `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_NAME` | WebUI database connection. Can be the same database as BanManager, or a separate one. |
+| `DB_PASSWORD` | WebUI database password. Optional for socket-auth or unauthenticated dev databases — required everywhere else. |
+| `ENCRYPTION_KEY` | 64-character hex string used to encrypt stored BanManager database passwords. **Don't change this after install** (see below). |
+| `SESSION_KEY` | 64-character hex string used to sign user sessions. |
+| `CONTACT_EMAIL` | Contact address registered with the push-notification vendors. |
+| `NOTIFICATION_VAPID_PUBLIC_KEY` / `NOTIFICATION_VAPID_PRIVATE_KEY` | VAPID keys for browser push notifications. |
+
+Generate hex keys with:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+### Operations
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `PORT` | `3000` | HTTP listen port. |
+| `HOSTNAME` | (all) | Bind address. |
+| `LOG_LEVEL` | `info` | Pino log level. The shipped `.env.example` and Docker Compose files set this to `info`; running `node server.js` directly with no `.env` will fall back to `debug`. |
+| `NODE_ENV` | `production` | Should be `production` for live deployments. |
+| `SERVER_FOOTER_NAME` | (empty) | Server name shown in the website footer. |
+| `BASE_PATH` | (empty) | Sub-directory mount, e.g. `/banmanager`. Requires a re-build. |
+| `TRUST_PROXY` | `false` | Set to `true` when behind nginx / Caddy / Apache so the WebUI reads `X-Forwarded-For` and `X-Forwarded-Proto`. |
+| `SESSION_NAME` | `bm-webui-sess` | Session cookie name. |
+| `DB_CONNECTION_LIMIT` | `5` | Maximum connections in the WebUI database pool. |
+
+### Uploads
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `UPLOAD_MAX_SIZE` | `10MB` | Maximum upload size. Accepts human-readable values (`5MB`, `1GB`, etc.). |
+| `UPLOAD_PATH` | `./uploads/documents` | Where uploaded documents are stored. |
+| `UPLOAD_MAX_DIMENSION` | `8192` | Maximum image dimension in pixels (defends against pixel bombs). |
+| `DOCUMENT_CLEANUP_AGE_HOURS` | `24` | How long unattached documents live before being garbage-collected. |
+
+### Setup-only
+
+| Variable | Purpose |
+| --- | --- |
+| `SETUP_TOKEN` | Locks the `/setup` page behind a shared secret while you're installing. Strongly recommended on any host reachable from the internet. |
+| `DOTENV_CONFIG_PATH` | Override the location of the `.env` file the server reads at startup. |
+
+---
+
+## Security and operational notes
+
+### `SETUP_TOKEN` — protect the open installer
+
+The browser-based installer at `/setup` is **unauthenticated by default**: whoever loads the page first becomes the admin (the same model as WordPress and Ghost). On a loopback-only host that's harmless. On any host reachable from the internet, set a token before starting:
+
+```bash
+SETUP_TOKEN=$(openssl rand -hex 24)
+```
+
+The setup screen will require it as the very first step. Once an admin user exists the setup routes return 404 automatically.
+
+### `TRUST_PROXY=true` behind a reverse proxy
+
+Without this, every request looks like it came from `127.0.0.1` and the wizard's "you're on a secure local connection" banner can be misleading. Set `TRUST_PROXY=true` so the WebUI reads `X-Forwarded-For` and `X-Forwarded-Proto`.
+
+### Don't change `ENCRYPTION_KEY` after install
+
+`ENCRYPTION_KEY` encrypts the BanManager database passwords stored in `bm_web_servers`. If you rotate it after the install, the WebUI can no longer decrypt those credentials and will fail to talk to your BanManager database. `npx bmwebui doctor` will report `Failed to decrypt the stored BanManager password` if this happens.
+
+If you've lost the original key, you'll need to delete the affected row from `bm_web_servers` and re-run `npx bmwebui setup` to re-create it with the new key.
+
+---
+
+## Troubleshooting
+
+`npx bmwebui doctor` is the single best place to start — it diagnoses most install problems automatically. Some common errors and their fixes:
+
+### "Cannot connect to BanManager database"
+
+The WebUI host must be able to reach the BanManager database host. Check your firewall, and that the database user has been granted access from the WebUI host's IP:
+
+```sql
+GRANT ALL PRIVILEGES ON dbname.* TO 'bmuser'@'webui-host-ip' IDENTIFIED BY 'password';
+FLUSH PRIVILEGES;
+```
+
+### "Console UUID could not be verified"
+
+The console UUID has to exist as a row in the `bm_players` table. BanManager inserts it automatically the first time the plugin starts after install — so make sure your Minecraft server has been started at least once with BanManager enabled before running the WebUI installer.
+
+### "Setup is already complete" returned from `/setup`
+
+An admin user already exists, so the install routes are disabled. Sign in instead, or use `npx bmwebui account create` to add another account.
+
+### "Failed to decrypt the stored BanManager password"
+
+`ENCRYPTION_KEY` was rotated after install — see the warning above.
+
+### "Migrations failed" or `migrations: pending` in `/health`
+
+Apply pending database migrations:
+
+```bash
+npx bmwebui update
+```
+
+### Still stuck?
+
+[Join us on Discord](https://discord.gg/59bsgZB) or [open an issue](https://github.com/BanManagement/BanManager-WebUI/issues/new) — please include the output of `npx bmwebui doctor` so we can help quickly.

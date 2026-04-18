@@ -1,0 +1,156 @@
+---
+layout: 'docs'
+title: 'Install with Docker'
+navTitle: 'Install with Docker'
+navOrder: 11
+category: 'Web UI'
+description: 'Install the BanManager WebUI with Docker Compose using the official banmanagement/webui image.'
+---
+The recommended way to run the WebUI in production. The container generates its own encryption keys, waits for the database, runs migrations, and persists state to a Docker volume — so you can be up and running in two commands.
+
+Make sure you've worked through the shared [prerequisites](/docs/webui/install#prerequisites) and the [BanManager-WebEnhancer setup](/docs/webui/install#banmanager-webenhancer) before continuing.
+
+## Prerequisites
+
+- Docker 20.10+ with the Compose plugin (`docker compose ...`).
+- DNS for your domain pointing at this server (only required when you're ready to expose the WebUI publicly).
+
+## Pick a compose file
+
+Two official compose files are published in the [BanManager-WebUI repository](https://github.com/BanManagement/BanManager-WebUI):
+
+| File | Use when |
+| --- | --- |
+| [`docker-compose.prod.yml`](https://github.com/BanManagement/BanManager-WebUI/blob/master/docker-compose.prod.yml) | You want everything in one shot — runs MySQL alongside the WebUI in the same Compose project. |
+| [`docker-compose.prod-no-db.yml`](https://github.com/BanManagement/BanManager-WebUI/blob/master/docker-compose.prod-no-db.yml) | You already have a MySQL or MariaDB server you want the WebUI to use. |
+
+### Bundled MySQL
+
+```bash
+curl -O https://raw.githubusercontent.com/BanManagement/BanManager-WebUI/master/docker-compose.prod.yml
+
+cat > .env <<EOF
+MYSQL_ROOT_PASSWORD=$(openssl rand -hex 24)
+MYSQL_PASSWORD=$(openssl rand -hex 24)
+EOF
+
+docker compose -f docker-compose.prod.yml up -d
+```
+
+The unquoted `<<EOF` (no quotes around the delimiter) is intentional — it lets your shell substitute `$(openssl rand -hex 24)` with two fresh random values. Open the resulting `.env` once to confirm the passwords are real hex strings, not the literal `$(openssl ...)` text.
+
+The compose file refuses to start without `MYSQL_ROOT_PASSWORD` and `MYSQL_PASSWORD` set — generate long random values (the snippet above does this for you) and keep them in a `.env` file alongside the compose file.
+
+### Bring your own database
+
+If you already have MySQL or MariaDB running:
+
+```bash
+curl -O https://raw.githubusercontent.com/BanManagement/BanManager-WebUI/master/docker-compose.prod-no-db.yml
+
+cat > .env <<EOF
+DB_HOST=your-database-host
+DB_PORT=3306
+DB_USER=bmwebui
+DB_PASSWORD=your-password
+DB_NAME=bm_webui
+EOF
+
+docker compose -f docker-compose.prod-no-db.yml up -d
+```
+
+The container will run database migrations on first boot, so the user you provide needs `CREATE TABLE` permission.
+
+---
+
+## Finish setup
+
+The container starts in **setup mode** the first time it boots — it generates the missing encryption, session, and VAPID keys for you, persists them into the `webui_config` volume, then waits for you to provide the BanManager database connection and create the first admin user.
+
+You have two ways to finish setup:
+
+**In a browser**
+
+Open `http://your-host:3000/setup` and follow the wizard. See [Install with the web installer](/docs/webui/install/web) for the full walkthrough — the wizard inside Docker is identical.
+
+**In the container**
+
+```bash
+docker compose exec webui npx bmwebui setup
+```
+
+This runs the same interactive wizard inside the container. See [Install with the CLI](/docs/webui/install/cli) for the question-by-question reference.
+
+> **Security.** The `/setup` page is open by default — whoever loads it first becomes the admin. If your install host is reachable from the internet, set `SETUP_TOKEN` in your `.env` file before bringing the stack up:
+> ```bash
+> SETUP_TOKEN=$(openssl rand -hex 24)
+> ```
+> The setup screen will require it as the first step. Once an admin user exists the setup routes return 404 automatically.
+
+---
+
+## Verify
+
+After setup completes, run the doctor to make sure everything is wired up correctly:
+
+```bash
+docker compose exec webui npx bmwebui doctor
+```
+
+You should see `PASS` for every check (env file, environment variables, database connection, migrations, admin user, BanManager server, plugin tables, console player).
+
+---
+
+## Persistent volumes
+
+The compose files declare four named volumes. Back these up to keep your install reproducible:
+
+| Volume | Contents |
+| --- | --- |
+| `webui_config` | The generated `.env` file (encryption keys, DB credentials). **Critical — don't lose this.** |
+| `webui_uploads` | Uploaded report attachments. |
+| `webui_image_cache` | Next.js image cache (regenerable). |
+| `webui_opengraph_cache` | OpenGraph preview cache (regenerable). |
+
+The bundled-MySQL compose also has a `mysql_data` volume holding the WebUI database itself.
+
+---
+
+## Updating
+
+Pull the latest image and restart in place:
+
+```bash
+docker compose pull
+docker compose up -d
+```
+
+The entrypoint runs any pending database migrations on startup, so updates are usually a one-step operation. If you want a manual confirmation, run `docker compose exec webui npx bmwebui doctor` after the update.
+
+---
+
+## Restarting and operations
+
+Both compose files set `restart: unless-stopped` — Docker will restart the WebUI on host reboot or container crash without any extra setup. There's no `systemd` unit to install.
+
+For HTTPS in front of the container, see [Deployment](/docs/webui/deployment#reverse-proxy). When you put a reverse proxy in front of the container, set `TRUST_PROXY=true` in your `.env` so the WebUI sees the real client IP and HTTPS state.
+
+To follow the logs:
+
+```bash
+docker compose logs -f webui
+```
+
+To shell into the running container:
+
+```bash
+docker compose exec webui sh
+```
+
+---
+
+## What next?
+
+- [Run in production](/docs/webui/deployment) — reverse proxy with HTTPS via Caddy / Apache / nginx.
+- [Add more accounts](/docs/webui/install#add-more-accounts) with `npx bmwebui account create`.
+- See the [environment variables reference](/docs/webui/install#environment-variables) for all available options.

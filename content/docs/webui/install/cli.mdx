@@ -1,0 +1,113 @@
+---
+layout: 'docs'
+title: 'Install with the CLI'
+navTitle: 'Install with the CLI'
+navOrder: 13
+category: 'Web UI'
+description: 'Install the BanManager WebUI from the terminal using the bmwebui setup wizard.'
+---
+A terminal-only installer. The wizard auto-detects your BanManager database connection, table names, and console UUID from your `plugins/BanManager` folder, so you only answer the handful of questions it can't figure out on its own. Useful when you don't want to run a browser or expose `/setup`.
+
+Make sure you've worked through the shared [prerequisites](/docs/webui/install#prerequisites) and the [BanManager-WebEnhancer setup](/docs/webui/install#banmanager-webenhancer) before continuing.
+
+## Prerequisites
+
+- Shell access to the install host.
+- [Node.js](https://nodejs.org/) LTS (v20 or v22).
+- A reachable MySQL or MariaDB server with the database created and a user that can read/write it.
+- Read access to your `plugins/BanManager` folder (optional — only used by auto-detect; you can fall back to manual entry if it's on a different host).
+
+## Install
+
+```bash
+sudo mkdir -p /home/banmanager
+cd /home/banmanager
+
+git clone https://github.com/BanManagement/BanManager-WebUI.git
+cd BanManager-WebUI
+
+npm ci --omit=dev
+npm run setup
+```
+
+`npm run setup` runs `bmwebui setup --writeFile .env` — every value the wizard collects is appended to a `.env` file alongside the app, and re-running the command picks up where you left off.
+
+---
+
+## Walk through the wizard
+
+The wizard asks for everything in roughly five batches. Steps you've already completed are skipped automatically (`SETTING_NAME detected, skipping`).
+
+### 1. Server display name and contact email
+
+- **Server name** — used in the website footer (≤ 32 chars).
+- **Contact email** — used to register with the push-notification vendors. Use a real address you check.
+
+### 2. Generated keys (no questions asked)
+
+The wizard generates `ENCRYPTION_KEY`, `SESSION_KEY`, and the `NOTIFICATION_VAPID_*` pair for you. They're written to `.env` immediately so they survive a restart.
+
+> **Don't change `ENCRYPTION_KEY` later.** It encrypts the BanManager database password stored in `bm_web_servers`. If you rotate it after install, the WebUI will no longer be able to talk to your BanManager database.
+
+### 3. WebUI database
+
+You're prompted for the database the WebUI itself will use (host, port, user, password, database name). The wizard verifies the connection and then runs all migrations against it. This database can be the same one as BanManager, or a separate one.
+
+### 4. BanManager server
+
+If a BanManager server is already configured (you're re-running setup), the wizard verifies the connection and skips ahead. Otherwise it offers to **auto-detect from your BanManager plugin folder** — point it at the directory containing `config.yml` and `console.yml` (defaults to `./plugins/BanManager`, override with `BM_CONFIG_PATH`) and it pre-fills:
+
+- The BanManager database connection (host, port, user, password, database).
+- All the BanManager table names.
+- The console player UUID.
+
+If auto-detect can't find the files (different host, restricted permissions), you'll be asked to enter each value by hand. You'll also be offered the option to "use the same database as the WebUI" if the BanManager and WebUI databases are colocated.
+
+The wizard verifies the connection, that all tables exist, and that the console UUID resolves to a row in the `bm_players` table before continuing.
+
+### 5. Admin user
+
+If an admin already exists, this step is skipped. Otherwise you're prompted for:
+
+- Your email (used to log in).
+- A password (≥ 6 characters, asked twice).
+- Your Minecraft player UUID (must already exist in `bm_players`, i.e. you've joined the server at least once).
+
+Look up your UUID at [mcuuid.net](https://mcuuid.net/) if you're not sure. **Don't reuse your Mojang password.**
+
+The user and admin role are inserted in a single database transaction so a failure between the two steps can't leave a half-created admin behind.
+
+---
+
+## Resumability
+
+`npm run setup` is safe to re-run. The wizard reads the existing `.env`, treats any already-set value as done, and skips the corresponding question. So if you mistype a database password or the BanManager DB is unreachable, you can fix it (edit the `.env` directly or unset the variable) and re-run without starting from scratch.
+
+If you'd rather keep the values in a different file, run the underlying command directly:
+
+```bash
+npx bmwebui setup --writeFile=/etc/bmwebui/.env
+```
+
+Without `--writeFile` the values are only echoed to stdout — useful for piping into a secrets manager during automated setups.
+
+---
+
+## Build and start
+
+Once the wizard finishes, build the production assets and start the server:
+
+```bash
+npm run build
+npm start
+```
+
+The WebUI listens on `http://0.0.0.0:3000` by default. Sign in at `http://your-host:3000/login`.
+
+---
+
+## What next?
+
+- [Verify the install](/docs/webui/install#verify-with-bmwebui-doctor) with `npx bmwebui doctor`.
+- [Run in production](/docs/webui/deployment) — `systemd` and reverse-proxy templates with HTTPS.
+- [Add more accounts](/docs/webui/install#add-more-accounts) with `npx bmwebui account create`.
