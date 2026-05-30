@@ -66,11 +66,12 @@
     },
     {
       "layout": "docs",
-      "title": "Install",
-      "navTitle": "Install",
+      "title": "Deployment",
+      "navTitle": "Deployment",
+      "navOrder": 14,
       "category": "Web UI",
-      "description": "Install and configure the BanManager WebUI to aggregate and manage punishment data from your mobile or computer",
-      "__resourcePath": "docs/webui/install.mdx"
+      "description": "Run the BanManager WebUI in production: keep it alive with systemd or Docker, and serve it over HTTPS with Caddy, Apache, or nginx.",
+      "__resourcePath": "docs/webui/deployment.mdx"
     },
     {
       "layout": "docs",
@@ -199,6 +200,42 @@
       "category": "Migration Guides",
       "description": "Import bans and IP bans from Minecraft Java Edition's built-in banning system to BanManager.",
       "__resourcePath": "docs/banmanager/migrations/minecraft-java-edition.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Install with the CLI",
+      "navTitle": "Install with the CLI",
+      "navOrder": 13,
+      "category": "Web UI",
+      "description": "Install the BanManager WebUI from the terminal using the bmwebui setup wizard.",
+      "__resourcePath": "docs/webui/install/cli.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Install with Docker",
+      "navTitle": "Install with Docker",
+      "navOrder": 11,
+      "category": "Web UI",
+      "description": "Install the BanManager WebUI with Docker Compose using the official banmanagement/webui image.",
+      "__resourcePath": "docs/webui/install/docker.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Install",
+      "navTitle": "Install",
+      "navOrder": 10,
+      "category": "Web UI",
+      "description": "Install and configure the BanManager WebUI to aggregate and manage punishment data from your mobile or computer",
+      "__resourcePath": "docs/webui/install/index.mdx"
+    },
+    {
+      "layout": "docs",
+      "title": "Install with the web installer",
+      "navTitle": "Install with the web installer",
+      "navOrder": 12,
+      "category": "Web UI",
+      "description": "Install the BanManager WebUI from source and finish setup in your browser at /setup.",
+      "__resourcePath": "docs/webui/install/web.mdx"
     }
   ],
   "docsNav": {
@@ -319,9 +356,46 @@
         "layout": "docs",
         "title": "Install",
         "navTitle": "Install",
+        "navOrder": 10,
         "category": "Web UI",
         "description": "Install and configure the BanManager WebUI to aggregate and manage punishment data from your mobile or computer",
-        "__resourcePath": "docs/webui/install.mdx"
+        "__resourcePath": "docs/webui/install/index.mdx"
+      },
+      {
+        "layout": "docs",
+        "title": "Install with Docker",
+        "navTitle": "Install with Docker",
+        "navOrder": 11,
+        "category": "Web UI",
+        "description": "Install the BanManager WebUI with Docker Compose using the official banmanagement/webui image.",
+        "__resourcePath": "docs/webui/install/docker.mdx"
+      },
+      {
+        "layout": "docs",
+        "title": "Install with the web installer",
+        "navTitle": "Install with the web installer",
+        "navOrder": 12,
+        "category": "Web UI",
+        "description": "Install the BanManager WebUI from source and finish setup in your browser at /setup.",
+        "__resourcePath": "docs/webui/install/web.mdx"
+      },
+      {
+        "layout": "docs",
+        "title": "Install with the CLI",
+        "navTitle": "Install with the CLI",
+        "navOrder": 13,
+        "category": "Web UI",
+        "description": "Install the BanManager WebUI from the terminal using the bmwebui setup wizard.",
+        "__resourcePath": "docs/webui/install/cli.mdx"
+      },
+      {
+        "layout": "docs",
+        "title": "Deployment",
+        "navTitle": "Deployment",
+        "navOrder": 14,
+        "category": "Web UI",
+        "description": "Run the BanManager WebUI in production: keep it alive with systemd or Docker, and serve it over HTTPS with Caddy, Apache, or nginx.",
+        "__resourcePath": "docs/webui/deployment.mdx"
       },
       {
         "layout": "docs",

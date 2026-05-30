@@ -54,6 +54,25 @@ function generateNavigation () {
       navData[page.category].push(page)
     })
 
+  // Sort within each category: pages with explicit navOrder first (ascending),
+  // then pages without navOrder in their original glob-discovery order. We use
+  // a stable sort with navTitle as a tiebreaker so the output is deterministic
+  // for pages that share a navOrder.
+  Object.keys(navData).forEach((category) => {
+    navData[category].sort((a, b) => {
+      const aHas = typeof a.navOrder === 'number'
+      const bHas = typeof b.navOrder === 'number'
+
+      if (aHas && bHas) {
+        if (a.navOrder !== b.navOrder) return a.navOrder - b.navOrder
+        return a.navTitle.localeCompare(b.navTitle)
+      }
+      if (aHas) return -1
+      if (bHas) return 1
+      return 0
+    })
+  })
+
   // Sort by category order
   const docsNav = categoryOrder.reduce((r, k) => {
     if (navData[k]) {

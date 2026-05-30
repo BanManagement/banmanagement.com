@@ -1,0 +1,124 @@
+---
+layout: 'docs'
+title: 'Install with the web installer'
+navTitle: 'Install with the web installer'
+navOrder: 12
+category: 'Web UI'
+description: 'Install the BanManager WebUI from source and finish setup in your browser at /setup.'
+---
+A guided, browser-based installer for the WebUI. Start the server with no `.env` and it boots in setup mode — visit `/setup` to enter your database details, point it at your BanManager server, create the first admin, and you're done.
+
+Make sure you've worked through the shared [prerequisites](/docs/webui/install#prerequisites) and the [BanManager-WebEnhancer setup](/docs/webui/install#banmanager-webenhancer) before continuing.
+
+## Prerequisites
+
+- Shell access to the server during the initial start (you can disconnect once setup is done).
+- [Node.js](https://nodejs.org/) LTS (v20 or v22).
+- A reachable MySQL or MariaDB server (the installer can create the database for you if the user has permission).
+
+## Install
+
+Pick a directory for your installation — we'll use `/home/banmanager` in this example.
+
+```bash
+sudo mkdir -p /home/banmanager
+cd /home/banmanager
+
+git clone https://github.com/BanManagement/BanManager-WebUI.git
+cd BanManager-WebUI
+
+npm ci --omit=dev
+npm run build
+```
+
+> **Reachable from the internet?** Set a setup token before starting the server. See [security](#security) below.
+
+Start the server. With no `.env` file present, it'll boot in **setup mode** — only the `/setup`, `/health`, and static asset routes respond:
+
+```bash
+node server.js
+```
+
+You should see something like:
+
+```
+warn: Server started in setup mode. Visit /setup to complete installation.
+```
+
+---
+
+## Walk through the wizard
+
+Open `http://your-host:3000/setup` in a browser. The wizard will guide you through five steps.
+
+### 1. Setup token (only if `SETUP_TOKEN` is set)
+
+If you set a `SETUP_TOKEN` before starting the server, the wizard prompts for it as the first step. The token is checked with a constant-time comparison and the same value is required for every subsequent step.
+
+### 2. Database
+
+Enter the connection details for the database the WebUI itself will use (logins, roles, sessions, server registry). This can be the same database as your BanManager plugin or a separate one.
+
+If the database doesn't exist yet, tick **"Create database if missing"** and supply a privileged user (e.g. `root` and the root password). The installer will create the database, switch to your normal user, and run all migrations automatically.
+
+### 3. BanManager server
+
+Tell the WebUI where your BanManager plugin's database lives and which tables to read from. Three options:
+
+- **Paste your config** — paste the contents of `plugins/BanManager/config.yml` and `plugins/BanManager/console.yml`. The installer parses them and pre-fills the connection, table names, and console UUID.
+- **Filesystem path** — point the installer at your `plugins/BanManager` folder if it lives on the same machine.
+- **Manual entry** — type the connection details, table names, and console UUID by hand.
+
+The installer verifies it can reach the BanManager database, that all the configured tables exist, and that the console UUID resolves to a row in `bm_players` before letting you continue.
+
+### 4. Admin account
+
+Create your first admin user. You'll need:
+
+- An email address — used to log in.
+- A password — at least 6 characters. **Don't reuse your Mojang password.**
+- Your Minecraft player UUID — used to associate the account with your in-game player. Look it up at [mcuuid.net](https://mcuuid.net/) if you're not sure.
+
+### 5. Finalize
+
+The installer:
+
+- Writes a `.env` file alongside the app (or to `/app/config/.env` inside Docker) with your DB credentials, generated encryption keys, and VAPID keys.
+- Runs all database migrations.
+- Creates the BanManager server entry and your admin user in a single transaction (so a partial failure can't leave a half-created account behind).
+
+Inside Docker the container restarts itself automatically. On a regular host, stop the server with `Ctrl+C` and start it again — this time it'll come up in normal mode with the new configuration.
+
+```bash
+node server.js
+```
+
+You can now sign in at `http://your-host:3000/login`.
+
+---
+
+## Security
+
+The `/setup` page is **unauthenticated by default** — whoever loads it first becomes the admin (the same model as WordPress and Ghost). On a loopback-only host that's harmless. On any host reachable from the internet, gate it with a token before starting:
+
+```bash
+SETUP_TOKEN=$(openssl rand -hex 24) node server.js
+```
+
+The setup screen will require it as the very first step. Share the token only with whoever is doing the install. Once an admin user exists the setup routes return 404 automatically.
+
+A few additional protections are always on:
+
+- **Rate limiting** — 10 setup-API requests per IP per minute.
+- **Same-origin checks** — POSTs to `/api/setup/*` are rejected if the `Origin` or `Referer` doesn't match the request host (so a malicious page can't trick your browser into completing setup on your behalf).
+- **Setup routes return 404 once an admin exists** — the installer can't be re-run to create a second "first" admin.
+
+If your install is sitting behind a reverse proxy, also set `TRUST_PROXY=true` in your `.env` so the WebUI reads `X-Forwarded-For` and `X-Forwarded-Proto` correctly. Without it the WebUI thinks every request is coming from `127.0.0.1`, so the "Your connection is not encrypted" warning won't appear even when an external user is connecting over plain HTTP.
+
+---
+
+## What next?
+
+- [Verify the install](/docs/webui/install#verify-with-bmwebui-doctor) with `npx bmwebui doctor`.
+- [Run in production](/docs/webui/deployment) — `systemd` and reverse-proxy templates with HTTPS.
+- [Add more accounts](/docs/webui/install#add-more-accounts) with `npx bmwebui account create`.

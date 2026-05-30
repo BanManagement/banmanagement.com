@@ -1,0 +1,171 @@
+---
+layout: 'docs'
+title: 'Deployment'
+navTitle: 'Deployment'
+navOrder: 14
+category: 'Web UI'
+description: 'Run the BanManager WebUI in production: keep it alive with systemd or Docker, and serve it over HTTPS with Caddy, Apache, or nginx.'
+---
+This page covers everything you need to take a working WebUI install (see [Install](/docs/webui/install)) and put it in front of real users: a process manager so the WebUI restarts automatically on crash or reboot, and a reverse proxy so you can serve it over HTTPS on a real domain.
+
+## Run as a service
+
+You almost certainly want the WebUI to come back up after a crash or reboot. Pick whichever option matches your install:
+
+### systemd (recommended for non-Docker installs)
+
+The WebUI ships a setup helper that generates a `systemd` unit, enables it, starts it, and tails the journal so you can see whether the boot was successful:
+
+```bash
+npx bmwebui setup systemd
+```
+
+You'll be asked which user to run the service as (defaults to your current user — pick a non-root, non-sudo user for safety). The helper:
+
+- Writes `/etc/systemd/system/bmwebui.service` based on the [bundled template](https://github.com/BanManagement/BanManager-WebUI/blob/master/cli/commands/setup/bmwebui.service.template).
+- Runs `sudo systemctl enable bmwebui.service` so it starts on boot.
+- Starts the service and waits up to 60 seconds for `http://localhost:PORT/` to respond.
+- Streams `journalctl -f` so you can watch the first boot.
+
+The service uses `Restart=always`, runs `npm run build` as a `ExecStartPre`, then `node server.js`. It runs in the directory you executed `npx bmwebui setup systemd` from.
+
+**Day-to-day commands:**
+
+```bash
+sudo systemctl status bmwebui.service
+sudo systemctl restart bmwebui.service
+sudo journalctl -u bmwebui.service -f
+```
+
+### Docker
+
+The published Compose files (`docker-compose.prod.yml` and `docker-compose.prod-no-db.yml`) already declare `restart: unless-stopped`, so Docker handles restart-on-crash and restart-on-boot for you. Nothing extra is required.
+
+To restart manually after a config change:
+
+```bash
+docker compose restart webui
+```
+
+### PM2 and other managers
+
+PM2, Forever, and similar managers all work with the WebUI — point them at `node server.js` in the install directory. They aren't covered in detail here.
+
+---
+
+## Reverse proxy (HTTPS)
+
+For any non-Docker public install you'll want a reverse proxy in front of the WebUI to:
+
+- Terminate TLS so users get HTTPS.
+- Add HTTP→HTTPS redirects.
+- Optionally mount the WebUI on a sub-path (e.g. `https://example.com/banmanager`).
+
+The WebUI ships templates and helper commands for the three most common reverse proxies. Pick whichever you're already comfortable with — for greenfield installs, **Caddy** is the easiest because it manages HTTPS automatically.
+
+> **Don't forget `TRUST_PROXY=true`.** When the WebUI sits behind a reverse proxy, set `TRUST_PROXY=true` in your `.env` so it reads `X-Forwarded-For` and `X-Forwarded-Proto`. Without it the WebUI thinks every request is coming from `127.0.0.1`, so the "Your connection is not encrypted" warning on `/setup` won't appear even when an external user is connecting over plain HTTP.
+
+### Caddy (automatic HTTPS)
+
+```bash
+npx bmwebui setup caddy
+```
+
+Caddy provisions and renews a Let's Encrypt certificate automatically — there's no separate `certbot` step. The helper:
+
+- Asks for your domain and (optional) sub-path.
+- Writes a snippet to `/etc/caddy/Caddyfile.d/<domain>.caddy`.
+- Validates the config and reloads Caddy.
+
+Make sure your main `/etc/caddy/Caddyfile` includes the snippet directory:
+
+```caddyfile
+import Caddyfile.d/*.caddy
+```
+
+### Apache
+
+```bash
+npx bmwebui setup apache
+```
+
+Apache is auto-detected on both Debian (`/etc/apache2`) and RHEL (`/etc/httpd`). The helper:
+
+- Writes a virtual host config to the right `sites-available` / `conf.d` directory.
+- Enables `proxy`, `proxy_http`, `proxy_wstunnel`, `rewrite`, and `headers` modules.
+- Reloads Apache.
+
+To add HTTPS:
+
+```bash
+# Debian / Ubuntu
+sudo apt install certbot python3-certbot-apache
+sudo certbot --apache -d example.com
+
+# RHEL / Fedora
+sudo dnf install certbot python3-certbot-apache
+sudo certbot --apache -d example.com
+```
+
+`certbot` rewrites the file you just generated to add HTTPS and a HTTP→HTTPS redirect.
+
+### nginx
+
+```bash
+npx bmwebui setup nginx
+```
+
+The helper:
+
+- Asks for your domain and (optional) sub-path.
+- Writes a config to `/etc/nginx/sites-available/<domain>` and symlinks it into `sites-enabled`.
+- Reloads nginx.
+
+To add HTTPS via Let's Encrypt:
+
+```bash
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d example.com
+```
+
+`certbot` rewrites the generated config to add HTTPS and a HTTP→HTTPS redirect.
+
+---
+
+## Sub-directory installs (`BASE_PATH`)
+
+To mount the WebUI on a sub-path (e.g. `https://example.com/banmanager`), set `BASE_PATH` in your `.env`:
+
+```bash
+BASE_PATH=/banmanager
+```
+
+Then re-build and restart so Next.js bakes the sub-path into the assets:
+
+```bash
+npm run build
+sudo systemctl restart bmwebui.service   # or: docker compose restart webui
+```
+
+Finally, re-run the proxy helper (`npx bmwebui setup caddy|apache|nginx`) — it'll pick up the new `BASE_PATH` and generate a config that mounts the WebUI at that prefix. The proxy helpers will refuse to continue if `BASE_PATH` doesn't match the sub-path you enter, and remind you to re-build.
+
+---
+
+## Health monitoring
+
+The WebUI exposes an unauthenticated `/health` endpoint suitable for uptime checks and load-balancer probes. It returns JSON like:
+
+```json
+{
+  "status": "ok",
+  "version": "x.y.z",
+  "migrations": "up-to-date",
+  "admin": "present"
+}
+```
+
+`status` is one of:
+
+- `"ok"` — fully configured and serving traffic. HTTP 200.
+- `"setup_required"` — server is in setup mode. HTTP 200.
+- `"db_unreachable"` — database connection failed. HTTP 503 (so most uptime monitors will alert).
