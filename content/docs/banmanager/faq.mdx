@@ -20,7 +20,7 @@ This can be caused by a number of issues, refer to the common [Storage Errors](#
 [v2.x versions](https://dev.bukkit.org/projects/ban-management/files?filter-game-version=2020709689%3A6378) of BanManager have been reported as compatible. At a mimimum you will require [v2.2](https://dev.bukkit.org/projects/ban-management/files/675342), please ensure `useSyncChat` is enabled in the config. Please note the following: documentation and guides are for recent BanManager versions only, there may be bugs, cross-server sync is not supported and older versions of BanManager are name based, not UUID meaning a change of name will evade bans for online-mode servers.
 
 ### How can I add new lines to the player denied screen when a banned player tries to join?
-Use `\n` within the message in the messages.yml wherever you'd like a new line to start. For example:
+Use `\n` within the message in your locale file (e.g. `messages/messages_en.yml`) wherever you'd like a new line to start. For example:
 
 ```yml
 disallowed: '&6Banned on Frostcast\n[reason]'
