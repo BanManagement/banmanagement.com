@@ -3,157 +3,396 @@ layout: 'docs'
 title: 'API'
 navTitle: 'API'
 category: 'Developers'
-description: 'Integrate with the BanManager API to manage punishments and be notified of changes via custom events.'
+description: 'Integrate with the BanManager API to manage punishments and be notified of changes via the cross-platform event bus.'
 ---
 
-BanManager has a developer API allowing other plugins to read and modify punishment data
+BanManager exposes a stable, dependency-light public API so other plugins can manage punishments, subscribe to events, run their own database migrations, and reuse BanManager's connection pools — without compiling against the platform-specific internals.
 
 ## Versioning
-The API uses [Semantic Versioning](https://semver.org/), meaning whenever a non-backwards compatible change is made, the major version will increment. You can rest assured knowing your integration will not break between releases, providing the major version remains the same.
+The API uses [Semantic Versioning](https://semver.org/), so as long as the major version is unchanged, your integration will not break.
 
 <ul>
-  <li>The latest version is <code>{versions.bukkit}</code></li>
-  <li>JavaDocs are available either in a <a href="https://javadocs.banmanagement.com/">standard JavaDoc layout</a>, or within the <a href="https://github.com/BanManagement/BanManager/tree/master/common/src/main/java/me/confuser/banmanager/common/api">source code</a></li>
+  <li>The latest version is <code>{versions.api}</code></li>
+  <li>JavaDocs are available either in a <a href="https://javadocs.banmanagement.com/">standard JavaDoc layout</a>, or directly in the <a href="https://github.com/BanManagement/BanManager/tree/master/api/src/main/java/me/confuser/banmanager/api">API module source</a></li>
 </ul>
+
+The API artifact has a single transitive dependency: [`com.github.seancfoley:ipaddress`](https://github.com/seancfoley/IPAddress) (unshaded, so the `IPAddress` type the API exposes is the canonical `inet.ipaddr.IPAddress`).
 
 ---
 
 ## Add BanManager to your project
-Artifacts are published to the [Frostcast CI repository](https://ci.frostcast.net)
+
+In v8 you depend on a single cross-platform artifact instead of one per server software. The artifact is published to **Maven Central** — no custom repository configuration needed.
+
+### Gradle (Kotlin DSL)
+
+<Code language="kotlin">{`repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly("me.confuser.banmanager:BanManagerAPI:${versions.api}")
+}`}
+</Code>
 
 ### Maven
-Add the following to your POM:
 
-<Code>{`<repositories>
-  <repository>
-    <id>confuser-repo</id>
-    <url>https://ci.frostcast.net/plugin/repository/everything</url>
-  </repository>
-</repositories>`}
+<Code language="xml">{`<dependency>
+  <groupId>me.confuser.banmanager</groupId>
+  <artifactId>BanManagerAPI</artifactId>
+  <version>${versions.api}</version>
+  <scope>provided</scope>
+</dependency>`}
 </Code>
 
-To make use of BanManager's API, simply add the relevant build as a Maven dependency to your project. For access to BmAPI only, please use BanManagerCommon. For anything else, use the server implementation specific build.
+> **Upgrading from v7?** The old per-platform artifacts (`BanManagerBukkit`, `BanManagerBungeeCord`, `BanManagerSponge`, `BanManagerVelocity`, `BanManagerFabric`) and the static `BmAPI` facade are gone. See the [v8 upgrade notes](https://github.com/BanManagement/BanManager/blob/master/UPGRADE.md) for the full mapping table.
 
-#### BanManagerCommon
-<Code>{`<dependencies>
-  <dependency>
-    <groupId>me.confuser.banmanager</groupId>
-    <artifactId>BanManagerCommon</artifactId>
-    <version>${versions.common}</version>
-    <scope>provided</scope>
-  </dependency>
-</dependencies>`}
-</Code>
+---
 
-#### Bukkit
-<Code>{`<dependencies>
-  <dependency>
-    <groupId>me.confuser.banmanager</groupId>
-    <artifactId>BanManagerBukkit</artifactId>
-    <version>${versions.bukkit}</version>
-    <scope>provided</scope>
-  </dependency>
-</dependencies>`}
-</Code>
+## Resolve the service
 
-#### BungeeCord
-<Code>{`<dependencies>
-  <dependency>
-    <groupId>me.confuser.banmanager</groupId>
-    <artifactId>BanManagerBungeeCord</artifactId>
-    <version>${versions.bungeecord}</version>
-    <scope>provided</scope>
-  </dependency>
-</dependencies>`}
-</Code>
+`BanManager.get()` works on every platform — Bukkit, Bungee, Velocity, Sponge and Fabric. BanManager publishes the service during plugin enable, so call this from anywhere after BanManager is loaded:
 
-#### Fabric
-<Code>{`<dependencies>
-  <dependency>
-    <groupId>me.confuser.banmanager</groupId>
-    <artifactId>BanManagerFabric</artifactId>
-    <version>${versions.fabric}</version>
-    <scope>provided</scope>
-  </dependency>
-</dependencies>`}
-</Code>
+```java
+import me.confuser.banmanager.api.BanManager;
+import me.confuser.banmanager.api.BanManagerService;
 
-#### Sponge
-<Code>{`<dependencies>
-  <dependency>
-    <groupId>me.confuser.banmanager</groupId>
-    <artifactId>BanManagerSponge</artifactId>
-    <version>${versions.sponge}</version>
-    <scope>provided</scope>
-  </dependency>
-</dependencies>`}
-</Code>
+BanManagerService bm = BanManager.get();
+```
 
-#### Velocity
-<Code>{`<dependencies>
-  <dependency>
-    <groupId>me.confuser.banmanager</groupId>
-    <artifactId>BanManagerVelocity</artifactId>
-    <version>${versions.velocity}</version>
-    <scope>provided</scope>
-  </dependency>
-</dependencies>`}
-</Code>
+Throws `IllegalStateException` while BanManager is still enabling. Use `BanManager.isAvailable()` if your plugin's `onEnable` may run before BanManager's, or hook the platform's plugin-enabled event and resolve there.
 
-## BmAPI
+### Bukkit alternative
 
-This is a static API class for BanManager to create and manipulate punishments.
+On Bukkit the service is also published to the [`ServicesManager`](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/plugin/ServicesManager.html):
 
-Caveats:
-- Unless a method is marked as thread safe, ensure they are always executed asynchronously to avoid causing server lag (by blocking the main Minecraft Server thread)
-- The API does not check permissions for exemptions like commands do
+```java
+import org.bukkit.Bukkit;
+import me.confuser.banmanager.api.BanManagerService;
 
-A list of methods are available at the [javadocs](https://javadocs.banmanagement.com/me/confuser/banmanager/common/api/BmAPI.html).
+BanManagerService bm = Bukkit.getServicesManager().load(BanManagerService.class);
+```
 
+The other platforms have no plugin-extensible service manager, so `BanManager.get()` is the recommended path everywhere.
+
+### Sub-services
+
+`BanManagerService` is a façade over typed sub-services. Fetch them once at startup and reuse them — they are stable references:
+
+| Sub-service                  | Accessor              | Use for                                                              |
+| ---------------------------- | --------------------- | -------------------------------------------------------------------- |
+| `PlayerService`              | `bm.players()`        | Lookup by UUID / name / IP, console actor                            |
+| `BanService`                 | `bm.bans()`           | Player ban / unban, active lookup, paginated history                 |
+| `MuteService`                | `bm.mutes()`          | Player mute / unmute, active lookup, paginated history               |
+| `WarnService`                | `bm.warnings()`       | Issue warnings, list unread, mark read                               |
+| `IpBanService`               | `bm.ipBans()`         | Single-IP ban operations                                             |
+| `IpMuteService`              | `bm.ipMutes()`        | Single-IP mute operations                                            |
+| `IpRangeBanService`          | `bm.ipRangeBans()`    | CIDR-range ban operations                                            |
+| `NameBanService`             | `bm.nameBans()`       | Name-only ban operations                                             |
+| `NoteService`                | `bm.notes()`          | Player notes                                                         |
+| `ReportService`              | `bm.reports()`        | Player reports + workflow states                                     |
+| `HistoryService`             | `bm.history()`        | Combined history view, name history, login sessions                  |
+| `EventBus`                   | `bm.events()`         | Subscribe to BanManager events                                       |
+| `DatabaseAccess`             | `bm.database()`       | Direct `DataSource` and configured table-name lookup. **Use the service sub-services for writes against `bm_*` tables; this is unsandboxed JDBC.** |
+| `MigrationService`           | `bm.migrations()`     | Run your own SQL migrations against a BanManager-owned database      |
+| `BanManagerScheduler`        | `bm.scheduler()`      | Cross-platform scheduling for fire-and-forget async work             |
+
+---
+
+## Async by default
+
+Every write path returns a `CompletableFuture`. Cancelled pre-events resolve to `Optional.empty()` (for create operations) or `false` (for delete operations) on both async and sync variants — they no longer throw.
+
+```java
+import me.confuser.banmanager.api.BanManager;
+import me.confuser.banmanager.api.dto.PlayerBan;
+import me.confuser.banmanager.api.request.BanRequest;
+
+import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+
+UUID playerUuid = ...;
+UUID actorUuid = ...;
+
+CompletableFuture<Optional<PlayerBan>> future = BanManager.get().bans().ban(
+    new BanRequest(playerUuid, actorUuid, "griefing")
+        .expires(System.currentTimeMillis() / 1000L + 3600)  // 1 hour
+        .silent(false)
+);
+
+future.thenAccept(result -> result.ifPresent(ban ->
+    getLogger().info("Banned " + ban.player().name() + " until " + ban.expires())
+)).exceptionally(ex -> {
+    getLogger().log(java.util.logging.Level.WARNING, "Ban write failed", ex);
+    return null;
+});
+```
+
+> **Always attach `.exceptionally(...)` (or `.whenComplete(...)`).** A
+> `CompletableFuture` swallows exceptions silently when no error-handling
+> stage is attached. Storage failures (`StorageException` wrapping a
+> `SQLException`) surface as the cause; the default executor that runs
+> continuations is BanManager's DB-I/O pool, so do not call platform APIs
+> that require the server tick thread inside an `exceptionally` handler
+> without scheduling.
+
+If you are already on a worker thread, the `*Sync` variants block:
+
+```java
+Optional<PlayerBan> ban = BanManager.get().bans().banSync(
+    new BanRequest(playerUuid, actorUuid, "griefing")
+);
+```
+
+Persistence failures surface as `me.confuser.banmanager.api.exception.StorageException` (an unchecked subclass of `BanManagerException`), wrapping the underlying `SQLException` as the cause. **API methods no longer throw checked exceptions.**
+
+### Request DTOs
+
+Create-style operations take a mutable, fluent **request** class. They are deliberately not Java records — pre-event handlers need to mutate fields like `reason`, `expires`, and `silent` on the same instance before the database write, which a record's immutable surface would prevent:
+
+```java
+import me.confuser.banmanager.api.request.MuteRequest;
+
+bm.mutes().mute(new MuteRequest(playerUuid, actorUuid, "spam")
+    .expires(System.currentTimeMillis() / 1000L + 600)
+    .soft(true)        // chat is visible to the muted player but not others
+    .silent(false));
+```
+
+The available request types follow the same pattern: `BanRequest`, `MuteRequest`, `IpBanRequest`, `IpMuteRequest`, `IpRangeBanRequest`, `NameBanRequest`, `WarnRequest`, `NoteRequest`, `ReportRequest`.
+
+> **Avoiding the `inet.ipaddr` import.** `IpBanRequest`, `IpMuteRequest`, and `IpRangeBanRequest` accept IPs as either `IPAddress` (the canonical type — see [Versioning](#versioning)) **or** as `String`. The `String` overloads parse via the bundled library and throw `IllegalArgumentException` on invalid input, so plugins that only need to publish a request can skip the dependency entirely:
+>
+> ```java
+> bm.ipBans().ban(new IpBanRequest("203.0.113.42", actor, "open proxy"));
+> bm.ipRangeBans().ban(new IpRangeBanRequest("203.0.113.0", "203.0.113.255", actor, "subnet"));
+> ```
+>
+> Reading `request.ip()` (e.g. from a pre-event handler) still returns `IPAddress`, so handlers that introspect IPs do need the dependency.
+
+### Pagination
+
+`CloseableIterator` is gone from the public API. Every paginated query returns an immutable `Page<T>`:
+
+```java
+import me.confuser.banmanager.api.Page;
+import me.confuser.banmanager.api.dto.PlayerBanRecord;
+
+Page<PlayerBanRecord> page = bm.bans().recordsSync(playerUuid, 0, 50);
+page.items().forEach(record -> /* ... */);
+
+if (page.hasMore()) {
+    Page<PlayerBanRecord> next = bm.bans().recordsSync(playerUuid, page.page() + 1, page.size());
+}
+```
+
+`Page.total()` is `-1` when the storage layer cannot cheaply compute it. Prefer `hasMore()` for pager UIs.
+
+### Lookups
+
+Read paths are always synchronous and side-effect-free — they're backed by in-memory caches:
+
+```java
+boolean isBanned = bm.bans().isBanned(playerUuid);
+Optional<PlayerBan> active = bm.bans().findActive(playerUuid);
+Optional<Player> known = bm.players().findByUuidSync(playerUuid);
+```
+
+---
 
 ## Events
-Provides a way to listen to punishment changes, e.g. when a player is banned or unbanned. Each event contains the punishment reason, actor (who caused the event) and the player or ip it affects.
 
-A server specific build is required to access these, e.g. BanManagerBukkit.
+The `EventBus` is the single place where plugins subscribe to BanManager events; it replaces every per-platform event class from v7 (`me.confuser.banmanager.bukkit.api.events.*` and friends).
 
-Events in the present tense can be cancelled, e.g. PlayerMuteEvent, whereas events in the past tense cannot e.g. PlayerMutedEvent.
+Every event is a typed Java class under `me.confuser.banmanager.api.event.*`. Pre-events (present tense, e.g. `PlayerBanEvent`) are cancellable and carry a mutable request payload. Post-events (past tense, e.g. `PlayerBannedEvent`) are immutable record-style events that fire after persistence.
 
-These events are used internally by BanManager and are triggered **asynchronously**.
+Event dispatch is **synchronous on the publishing thread** — and because BanManager's storage layer publishes from its own DB-I/O executor, your handlers run **off** the main thread by default. Two consequences follow:
 
-The following events are supported:
+1. **Subscribers must return promptly.** Target budget: under ~10&nbsp;ms steady-state, never any blocking I/O. A slow handler holds up *every* subsequent ban / mute / warn write because it pins the DB-I/O executor's worker thread. Offload heavy work — webhook fan-out, file writes, network calls, anything blocking — to `bm.scheduler().runAsync(...)` and return immediately.
+2. **Subscribers may not call platform APIs that require the server tick thread** (Bukkit `World`, entity, inventory, etc.) without first hopping back via `bm.scheduler().runSync(...)` — and only on platforms where `scheduler.isMainThreadAware()` returns `true` (Bukkit/Sponge/Fabric).
 
-<ul>{events.map(e => <li key={e}>{e}</li>)}</ul>
+### Available events
 
-### Examples
+<ul>{events.map(e => <li key={e}><code>{e}</code></li>)}</ul>
 
-#### Bukkit
+### Subscribing
+
 ```java
-import me.confuser.banmanager.bukkit.api.events.PlayerBannedEvent;
+import me.confuser.banmanager.api.BanManager;
+import me.confuser.banmanager.api.event.EventPriority;
+import me.confuser.banmanager.api.event.Subscription;
+import me.confuser.banmanager.api.event.player.PlayerBannedEvent;
 
-public class BanListener implements Listener {
-  @EventHandler
-  public void notifyOnBan(PlayerBannedEvent event) {
-    PlayerBanData ban = event.getBan();
+private Subscription bannedSub;
 
-    if (!event.isSilent()) {
-      Bukkit.broadcast(ban.getPlayer().getName() + " has been banned!");
-    }
-  }
+public void onEnable() {
+    bannedSub = BanManager.get().events().subscribe(
+        PlayerBannedEvent.class,
+        EventPriority.MONITOR,
+        event -> {
+            if (!event.silent()) {
+                getServer().broadcastMessage(event.ban().player().name() + " was banned");
+            }
+        });
+}
+
+public void onDisable() {
+    if (bannedSub != null) bannedSub.unsubscribe();
 }
 ```
 
-#### Sponge
+Always retain the `Subscription` and `unsubscribe()` on plugin disable / reload to avoid retaining the classloader. BanManager unsubscribes its own listeners on `/bmreload`; the post-reload `PluginReloadedEvent` is your cue to re-register.
+
+### Cancelling a ban from a pre-event
+
 ```java
-import me.confuser.banmanager.sponge.api.events.PlayerBannedEvent;
+import me.confuser.banmanager.api.event.player.PlayerBanEvent;
 
-public class BanListener {
-  @Listener(order = Order.POST)
-  public void notifyOnBan(PlayerBannedEvent event) {
-    PlayerBanData ban = event.getBan();
-
-    if (!event.isSilent()) {
-      Sponge.getServer().getConsole().sendMessage(Text.of(ban.getPlayer().getName() + " has been banned!"));
+bm.events().subscribe(PlayerBanEvent.class, event -> {
+    if (event.request().reason().isBlank()) {
+        event.cancel();
+    } else {
+        // Pre-events expose a mutable request payload — mutate it before persistence
+        event.request().reason(event.request().reason().trim());
     }
-  }
+});
+```
+
+When a pre-event is cancelled, the `CompletableFuture` returned by the originating service method resolves to `Optional.empty()` (or `false` for delete operations).
+
+### Mutating kick messages from a handler
+
+Five post-events expose a mutable `placeholders()` map that BanManager applies to the kick-message template before disconnecting an online player:
+
+- `PlayerDeniedEvent` (login denial — banned UUID, IP, IP range or name)
+- `PlayerBannedEvent`
+- `IpBannedEvent`
+- `IpRangeBannedEvent`
+- `NameBannedEvent`
+
+This is the supported way to inject template variables (e.g. `<pin>`, `<appeal_url>`) without touching BanManager internals — the same hook BanManager-WebEnhancer uses for appeal PINs.
+
+```java
+import me.confuser.banmanager.api.event.player.PlayerDeniedEvent;
+
+bm.events().subscribe(PlayerDeniedEvent.class, event ->
+    event.placeholders().put("appeal_url", "https://bans.example.com/appeal"));
+```
+
+Then in your `messages/en.yml`:
+
+```yaml
+ban:
+  player:
+    disallowed: "<red>Banned: <reason></red>\n<gray>Appeal at <click:open_url:'<appeal_url>'><appeal_url></click></gray>"
+```
+
+---
+
+## Database access
+
+Plugins can issue raw JDBC against BanManager's `DataSource` without depending on shaded ORMLite. The pools are **not sandboxed** — they expose the same privileges as BanManager itself (typically full DDL/DML on the configured database). Treat them like a direct database connection:
+
+- **Reads against any table** — safe.
+- **Writes against tables your plugin owns** (e.g. ones created via [`MigrationService`](#running-your-own-sql-migrations)) — safe.
+- **Writes against `bm_*` tables** — don't. The cache layer, event bus, and global-sync replication will not see your changes. Use the service sub-services instead.
+
+```java
+import javax.sql.DataSource;
+import me.confuser.banmanager.api.BanManager;
+
+DataSource ds = BanManager.get().database().localDataSource();
+String tableName = BanManager.get().database()
+    .localTable("playerBans")
+    .orElseThrow();
+
+try (var conn = ds.getConnection();
+     var ps = conn.prepareStatement("SELECT count(*) FROM " + tableName)) {
+    try (var rs = ps.executeQuery()) {
+        rs.next();
+        getLogger().info("Total bans: " + rs.getLong(1));
+    }
 }
 ```
+
+`localTable("playerBans")` resolves the operator's configured table name (operators may rename individual tables in `config.yml`, e.g. for shared WordPress prefixes).
+
+> **Never close the returned `DataSource`** — it is owned by BanManager and shared across the JVM.
+
+If your plugin needs the optional global (cross-server) database, use `bm.database().globalDataSource()` which returns `Optional<DataSource>` (empty when global sync isn't configured).
+
+### Running your own SQL migrations
+
+Companion plugins that ship their own SQL migrations can run them against a BanManager-owned database:
+
+```java
+import me.confuser.banmanager.api.BanManager;
+import me.confuser.banmanager.api.database.DatabaseKind;
+import me.confuser.banmanager.api.database.MigrationService.MigrationConfig;
+
+BanManager.get().migrations().run(new MigrationConfig(
+    DatabaseKind.LOCAL,
+    "myplugin",
+    "db/myplugin",
+    getClass().getClassLoader()
+));
+```
+
+Resources expected at `db/myplugin/` on your plugin's classpath:
+
+- `migrations.list` — newline-separated list of migration filenames
+- `V1__initial_schema.sql`, `V2__add_index.sql`, …
+
+The runner is idempotent at the migration-file level and tracks applied versions in a shared `bm_schema_version` table, namespaced by the `prefix` argument.
+
+> **Write idempotent statements.** Statements within a single file execute one at a time and are **not** wrapped in a JDBC transaction (MySQL/MariaDB DDL implicitly commits anyway), so a failure mid-file leaves earlier statements applied. The version row is only inserted after every statement succeeds, so re-running restarts the failed migration from statement #1. Prefer `CREATE TABLE IF NOT EXISTS`, `ADD COLUMN IF NOT EXISTS`, `CREATE INDEX IF NOT EXISTS` (or split non-idempotent steps into their own `V*__*.sql` files so a retry resumes from a clean state).
+
+Choose a `prefix` value that's unique to your plugin — BanManager rejects two registrations of the same prefix from different plugin classloaders to avoid silent `bm_schema_version` collisions.
+
+---
+
+## Schedulers
+
+Use `bm.scheduler()` for fire-and-forget async work and main-thread scheduling on Bukkit/Sponge/Fabric. **Do not** use it for blocking JDBC — every write path on the API already returns `CompletableFuture` and runs on a dedicated DB-I/O executor; submitting blocking work via `runAsync` on Sponge or Fabric runs on the platform's `ForkJoinPool` and can starve other plugins.
+
+```java
+import me.confuser.banmanager.api.BanManager;
+import me.confuser.banmanager.api.scheduler.BanManagerScheduler;
+import java.time.Duration;
+
+BanManagerScheduler scheduler = BanManager.get().scheduler();
+
+scheduler.runAsyncRepeating(() -> {
+    // periodic cleanup, webhook fan-out, etc.
+}, Duration.ofMinutes(1), Duration.ofMinutes(5));
+
+if (scheduler.isMainThreadAware()) {
+    scheduler.runSync(() -> {
+        // Bukkit/Sponge/Fabric only — runs on the server tick thread
+    });
+}
+```
+
+### Per-platform thread targets
+
+Every `BanManagerScheduler` method is **asynchronous submission** — the call returns immediately and the task runs later on the target executor. None of these methods ever execute the runnable inline on the calling thread, even when called from the main thread.
+
+| Platform     | `runAsync*`                  | `runSync*`                                          | `isMainThreadAware()` |
+| ------------ | ---------------------------- | --------------------------------------------------- | --------------------- |
+| Bukkit       | BanManager async pool        | Bukkit main tick thread                             | `true`                |
+| Sponge       | BanManager async pool        | Sponge main game-tick thread                        | `true`                |
+| Fabric       | BanManager async pool        | `MinecraftServer.execute(...)` (server tick thread) | `true`                |
+| BungeeCord   | Bungee scheduler async pool  | Same as `runAsync` (no main thread exists)          | `false`               |
+| Velocity     | Velocity scheduler async pool | Same as `runAsync` (no main thread exists)          | `false`               |
+
+Gate any task that touches a main-thread-only API on `isMainThreadAware()` so it doesn't silently misbehave on a proxy. For everything else, use `runAsync` unconditionally — it works the same on every platform.
+
+---
+
+## Caveats
+
+- Read paths (`isBanned`, `findActive`, `findByUuidSync`, etc.) are thread-safe and backed by in-memory caches.
+- Write paths return `CompletableFuture` and run off the main thread; the matching `*Sync` variants block on the calling thread.
+- The API does **not** check command permissions or exemptions — those live in BanManager's command layer.
+- Pre-events publish on the same thread that initiated the operation; handlers run synchronously, so a long-running handler will delay the database write.
