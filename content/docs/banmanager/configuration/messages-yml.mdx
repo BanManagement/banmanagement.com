@@ -1,22 +1,54 @@
 ---
 layout: 'docs'
-title: 'messages.yml'
-navTitle: 'messages.yml'
+title: 'Messages'
+navTitle: 'Messages'
 category: 'Configuration'
-description: 'All messages can be fully customised, supporting JSON, colour codes and more!'
+description: 'All messages can be fully customised, with multi-language support, JSON, colour codes and more!'
 ---
 
 Defines BanManager's messages throughout the plugin.
 
 Messages support [JSON](https://minecraft.fandom.com/wiki/Raw_JSON_text_format), [Minecraft colour codes](https://gamedb.gg/games/minecraft/bukkit-color-codes/) and RGB hex colors e.g. `&#ff5500` using the `&` delimiter. Use `\n` for new lines. Text wrapped inside square brackets i.e. `[player]` are tokens which will be replaced with their corresponding value. Set values to an empty string, i.e. `''` if you do not wish the message to display.
 
+### Localisation
+
+BanManager supports multi-language messages. Messages are stored in the `messages/` directory with one file per locale, named `messages_<locale>.yml` (e.g. `messages_en.yml`, `messages_de.yml`, `messages_zh.yml`).
+
 | Platform | Location |
 | -------- | -------- |
-| CraftBukkit/Spigot/Paper | `/plugins/BanManager/messages.yml` |
-| BungeeCord | `/plugins/BanManager/messages.yml` |
-| Fabric | `/config/banmanager/messages.yml` |
-| Sponge | `/config/banmanager/messages.yml` |
-| Velocity | `/plugins/BanManager/messages.yml` |
+| CraftBukkit/Spigot/Paper | `/plugins/BanManager/messages/` |
+| BungeeCord | `/plugins/BanManager/messages/` |
+| Fabric | `/config/banmanager/messages/` |
+| Sponge | `/config/banmanager/messages/` |
+| Velocity | `/plugins/BanManager/messages/` |
+
+On first run, BanManager will create the `messages/` directory and copy the default `messages_en.yml` file. The legacy `messages.yml` file is still supported as an overlay — any messages defined in it will override the corresponding locale file for the default locale.
+
+#### Adding a language
+
+1. Copy `messages/messages_en.yml` to a new file, e.g. `messages/messages_de.yml` for German
+2. Translate the messages in the new file
+3. Run `/bmreload` to load the new locale
+
+You do not need to translate every message. Missing keys will fall back through a cascading chain:
+
+1. **Exact locale** — e.g. `zh_tw`
+2. **Base language** — e.g. `zh`
+3. **Default locale** — as set in [config.yml](/docs/banmanager/configuration/config-yml#locale)
+
+#### Locale naming
+
+Use two-letter language codes by default (e.g. `en`, `de`, `fr`, `zh`). For regional variants, use the format `<language>_<country>` (e.g. `zh_tw`, `pt_br`, `en_us`). Locale names are case-insensitive — `en_GB` is normalised to `en_gb` internally.
+
+#### Per-player locale
+
+When [`locale.perPlayer`](/docs/banmanager/configuration/config-yml#locale) is enabled (the default), each player sees messages in their Minecraft client's language if a matching translation is available. This includes kick messages and ban deny screens. The player's locale is stored in the database so that join-deny messages can be displayed in the correct language even before the player fully connects.
+
+When disabled, all players see messages in the server's default locale.
+
+#### Startup diagnostics
+
+On startup, BanManager logs the number of loaded locales and reports any missing message keys in non-default locales. This helps identify untranslated messages.
 
 ### PlaceholderAPI Support (Bukkit)
 On Bukkit-based servers with [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) installed, you can use PlaceholderAPI tokens directly in messages. For example: `%player_name%`, `%server_online%`, etc.

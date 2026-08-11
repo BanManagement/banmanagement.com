@@ -349,4 +349,19 @@ The main configuration file for BanManager.
     ```
     ---
 
+  - ###### `locale`
+    Controls localisation settings for BanManager. See the [messages documentation](/docs/banmanager/configuration/messages-yml) for details on adding translations.
+    - ###### `default`
+      The server-wide default locale used when resolving messages. This should match the name of a message file in the `messages/` directory, e.g. `en` will load `messages/messages_en.yml`. Defaults to `en`.
+    - ###### `perPlayer`
+      When enabled, messages are resolved using each player's Minecraft client language setting. BanManager will automatically detect the player's locale and resolve messages in their language if a matching translation file exists, falling back to the default locale otherwise. The player's locale is also stored in the database so that join-deny messages (e.g. ban screens) can be shown in the correct language. Defaults to `true`.
+
+    **Example**
+    ```yml
+    locale:
+      default: en
+      perPlayer: true
+    ```
+    ---
+
 </div>
